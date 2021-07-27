@@ -1,0 +1,113 @@
+# intermediate / autogen
+
+*.la
+*.lo
+*.o
+.deps
+.libs
+Makefile
+Makefile.in
+stamp-h1
+
+/aclocal.m4
+/autom4te.cache
+/compile
+/config.guess
+/config.log
+/config.status
+/config.sub
+/configure
+/depcomp
+/install-sh
+/libtool
+/ltmain.sh
+/m4/libtool.m4
+/m4/lt*.m4
+/missing
+/revision
+/ylwrap
+/test-driver
+/tests/unit/*.log
+/tests/load/*.log
+
+/configure_flags.env
+
+cf-agent
+cf-execd
+cf-key
+cf-monitord
+cf-promises
+cf-runagent
+cf-serverd
+cf-upgrade
+gen_bdk
+gen_cgndk
+gen_dsdk
+gen_msdk
+gen_movie
+gen_plum
+gen_monbas
+stories
+stories2
+conceptualize
+rpmvercmp
+/Percolibrium/Percolators/conceptualize
+/Percolibrium/Percolators/scan_logs
+/Percolibrium/Percolators/get_k8s_context
+/Percolibrium/Narrators/stories
+/Percolibrium/Percolators/echo.fcgi
+
+# autogen
+cf3lex.c
+cf3parse.c
+cf3parse.h
+config.h
+config.h.in
+config.post.h
+
+# examples
+cfengine_stdlib.cf
+
+# gcov/lcov
+*.gcno
+*.gcda
+*.trace
+cfengine-lcov-base.info
+cfengine-lcov.info
+coverage-html/
+
+
+# tags
+TAGS
+tags
+cscope.*
+
+# vim
+*~
+.*.swp
+.*.swo
+
+# emacs
+*~
+\#*#
+.dir-locals.el
+/contrib/*.elc
+
+# eclipse
+.cproject
+.project
+.settings
+
+# qt-creator
+/core.config
+/core.creator
+/core.creator.user
+/core.files
+/core.includes
+*.autosave
+
+# Mac Finder
+.DS_Store
+stories
+conceptualize
+

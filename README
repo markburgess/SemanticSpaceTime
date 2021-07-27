@@ -1,0 +1,23 @@
+
+SEMANTIC SPACETIME
+
+The programs in this repository accompany a series of blog posts.
+They are meant as pedagogical examples, not necessarily as production
+quality reference implementations. 
+
+The examples assume that you have ArangoDB and golang installed
+locally on your Linux based computer, as described in Part 2 of the
+series.
+
+To keep the reasoning clear, I've simplfied error handling in many
+cases. Use these to learn, but be aware that additional cases and
+checks might be needed for stress testing applications.
+
+To link the package to your golang installation, you can create a symbolic link
+
+   ln -s ~/path/SemanticSpacetime/pkg/SST ~/go/src/SST
+
+
+You are free to copy and use the code here as per the Apache 2 terms
+
+        https://www.apache.org/licenses/LICENSE-2.0 
