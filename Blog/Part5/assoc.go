@@ -28,7 +28,7 @@ func main() {
 
 	var employs = make(map[Pair]bool)
 
-	employs[Pair{From: "A", To: "B"}] = true
+	employs[VectorPair{From: "A", To: "B"}] = true
 
 	fmt.Println(employs)
 
