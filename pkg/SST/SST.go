@@ -266,7 +266,7 @@ func InitializeSmartSpaceTime() {
 //  Graph invariants
 // ****************************************************************************
 
-func NodeLink(g Analytics, c1 Node, rel string, c2 Node) {
+func NodeLink(g Analytics, c1 Node, rel string, c2 Node, weight float64) {
 
 	var link Link
 
@@ -275,6 +275,7 @@ func NodeLink(g Analytics, c1 Node, rel string, c2 Node) {
 	link.From = c1.Prefix + c1.Key
 	link.To = c2.Prefix + c2.Key
 	link.SId = ASSOCIATIONS[rel].Key
+	link.Weight = weight
 
 	if link.SId != rel {
 		fmt.Println("Associations not set up -- missing InitializeSmartSpacecTime?")
@@ -360,7 +361,7 @@ func NextDataEvent(g Analytics, shortkey, data string) Node {
 
 	if  (Node{}) != g.previous_event_key  {
 		
-		NodeLink(g, key,"FOLLOWS_FROM",g.previous_event_key)
+		NodeLink(g, key,"FOLLOWS_FROM",g.previous_event_key, 1.0)
 	}
 
 	g.previous_event_key = key
@@ -864,7 +865,7 @@ func AddLink(g Analytics, link Link) {
 
 	// Don't add multiple edges that are identical! But allow types
 
-	fmt.Println("Checking link",link)
+	// fmt.Println("Checking link",link)
 
 	// We have to make our own key to prevent multiple additions
         // - careful of possible collisions, but this should be overkill
@@ -884,6 +885,7 @@ func AddLink(g Analytics, link Link) {
 		SId: ass,
 		To: link.To, 
 		Key: key,
+		Weight: link.Weight,
 	}
 
 	var links A.Collection
@@ -910,8 +912,6 @@ func AddLink(g Analytics, link Link) {
 
 	}
 
-	//fmt.Println("Debug trying to link", edge,"type1",ASSOCIATIONS[link.SId],"type2",link.SId,links)
-
 	exists,_ := links.DocumentExists(nil, key)
 
 	if !exists {
@@ -921,9 +921,32 @@ func AddLink(g Analytics, link Link) {
 			log.Fatalf("Failed to add new link: %v", err)
 			os.Exit(1);
 		}
-	}
+	} else {
 
-	// Don't need to check correct value, as each tuplet is unique
+		// Don't need to check correct value, as each tuplet is unique, but check the weight
+		
+		var checkedge Link
+
+		_,err := links.ReadDocument(nil,key,&checkedge)
+
+		if err != nil {
+			log.Fatalf("Failed to read value: %s %v",key,err)
+			os.Exit(1);	
+		}
+
+		if checkedge != edge {
+
+			fmt.Println("Correcting link weight",checkedge,"to",edge)
+
+			_, err := links.UpdateDocument(nil, key, edge)
+
+			if err != nil {
+				log.Fatalf("Failed to update value: %s %v",edge,err)
+				os.Exit(1);
+
+			}
+		}
+	}
 }
 
 // **************************************************
