@@ -91,6 +91,7 @@ type Analytics struct {
 S_db   A.Database
 
 // Graph model
+	V  int    `json:"value"`
 
 S_graph A.Graph
 
@@ -305,7 +306,7 @@ func CreateFragment(g Analytics, short_description,vardescription string) Node {
 
 // ****************************************************************************
 
-func CreateNode(g Analytics, short_description,vardescription string) Node {
+func CreateNode(g Analytics, short_description,vardescription string, weight float64) Node {
 
 	var concept Node
 // 	var err error
@@ -317,6 +318,7 @@ func CreateNode(g Analytics, short_description,vardescription string) Node {
 	concept.Data = description
 	concept.Key = short_description
 	concept.Prefix = "Nodes/"
+	concept.Weight = weight
 
 	AddNode(g,concept)
 
@@ -354,7 +356,7 @@ func InvariantDescription(s string) string {
 
 func NextDataEvent(g Analytics, shortkey, data string) Node {
 
-	key  := CreateNode(g, shortkey, data)   // selection #n
+	key  := CreateNode(g, shortkey, data, 1.0)   // selection #n
 
 	if  (Node{}) != g.previous_event_key  {
 		
