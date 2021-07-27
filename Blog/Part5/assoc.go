@@ -26,7 +26,7 @@ func main() {
 		To string
 	}
 
-	var employs = make(map[Pair]bool)
+	var employs = make(map[VectorPair]bool)
 
 	employs[VectorPair{From: "A", To: "B"}] = true
 
