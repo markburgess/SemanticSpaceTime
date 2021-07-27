@@ -325,24 +325,6 @@ func CreateNode(g Analytics, short_description,vardescription string, weight flo
 	return concept
 }
 
-// ****************************************************************************
-
-func CreateHub(g Analytics, short_description,vardescription string) Node {
-
-	var concept Node
-// 	var err error
-
-	description := InvariantDescription(vardescription)
-
-	concept.Data = description
-	concept.Key = "Hub:" + short_description             // _id
-	concept.Prefix = "Hubs/"
-
-//	db.AddHub()
-
-	return concept
-}
-
 //**************************************************************
 
 func InvariantDescription(s string) string {
@@ -818,14 +800,37 @@ func AddFrag(g Analytics, node Node) {
 			os.Exit(1);
 		}
 
+	} else {
+
+		// Don't need to check correct value, as each tuplet is unique, but check the weight
+		
+		var checknode Node
+
+		_,err := g.S_frags.ReadDocument(nil,node.Key,&checknode)
+
+		if err != nil {
+			log.Fatalf("Failed to read value: %s %v",node.Key,err)
+			os.Exit(1);	
+		}
+
+		if checknode != node {
+
+			fmt.Println("Correcting link weight",checknode,"to",node)
+
+			_, err := g.S_frags.UpdateDocument(nil, node.Key, node)
+
+			if err != nil {
+				log.Fatalf("Failed to update value: %s %v",node,err)
+				os.Exit(1);
+
+			}
+		}
 	}
 }
 
 // **************************************************
 
 func AddNode(g Analytics, node Node) {
-
-	//fmt.Println("Checking node",node)
 
 	exists,err := g.S_nodes.DocumentExists(nil, node.Key)
 
@@ -837,6 +842,31 @@ func AddNode(g Analytics, node Node) {
 			os.Exit(1);
 		}
 
+	} else {
+
+		// Don't need to check correct value, as each tuplet is unique, but check the weight
+		
+		var checknode Node
+
+		_,err := g.S_nodes.ReadDocument(nil,node.Key,&checknode)
+
+		if err != nil {
+			log.Fatalf("Failed to read value: %s %v",node.Key,err)
+			os.Exit(1);	
+		}
+
+		if checknode != node {
+
+			fmt.Println("Correcting link weight",checknode,"to",node)
+
+			_, err := g.S_nodes.UpdateDocument(nil, node.Key, node)
+
+			if err != nil {
+				log.Fatalf("Failed to update value: %s %v",node,err)
+				os.Exit(1);
+
+			}
+		}
 	}
 }
 

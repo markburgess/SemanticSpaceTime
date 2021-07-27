@@ -10,8 +10,6 @@ import (
 
 func main() {
 
-	// Prologue
-
 	S.InitializeSmartSpaceTime()
 
 	var dbname string = "SemanticSpacetime"
@@ -21,14 +19,11 @@ func main() {
 
 	g := S.OpenAnalytics(dbname,url,user,pwd)
 
-	// Do your own stuff
+	// more	
 
-	n1 := S.CreateNode(g,"test1","This is a long data string which is inappropriate to use as a key",0.4)
-	n2 := S.CreateNode(g,"test2","This is another long data string which is inappropriate to use as a key", 1.3)
+	n1 := S.CreateNode(g,"test1","This is a long data string which is NOT inappropriate to use as a key",1.5)
 
-	S.NodeLink(g,n1,"IS_LIKE",n2, 55)
-
-	fmt.Println("Now check the links in collection \"NEAR\" using the browser")
+	fmt.Println("Now check the node test1 again to see the changes", n1)
 }
 
 // ****************************************************************************
