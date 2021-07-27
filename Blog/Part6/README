@@ -1,0 +1,6 @@
+
+For this example to work, you need to connect up the files in the
+"pkg" directory to your GOPATH too, by downloading and then linking
+them something like this:
+
+  ln -s /home/user/downloads/pkg/SST/ ~/go/src/SST
