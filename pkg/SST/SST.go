@@ -91,7 +91,6 @@ type Analytics struct {
 S_db   A.Database
 
 // Graph model
-	V  int    `json:"value"`
 
 S_graph A.Graph
 
