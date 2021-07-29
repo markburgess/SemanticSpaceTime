@@ -128,7 +128,7 @@ type Node struct {
 	Weight float64 `json:"weight"`
 }
 
-// Go into collections labelled by CONST_STtype[]
+// ***************************************************************************
 
 type Link struct {
 	From     string `json:"_from"`     // mandatory field
@@ -154,6 +154,8 @@ type Association struct {
 	NBwd    string    `json:"NBwd"`
 }
 
+//**************************************************************
+
 var CONST_STtype = make(map[string]int)
 var ASSOCIATIONS = make(map[string]Association)
 var STTYPES []IntKeyValue
@@ -163,6 +165,12 @@ const GR_FOLLOWS int   = 2  // i.e. influenced by
 const GR_CONTAINS int  = 3 
 const GR_EXPRESSES int = 4  // represents, etc
 
+//**************************************************************
+
+type VectorPair struct {
+	From string
+	To string
+}
 
 //**************************************************************
 // Set up the Arango
@@ -251,6 +259,8 @@ func InitializeSmartSpaceTime() {
 	ASSOCIATIONS["ALIAS"] = Association{"ALIAS",GR_NEAR,"also known as","also known as","not known as","not known as"}
 
 	ASSOCIATIONS["IS_LIKE"] = Association{"IS_LIKE",GR_NEAR,"is similar to","is similar to","is unlike","is unlike"}
+
+	ASSOCIATIONS["CONNECTED"] = Association{"CONNECTED",GR_NEAR,"is connected to","is connected to","is not connected to","is not connected to"}
 
 	// *
 
@@ -1113,6 +1123,246 @@ func GetNeighboursOf(g Analytics, node string, sttype int, direction string) Sem
 	}
 
 	return result
+}
+
+// ********************************************************************
+
+func GetAdjacencyMatrixByKey(g Analytics, assoc_type string, symmetrize bool) map[VectorPair]float64 {
+
+	var adjacency_matrix = make(map[VectorPair]float64)
+
+	var err error
+	var cursor A.Cursor
+	var coll string
+
+	sttype := ASSOCIATIONS[assoc_type].STtype
+
+	switch sttype {
+
+	case -GR_FOLLOWS, GR_FOLLOWS:   
+		coll = "Follows"
+
+	case -GR_CONTAINS, GR_CONTAINS:  
+		coll = "Contains"
+
+	case -GR_EXPRESSES, GR_EXPRESSES: 
+		coll = "Expresses"
+
+	case -GR_NEAR, GR_NEAR:      
+		coll = "Near"
+
+	default:
+		fmt.Println("Unknown STtype in GetNeighboursOf",assoc_type)
+		os.Exit(1)
+	}
+
+	var querystring string
+
+	querystring = "FOR my IN " + coll + " FILTER my.semantics == \"" + assoc_type + "\" RETURN my"
+
+	cursor,err = g.S_db.Query(nil,querystring,nil)
+
+	if err != nil {
+		log.Fatalf("Neighbour query \"%s\"failed: %v", querystring,err)
+	}
+
+	defer cursor.Close()
+
+	for {
+		var doc Link
+
+		_,err = cursor.ReadDocument(nil,&doc)
+
+		if A.IsNoMoreDocuments(err) {
+			break
+		} else if err != nil {
+			log.Fatalf("Doc returned: %v", err)
+		} else {
+			if sttype == GR_NEAR || symmetrize {
+				adjacency_matrix[VectorPair{From: doc.From, To: doc.To }] = 1.0
+				adjacency_matrix[VectorPair{From: doc.To, To: doc.From }] = 1.0
+			} else {
+				adjacency_matrix[VectorPair{From: doc.From, To: doc.To }] = 1.0
+			}
+		}
+	}
+
+return adjacency_matrix
+}
+
+// ********************************************************************
+
+func GetAdjacencyMatrixByInt(g Analytics, assoc_type string, symmetrize bool) ([][]float64,int,map[int]string) {
+
+	var key_matrix = make(map[VectorPair]float64)
+
+	var err error
+	var cursor A.Cursor
+	var coll string
+
+	sttype := ASSOCIATIONS[assoc_type].STtype
+
+	switch sttype {
+
+	case -GR_FOLLOWS, GR_FOLLOWS:   
+		coll = "Follows"
+
+	case -GR_CONTAINS, GR_CONTAINS:  
+		coll = "Contains"
+
+	case -GR_EXPRESSES, GR_EXPRESSES: 
+		coll = "Expresses"
+
+	case -GR_NEAR, GR_NEAR:      
+		coll = "Near"
+
+	default:
+		fmt.Println("Unknown STtype in GetNeighboursOf",assoc_type)
+		os.Exit(1)
+	}
+
+	var querystring string
+
+	querystring = "FOR my IN " + coll + " FILTER my.semantics == \"" + assoc_type + "\" RETURN my"
+
+	cursor,err = g.S_db.Query(nil,querystring,nil)
+
+	if err != nil {
+		log.Fatalf("Neighbour query \"%s\"failed: %v", querystring,err)
+	}
+
+	defer cursor.Close()
+
+	var sets = make(Set)
+
+	for {
+		var doc Link
+
+		_,err = cursor.ReadDocument(nil,&doc)
+
+		if A.IsNoMoreDocuments(err) {
+			break
+		} else if err != nil {
+			log.Fatalf("Doc returned: %v", err)
+		} else {
+
+			// Merge an idempotent list of nodes to find int address
+
+			TogetherWith(sets,"adj",doc.To)
+			TogetherWith(sets,"adj",doc.From)
+
+			if sttype == GR_NEAR || symmetrize {
+				key_matrix[VectorPair{From: doc.From, To: doc.To }] = 1.0
+				key_matrix[VectorPair{From: doc.To, To: doc.From }] = 1.0
+			} else {
+				key_matrix[VectorPair{From: doc.From, To: doc.To }] = 1.0
+			}
+		}
+	}
+
+	//fmt.Println(sets)
+
+	dimension := len(sets["adj"])
+	var adjacency_matrix = make([][]float64,dimension)
+	var keys = make(map[int]string)
+
+	for i := range sets["adj"] {
+
+		adjacency_matrix[i] = make([]float64,dimension)
+		keys[i] = sets["adj"][i]
+
+		for j := range sets["adj"] {
+
+			if key_matrix[VectorPair{From: sets["adj"][i], To: sets["adj"][j]}] > 0 {
+				adjacency_matrix[i][j] = 1.0
+			}
+		}
+	}
+
+	return adjacency_matrix, dimension, keys
+}
+
+//**************************************************************
+
+func PrintMatrix(adjacency_matrix [][]float64,dim int,keys map[int]string) {
+
+	for i := 1; i < dim; i++ {
+
+		fmt.Printf("%12.12s: ",keys[i])
+
+		for j := 1; j < dim; j++ {
+			fmt.Printf("%3.3f ",adjacency_matrix[i][j])
+		}
+		fmt.Println("")
+	}
+}
+
+//**************************************************************
+
+func PrintVector (vec []float64,dim int,keys map[int]string) {
+
+	for i := 1; i < dim; i++ {
+		
+		fmt.Printf("%12.12s: ",keys[i])
+		fmt.Printf("%3.3f \n",vec[i])
+	}
+}
+
+//**************************************************************
+
+func GetPrincipalEigenvector(adjacency_matrix [][]float64, dim int) []float64 {
+
+	var ev = make([]float64,dim)
+	var sum float64 = 0
+
+	// start with a uniform positive value
+
+	for i := 1; i < dim; i++ {
+		ev[i] = 1.0
+	}
+
+	// Three iterations is probably enough .. could improve on this
+
+	ev = MatrixMultiplyVector(adjacency_matrix,ev,dim)
+	ev = MatrixMultiplyVector(adjacency_matrix,ev,dim)
+	ev = MatrixMultiplyVector(adjacency_matrix,ev,dim)
+
+	for i := 1; i < dim; i++ {
+		sum += ev[i]
+	}
+
+	// Normalize vector
+
+	if sum == 0 {
+		sum = 1.0
+	}
+
+	for i := 1; i < dim; i++ {
+		ev[i] = ev[i] / sum
+	}
+
+	return ev
+}
+
+//**************************************************************
+
+func MatrixMultiplyVector(adj [][]float64,v []float64,dim int) []float64 {
+
+	var result = make([]float64,dim)
+
+	// start with a uniform positive value
+
+	for i := 1; i < dim; i++ {
+
+		result[i] = 0
+
+		for j := 1; j < dim; j++ {
+
+			result[i] = result[i] + adj[i][j] * v[j]
+		}
+	}
+
+return result
 }
 
 //**************************************************************
