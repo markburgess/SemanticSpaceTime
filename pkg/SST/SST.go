@@ -990,14 +990,14 @@ func AddLink(g Analytics, link Link) {
 
 // **************************************************
 
-func PrintNodes(ctx context.Context, db A.Database) {
+func PrintNodes(db A.Database) {
 
 	var err error
 	var cursor A.Cursor
 
 	querystring := "FOR doc IN Nodes LIMIT 1000 RETURN doc"
 
-	cursor,err = db.Query(ctx,querystring,nil)
+	cursor,err = db.Query(nil,querystring,nil)
 
 	if err != nil {
 		log.Fatalf("Query failed: %v", err)
@@ -1008,7 +1008,7 @@ func PrintNodes(ctx context.Context, db A.Database) {
 	for {
 		var doc Node
 
-		_,err = cursor.ReadDocument(ctx,&doc)
+		_,err = cursor.ReadDocument(nil,&doc)
 
 		if A.IsNoMoreDocuments(err) {
 			break
