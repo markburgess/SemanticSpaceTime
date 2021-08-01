@@ -701,8 +701,8 @@ func AnnotateSentence(ctx *context.Context,filename string, s_number int,sentenc
 				// fragment(fraglen, number, event)
 				key := fmt.Sprintf("F:L%d,N%d,E%d",i,f,index)
 				frag := S.CreateFragment(G,key,fragment)
-				//S.NodeLink(G,frag,"PART_OF",event)
-				S.NodeLink(G,event,"CONTAINS",frag)
+
+				S.NodeLink(G,event,"CONTAINS",frag,1.0)
 
 				/* children := strings.Split(fragment," ")
 				
@@ -712,7 +712,7 @@ func AnnotateSentence(ctx *context.Context,filename string, s_number int,sentenc
 	
 						key := fmt.Sprintf("L_%d__%d_%d_%d",i,f,index,w)
 						frag := S.CreateFragment(G,key,children[w])
-						S.NodeLink(G,frag,"PART_OF",event)
+						S.NodeLink(G,frag,"PART_OF",event,1.0)
 					}
 					
 					//fmt.Printf("->: %d %f (%s) - %s\n",i,Importance(i,fragment),fragment,children[w])

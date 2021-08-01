@@ -103,19 +103,19 @@ func main() {
 
 	fmt.Println("========== SHOW NODES ==============")
 
-	S.PrintNodes(nil,g.S_db)
+	S.PrintNodes(g, "Nodes")
 	
 	fmt.Println("========== show best of times ==============")
 
 	var node string = "Nodes/sentence_best_of_times"
 	fmt.Println("Neighbours (-) of id (contains)",node)
-	list := S.GetNeighboursOf(g,node,S.GR_CONTAINS)
+	list := S.GetNeighboursOf(g,node,S.GR_CONTAINS,"-")
 
 	fmt.Println("- : ",list)
 
 	node = "Nodes/star_trek"
 	fmt.Println("Neighbours (+) of id (contains)",node)
-	list = S.GetNeighboursOf(g,node,S.GR_CONTAINS)
+	list = S.GetNeighboursOf(g,node,S.GR_CONTAINS,"+")
 
 	fmt.Println("+ : ",list)
 

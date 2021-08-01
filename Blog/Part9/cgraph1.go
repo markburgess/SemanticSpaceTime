@@ -126,7 +126,7 @@ func main() {
 	
 	fmt.Println("========== SHOW NODES ==============")
 	
-	S.PrintNodes(g.S_db)
+	S.PrintNodes(g, "Nodes")
 
 	fmt.Println("========== SHOW ADJ[node,node] ==============")
 

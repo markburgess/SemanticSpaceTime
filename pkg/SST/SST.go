@@ -28,7 +28,6 @@ import (
 	"bufio"
 	"context"
 	"fmt"
-	"log"
 	"path"
 	"os"
 	// Try this for local string -> int
@@ -416,7 +415,7 @@ func OpenDatabase(name, url, user, pwd string) A.Database {
 	})
 
 	if err != nil {
-		log.Fatalf("Failed to create HTTP connection: %v", err)
+		fmt.Printf("Failed to create HTTP connection: %v", err)
 	}
 
 	client, err = A.NewClient(A.ClientConfig{
@@ -434,7 +433,7 @@ func OpenDatabase(name, url, user, pwd string) A.Database {
 		db, err = client.CreateDatabase(ctx,name, nil)
 		
 		if err != nil {
-			log.Fatalf("Failed to create database: %v", err)
+			fmt.Printf("Failed to create database: %v", err)
 			os.Exit(1);
 		}
 	}
@@ -473,7 +472,7 @@ func UpdateHistogram(g Analytics, histoname, data string) {
 		coll, err = g.S_db.Collection(nil, histoname)
 
 		if err != nil {
-			log.Fatalf("Existing collection: %v", err)
+			fmt.Printf("Existing collection: %v", err)
 			os.Exit(1)
 		}
 
@@ -482,7 +481,7 @@ func UpdateHistogram(g Analytics, histoname, data string) {
 		coll, err = g.S_db.CreateCollection(nil, histoname, nil)
 
 		if err != nil {
-			log.Fatalf("Failed to create collection: %v", err)
+			fmt.Printf("Failed to create collection: %v", err)
 		}
 
 
@@ -500,7 +499,7 @@ func UpdateHistogram(g Analytics, histoname, data string) {
 		_, err = coll.CreateDocument(nil, kv)
 		
 		if err != nil {
-			log.Fatalf("Failed to create non existent node: %s %v",kv.K,err)
+			fmt.Printf("Failed to create non existent node: %s %v",kv.K,err)
 			os.Exit(1);
 		}
 		return
@@ -527,7 +526,7 @@ func SaveIntKVMap(collname string, db A.Database, kv []IntKeyValue) {
 		coll, err = db.Collection(nil, collname)
 
 		if err != nil {
-			log.Fatalf("Existing collection: %v", err)
+			fmt.Printf("Existing collection: %v", err)
 			os.Exit(1)
 		}
 
@@ -536,7 +535,7 @@ func SaveIntKVMap(collname string, db A.Database, kv []IntKeyValue) {
 		coll, err = db.CreateCollection(nil, collname, nil)
 
 		if err != nil {
-			log.Fatalf("Failed to create collection: %v", err)
+			fmt.Printf("Failed to create collection: %v", err)
 		}
 	}
 
@@ -558,7 +557,7 @@ func PrintIntKV(db A.Database, coll_name string) {
 	cursor,err = db.Query(nil,querystring,nil)
 
 	if err != nil {
-		log.Fatalf("Query \""+ querystring +"\" failed: %v", err)
+		fmt.Printf("Query \""+ querystring +"\" failed: %v", err)
 		return
 	}
 
@@ -572,7 +571,7 @@ func PrintIntKV(db A.Database, coll_name string) {
 		if A.IsNoMoreDocuments(err) {
 			break
 		} else if err != nil {
-			log.Fatalf("KV returned: %v", err)
+			fmt.Printf("KV returned: %v", err)
 		} else {
 			
 			fmt.Print("debug (K,V): (",kv.K,",", kv.V,")    ....    (",metadata,")\n")
@@ -594,7 +593,7 @@ func AddIntKV(coll A.Collection, kv IntKeyValue) {
 		_, err = coll.CreateDocument(nil, kv)
 		
 		if err != nil {
-			log.Fatalf("Failed to create non existent node: %s %v",kv.K,err)
+			fmt.Printf("Failed to create non existent node: %s %v",kv.K,err)
 			os.Exit(1);
 		}
 	} else {
@@ -607,7 +606,7 @@ func AddIntKV(coll A.Collection, kv IntKeyValue) {
 			fmt.Println("Correcting data",checkkv,"to",kv)
 			_, err := coll.UpdateDocument(nil, kv.K, kv)
 			if err != nil {
-				log.Fatalf("Failed to update value: %s %v",kv.K,err)
+				fmt.Printf("Failed to update value: %s %v",kv.K,err)
 				os.Exit(1);
 			}
 		}
@@ -625,7 +624,7 @@ func IncrementIntKV(g Analytics, coll_name, key string) {
 	cursor,err := g.S_db.Query(nil,querystring,nil)
 
 	if err != nil {
-		log.Fatalf("Query \""+ querystring +"\" failed: %v", err)
+		fmt.Printf("Query \""+ querystring +"\" failed: %v", err)
 	}
 
 	cursor.Close()
@@ -643,7 +642,7 @@ func LoadIntKV2Map(db A.Database, coll_name string, extkv map[string]int) {
 	cursor,err = db.Query(nil,querystring,nil)
 
 	if err != nil {
-		log.Fatalf("Query failed: %v", err)
+		fmt.Printf("Query failed: %v", err)
 	}
 
 	defer cursor.Close()
@@ -656,7 +655,7 @@ func LoadIntKV2Map(db A.Database, coll_name string, extkv map[string]int) {
 		if A.IsNoMoreDocuments(err) {
 			break
 		} else if err != nil {
-			log.Fatalf("KV returned: %v", err)
+			fmt.Printf("KV returned: %v", err)
 		} else {
 			extkv[kv.K] = kv.V
 		}
@@ -714,7 +713,7 @@ func OpenAnalytics(dbname, service_url, user, pwd string) Analytics {
 		graph, err = db.Graph(nil,gname)
 
 		if err != nil {
-			log.Fatalf("Open graph: %v", err)
+			fmt.Printf("Open graph: %v", err)
 			os.Exit(1)
 		}
 
@@ -722,7 +721,7 @@ func OpenAnalytics(dbname, service_url, user, pwd string) Analytics {
 		graph, err = db.CreateGraph(nil, gname, &options)
 
 		if err != nil {
-			log.Fatalf("Create graph: %v", err)
+			fmt.Printf("Create graph: %v", err)
 			os.Exit(1)
 		}
 	}
@@ -736,19 +735,19 @@ func OpenAnalytics(dbname, service_url, user, pwd string) Analytics {
 	frag_vertices, err = graph.VertexCollection(nil, "Fragments")
 
 	if err != nil {
-		log.Fatalf("Vertex collection Fragments: %v", err)
+		fmt.Printf("Vertex collection Fragments: %v", err)
 	}
 
 	node_vertices, err = graph.VertexCollection(nil, "Nodes")
 
 	if err != nil {
-		log.Fatalf("Vertex collection Nodes: %v", err)
+		fmt.Printf("Vertex collection Nodes: %v", err)
 	}
 
 	hub_vertices, err = graph.VertexCollection(nil, "Hubs")
 
 	if err != nil {
-		log.Fatalf("Vertex collection Hubs: %v", err)
+		fmt.Printf("Vertex collection Hubs: %v", err)
 	}
 
 	// *** Links
@@ -761,25 +760,25 @@ func OpenAnalytics(dbname, service_url, user, pwd string) Analytics {
 	F_edgeset, _, err = graph.EdgeCollection(nil, "Follows")
 
 	if err != nil {
-		log.Fatalf("Egdes follows: %v", err)
+		fmt.Printf("Egdes follows: %v", err)
 	}
 
 	C_edgeset, _, err = graph.EdgeCollection(nil, "Contains")
 
 	if err != nil {
-		log.Fatalf("Edges contains: %v", err)
+		fmt.Printf("Edges contains: %v", err)
 	}
 
 	E_edgeset, _, err = graph.EdgeCollection(nil, "Expresses")
 
 	if err != nil {
-		log.Fatalf("Edges expresses: %v", err)
+		fmt.Printf("Edges expresses: %v", err)
 	}
 
 	N_edgeset, _, err = graph.EdgeCollection(nil, "Near")
 
 	if err != nil {
-		log.Fatalf("Edges near: %v", err)
+		fmt.Printf("Edges near: %v", err)
 	}
 
 	g.S_db = db	
@@ -798,6 +797,50 @@ func OpenAnalytics(dbname, service_url, user, pwd string) Analytics {
 
 // **************************************************
 
+func AddLinkCollection(g Analytics, name string, nodecoll string) A.Collection {
+
+	var edgeset A.Collection
+	var c A.VertexConstraints
+
+	// Remember we have to define allowed source/sink constraints for edges
+
+	c.From = []string{nodecoll}  // source set
+	c.To = []string{nodecoll}    // sink set
+
+	exists, err := g.S_graph.EdgeCollectionExists(nil, name)
+
+	if !exists {
+		edgeset, err = g.S_graph.CreateEdgeCollection(nil, name, c)
+		
+		if err != nil {
+			fmt.Printf("Edge collection failed: %v\n", err)
+		}
+	}
+
+return edgeset
+}
+
+// **************************************************
+
+func AddNodeCollection(g Analytics, name string) A.Collection {
+
+	var nodeset A.Collection
+
+	exists, err := g.S_graph.VertexCollectionExists(nil, name)
+
+	if !exists {
+		nodeset, err = g.S_graph.CreateVertexCollection(nil, name)
+		
+		if err != nil {
+			fmt.Printf("Node collection failed: %v\n", err)
+		}
+	}
+
+return nodeset
+}
+
+// **************************************************
+
 func AddFrag(g Analytics, node Node) {
 
 	exists,err := g.S_frags.DocumentExists(nil, node.Key)
@@ -806,7 +849,7 @@ func AddFrag(g Analytics, node Node) {
 		_, err = g.S_frags.CreateDocument(nil, node)
 		
 		if err != nil {
-			log.Fatalf("Failed to create non existent fragment: %s %v",node.Key,err)
+			fmt.Printf("Failed to create non existent fragment: %s %v",node.Key,err)
 			os.Exit(1);
 		}
 
@@ -819,7 +862,7 @@ func AddFrag(g Analytics, node Node) {
 		_,err := g.S_frags.ReadDocument(nil,node.Key,&checknode)
 
 		if err != nil {
-			log.Fatalf("Failed to read value: %s %v",node.Key,err)
+			fmt.Printf("Failed to read value: %s %v",node.Key,err)
 			os.Exit(1);	
 		}
 
@@ -830,7 +873,7 @@ func AddFrag(g Analytics, node Node) {
 			_, err := g.S_frags.UpdateDocument(nil, node.Key, node)
 
 			if err != nil {
-				log.Fatalf("Failed to update value: %s %v",node,err)
+				fmt.Printf("Failed to update value: %s %v",node,err)
 				os.Exit(1);
 
 			}
@@ -848,7 +891,7 @@ func AddNode(g Analytics, node Node) {
 		_, err = g.S_nodes.CreateDocument(nil, node)
 		
 		if err != nil {
-			log.Fatalf("Failed to create non existent node: %s %v",node.Key,err)
+			fmt.Printf("Failed to create non existent node: %s %v",node.Key,err)
 			os.Exit(1);
 		}
 
@@ -861,7 +904,7 @@ func AddNode(g Analytics, node Node) {
 		_,err := g.S_nodes.ReadDocument(nil,node.Key,&checknode)
 
 		if err != nil {
-			log.Fatalf("Failed to read value: %s %v",node.Key,err)
+			fmt.Printf("Failed to read value: %s %v",node.Key,err)
 			os.Exit(1);	
 		}
 
@@ -872,7 +915,7 @@ func AddNode(g Analytics, node Node) {
 			_, err := g.S_nodes.UpdateDocument(nil, node.Key, node)
 
 			if err != nil {
-				log.Fatalf("Failed to update value: %s %v",node,err)
+				fmt.Printf("Failed to update value: %s %v",node,err)
 				os.Exit(1);
 
 			}
@@ -890,7 +933,7 @@ func AddHub(g Analytics, node Node) {
 		_, err = g.S_hubs.CreateDocument(nil, node)
 		
 		if err != nil {
-			log.Fatalf("Failed to create non existent node: %s %v",node.Key,err)
+			fmt.Printf("Failed to create non existent node: %s %v",node.Key,err)
 			os.Exit(1);
 		}
 	}
@@ -957,7 +1000,7 @@ func AddLink(g Analytics, link Link) {
 		_, err := links.CreateDocument(nil, edge)
 		
 		if err != nil {
-			log.Fatalf("Failed to add new link: %v", err)
+			fmt.Printf("Failed to add new link: %v", err)
 			os.Exit(1);
 		}
 	} else {
@@ -969,7 +1012,7 @@ func AddLink(g Analytics, link Link) {
 		_,err := links.ReadDocument(nil,key,&checkedge)
 
 		if err != nil {
-			log.Fatalf("Failed to read value: %s %v",key,err)
+			fmt.Printf("Failed to read value: %s %v",key,err)
 			os.Exit(1);	
 		}
 
@@ -980,7 +1023,7 @@ func AddLink(g Analytics, link Link) {
 			_, err := links.UpdateDocument(nil, key, edge)
 
 			if err != nil {
-				log.Fatalf("Failed to update value: %s %v",edge,err)
+				fmt.Printf("Failed to update value: %s %v",edge,err)
 				os.Exit(1);
 
 			}
@@ -990,17 +1033,17 @@ func AddLink(g Analytics, link Link) {
 
 // **************************************************
 
-func PrintNodes(db A.Database) {
+func PrintNodes(g Analytics, collection string) {
 
 	var err error
 	var cursor A.Cursor
 
-	querystring := "FOR doc IN Nodes LIMIT 1000 RETURN doc"
+	querystring := "FOR doc IN " + collection + " RETURN doc"
 
-	cursor,err = db.Query(nil,querystring,nil)
+	cursor,err = g.S_db.Query(nil,querystring,nil)
 
 	if err != nil {
-		log.Fatalf("Query failed: %v", err)
+		fmt.Printf("Query failed: %v", err)
 	}
 
 	defer cursor.Close()
@@ -1013,9 +1056,9 @@ func PrintNodes(db A.Database) {
 		if A.IsNoMoreDocuments(err) {
 			break
 		} else if err != nil {
-			log.Fatalf("Doc returned: %v", err)
+			fmt.Printf("Doc returned: %v", err)
 		} else {
-			fmt.Print("Doc ",doc,"\n")
+			fmt.Print(collection,doc,"\n")
 		}
 	}
 }
@@ -1085,7 +1128,7 @@ func GetNeighboursOf(g Analytics, node string, sttype int, direction string) Sem
 	cursor,err = g.S_db.Query(nil,querystring,nil)
 
 	if err != nil {
-		log.Fatalf("Neighbour query \"%s\"failed: %v", querystring,err)
+		fmt.Printf("Neighbour query \"%s\"failed: %v", querystring,err)
 	}
 
 	defer cursor.Close()
@@ -1102,7 +1145,7 @@ func GetNeighboursOf(g Analytics, node string, sttype int, direction string) Sem
 		if A.IsNoMoreDocuments(err) {
 			break
 		} else if err != nil {
-			log.Fatalf("Doc returned: %v", err)
+			fmt.Printf("Doc returned: %v", err)
 		} else {
 			switch direction {
 
@@ -1163,7 +1206,7 @@ func GetAdjacencyMatrixByKey(g Analytics, assoc_type string, symmetrize bool) ma
 	cursor,err = g.S_db.Query(nil,querystring,nil)
 
 	if err != nil {
-		log.Fatalf("Neighbour query \"%s\"failed: %v", querystring,err)
+		fmt.Printf("Neighbour query \"%s\"failed: %v", querystring,err)
 	}
 
 	defer cursor.Close()
@@ -1176,7 +1219,7 @@ func GetAdjacencyMatrixByKey(g Analytics, assoc_type string, symmetrize bool) ma
 		if A.IsNoMoreDocuments(err) {
 			break
 		} else if err != nil {
-			log.Fatalf("Doc returned: %v", err)
+			fmt.Printf("Doc returned: %v", err)
 		} else {
 			if sttype == GR_NEAR || symmetrize {
 				adjacency_matrix[VectorPair{From: doc.From, To: doc.To }] = 1.0
@@ -1228,7 +1271,7 @@ func GetAdjacencyMatrixByInt(g Analytics, assoc_type string, symmetrize bool) ([
 	cursor,err = g.S_db.Query(nil,querystring,nil)
 
 	if err != nil {
-		log.Fatalf("Neighbour query \"%s\"failed: %v", querystring,err)
+		fmt.Printf("Neighbour query \"%s\"failed: %v", querystring,err)
 	}
 
 	defer cursor.Close()
@@ -1243,7 +1286,7 @@ func GetAdjacencyMatrixByInt(g Analytics, assoc_type string, symmetrize bool) ([
 		if A.IsNoMoreDocuments(err) {
 			break
 		} else if err != nil {
-			log.Fatalf("Doc returned: %v", err)
+			fmt.Printf("Doc returned: %v", err)
 		} else {
 
 			// Merge an idempotent list of nodes to find int address
@@ -1542,7 +1585,7 @@ func MakeAssociations(collname string, db A.Database, kv map[string]Association)
 		coll, err = db.Collection(nil, collname)
 
 		if err != nil {
-			log.Fatalf("Existing collection: %v", err)
+			fmt.Printf("Existing collection: %v", err)
 			os.Exit(1)
 		}
 
@@ -1551,7 +1594,7 @@ func MakeAssociations(collname string, db A.Database, kv map[string]Association)
 		coll, err = db.CreateCollection(nil, collname, nil)
 
 		if err != nil {
-			log.Fatalf("Failed to create collection: %v", err)
+			fmt.Printf("Failed to create collection: %v", err)
 		}
 	}
 
@@ -1575,7 +1618,7 @@ func LoadAssociations(db A.Database, coll_name string) map[string]Association {
 	cursor,err = db.Query(nil,querystring,nil)
 
 	if err != nil {
-		log.Fatalf("Query failed: %v", err)
+		fmt.Printf("Query failed: %v", err)
 	}
 
 	defer cursor.Close()
@@ -1588,7 +1631,7 @@ func LoadAssociations(db A.Database, coll_name string) map[string]Association {
 		if A.IsNoMoreDocuments(err) {
 			break
 		} else if err != nil {
-			log.Fatalf("Assoc returned: %v", err)
+			fmt.Printf("Assoc returned: %v", err)
 		} else {
 			assocs[assoc.Key] = assoc
 		}
@@ -1611,7 +1654,7 @@ func AddAssocKV(coll A.Collection, key string, assoc Association) {
 		_, err = coll.CreateDocument(nil, assoc)
 		
 		if err != nil {
-			log.Fatalf("Failed to create non existent node: %s %v",key,err)
+			fmt.Printf("Failed to create non existent node: %s %v",key,err)
 			os.Exit(1);
 		}
 	} else {
@@ -1624,7 +1667,7 @@ func AddAssocKV(coll A.Collection, key string, assoc Association) {
 			fmt.Println("Correcting data",checkassoc,"to",assoc)
 			_, err := coll.UpdateDocument(nil, key, assoc)
 			if err != nil {
-				log.Fatalf("Failed to update value: %s %v",assoc,err)
+				fmt.Printf("Failed to update value: %s %v",assoc,err)
 				os.Exit(1);
 
 			}

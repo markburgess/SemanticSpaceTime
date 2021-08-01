@@ -268,7 +268,7 @@ func main() {
 	
 	fmt.Println("========== SHOW NODES ==============")
 	
-	S.PrintNodes(nil,g.S_db)
+	S.PrintNodes(g, "Nodes")
 	
 	var visited = make(map[string]bool)
 	
