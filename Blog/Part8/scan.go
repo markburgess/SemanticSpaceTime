@@ -745,6 +745,8 @@ func RunningContext() string {
 
 		top := len(topics)
 
+		// How shall we name hubs? By emotional character plus a hash?
+
 		for topic1 := 0; topic1 < top; topic1++ {
 
 			add := fmt.Sprintf("%d:%s",n,topics[topic1])
