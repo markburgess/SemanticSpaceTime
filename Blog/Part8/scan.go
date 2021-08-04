@@ -424,7 +424,7 @@ func SearchInvariants(g S.Analytics) {
 
 		for f := range LTM_FRAG_HISTORY[i] {
 
-			if (S.Irrelevant(f)) {
+			if (Irrelevant(f)) {
 				continue
 			}
 
@@ -691,7 +691,7 @@ func AnnotateSentence(ctx *context.Context,filename string, s_number int,sentenc
 			// We can't use Importance() here, as it has already been forgotten, so what is the criterion?
 			// We can use the "irrelevant" function, which never forgets (long term memory)
 			
-			if !S.Irrelevant(fragment) {
+			if !Irrelevant(fragment) {
 				
 				// Connect all the children words to the fragment
 				// The ordered combinations are expressed by longer n fragments
@@ -707,7 +707,7 @@ func AnnotateSentence(ctx *context.Context,filename string, s_number int,sentenc
 				
 				for w := range children {
 					
-					if !S.Irrelevant(children[w]) {
+					if !Irrelevant(children[w]) {
 	
 						key := fmt.Sprintf("L_%d__%d_%d_%d",i,f,index,w)
 						frag := S.CreateFragment(G,key,children[w])
@@ -983,6 +983,27 @@ func BrokenPromise(firstword,lastword string) bool {
 
 return false 
 }
+
+// *****************************************************************
+
+func Irrelevant(word string) bool {
+
+	if len(word) < 3 {
+		return true
+	}
+
+	var irrel = []string{"hub:", "but", "and", "the", "or", "a", "an", "its", "it's", "their", "your", "my", "of", "if", "we", "you", "i", "there", "as", "in", "then", "that", "with", "to", "is","was", "when", "where", "are", "some", "can", "also", "it", "at", "out", "like", "they", "her", "him", "them", "his", "our", "by", "more", "less", "from", "over", "under", "why", "because", "what", "every", "some", "about", "though", "for", "around", "about", "any", "will","had","all","which" }
+
+	for s := range irrel {
+		if irrel[s] == word {
+			return true
+		}
+	}
+
+return false
+}
+
+
 
 //**************************************************************
 
