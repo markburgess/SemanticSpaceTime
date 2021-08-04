@@ -202,10 +202,6 @@ func InitializeSmartSpaceTime() {
 
 	}
 
-	//SaveIntKVMap("ST_Types",PC.S_db,STTYPES)
-	//PrintIntKV(PC.S_db,"ST_Types")
-	//LoadIntKV2Map(PC.S_db,"ST_Types", CONST_STtype)
-
 	// ***********************************************
 
 	// first element needs to be there to store the lookup key
@@ -247,6 +243,8 @@ func InitializeSmartSpaceTime() {
 
 	ASSOCIATIONS["NEXT"] = Association{"NEXT",-GR_FOLLOWS,"comes before","comes after","is not before","is not after"}
 
+	ASSOCIATIONS["THEN"] = Association{"THEN",-GR_FOLLOWS,"then","previously","but not","didn't follow"}
+
 	ASSOCIATIONS["LEADS_TO"] = Association{"LEADS_TO",-GR_FOLLOWS,"leads to","doesn't imply","doen't reach","doesn't precede"}
 
 	ASSOCIATIONS["PRECEDES"] = Association{"PRECEDES",-GR_FOLLOWS,"precedes","follows","doen't precede","doesn't precede"}
@@ -265,9 +263,7 @@ func InitializeSmartSpaceTime() {
 
 	//MakeAssociations("ST_Associations",PC.S_db,ASSOCIATIONS)
 	//newassociations := LoadAssociations(PC.S_db,"ST_Associations")
-
 	//fmt.Println(newassociations)
-
 }
 
 // ****************************************************************************
@@ -318,7 +314,6 @@ func CreateFragment(g Analytics, short_description,vardescription string) Node {
 func CreateNode(g Analytics, short_description,vardescription string, weight float64) Node {
 
 	var concept Node
-// 	var err error
 
 	// if no short description, use a hash of the data
 
@@ -345,16 +340,17 @@ func InvariantDescription(s string) string {
 // Event Histoyy
 // ****************************************************************************
 
-func NextDataEvent(g Analytics, shortkey, data string) Node {
+func NextDataEvent(g *Analytics, shortkey, data string) Node {
 
-	key  := CreateNode(g, shortkey, data, 1.0)   // selection #n
-
-	if  (Node{}) != g.previous_event_key  {
+	key  := CreateNode(*g, shortkey, data, 1.0)   // selection #n
+	
+	if g.previous_event_key.Key != "start" {
 		
-		NodeLink(g, key,"FOLLOWS_FROM",g.previous_event_key, 1.0)
+		NodeLink(*g, g.previous_event_key, "THEN", key, 1.0)
 	}
-
+	
 	g.previous_event_key = key
+
 	return key 
 }
 
@@ -467,8 +463,6 @@ func UpdateHistogram(g Analytics, histoname, data string) {
 	coll_exists, err = g.S_db.CollectionExists(nil, histoname)
 
 	if coll_exists {
-		fmt.Println("Histogram KV Collection " + histoname +" exists already")
-
 		coll, err = g.S_db.Collection(nil, histoname)
 
 		if err != nil {
@@ -791,6 +785,8 @@ func OpenAnalytics(dbname, service_url, user, pwd string) Analytics {
 	g.S_Contains = C_edgeset
 	g.S_Expresses = E_edgeset	
 	g.S_Near = N_edgeset
+
+	g.previous_event_key = Node{ Key: "start" }
 
 	return g
 }

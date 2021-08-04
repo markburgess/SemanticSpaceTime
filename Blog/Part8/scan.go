@@ -181,9 +181,8 @@ func OneDocument(ctx *context.Context, filename string) {
 	/// Use the filename as context
 
 	start := strings.ReplaceAll(path.Base(filename),"/",":")
-	S.NextDataEvent(G,start+"origin_source",start)
 
-	// Get a title for the session
+	S.NextDataEvent(&G,start,start)
 
 	TOTAL_PARAGRAPHS = len(Scanfile(ctx, filename))
 
@@ -665,13 +664,13 @@ func AnnotateSentence(ctx *context.Context,filename string, s_number int,sentenc
 	// This acts as an impromptu hub
 
 	prefix := strings.ReplaceAll(path.Base(filename),".","_")
+
 	key := fmt.Sprintf("%s_Sentence_%d",prefix,index)
-	event := S.NextDataEvent(G, key, sentence)
 
-	fmt.Println("Annotating ", key)
+	event := S.NextDataEvent(&G, key, sentence)
 
+	//fmt.Println("Annotating ", key)
 	//S.ContextHub(ctx,"hub:," + context).HubFragment(sentence)
-	fmt.Println("MAKE HUB HERE...")
 
 	// Keep the 3-fragments and above that are important enough to pass threshold
 	// Then hierarchically break them into words that are important enough.

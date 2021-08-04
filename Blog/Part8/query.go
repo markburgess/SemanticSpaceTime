@@ -63,12 +63,47 @@ func main() {
 
 	// Show Cones Retarded, Advanced and Generalized
 
-	pairs := S.GetNeighboursOf(g,start,S.GR_CONTAINS,"+")
+	var visited = make(map[string]bool)
 	
-	for p := range pairs {
-		for m := range pairs[p] {
-			fmt.Println("(",pairs[p][m].From,") ",pairs[p][m].LinkType,S.GetNode(g,pairs[p][m].From))
+	var cone = make(S.Cone)
+	var pathdim int
+
+	fmt.Println("========== SHOW SPACELIKE CONE LAYERS ==============")
+	
+	cone,pathdim = S.GetPossibilityCone(g,start, -S.GR_FOLLOWS,visited)	
+	
+	for layer := 0; layer < len(cone); layer++ {
+
+		fmt.Println("Timestep (layer)",layer,"paths",pathdim)
+
+		for n := range cone[layer] {
+
+			var mixed_links string = "( "
+
+			for linktypes := range cone[layer][n] {
+
+				if len(mixed_links) > 2 {
+					mixed_links = mixed_links + " or "
+				}
+
+				mixed_links = mixed_links + cone[layer][n][linktypes].LinkType
+			}
+
+			mixed_links = mixed_links + " )"
+			
+			fmt.Println("    ",layer, ":", mixed_links, S.GetNode(g,n), "(",n,")")
+			
 		}
+	}
+
+	fmt.Println("========== SHOW TIMELIKE CONE PATHS ==============")
+
+	paths := S.GetConePaths(g, start, -S.GR_FOLLOWS,visited)
+
+	for path := 0; path < len(paths); path++ {
+
+		//fmt.Println(S.GetNode(g,paths[path]),"\n")
+		fmt.Println(paths[path],"\n")
 	}
 
 }
