@@ -259,7 +259,7 @@ func InitializeSmartSpaceTime() {
 
 	// *
 
-	//MakeAssociations("ST_Associations",PC.S_db,ASSOCIATIONS)
+	//SaveAssociations("ST_Associations",PC.S_db,ASSOCIATIONS)
 	//newassociations := LoadAssociations(PC.S_db,"ST_Associations")
 	//fmt.Println(newassociations)
 }
@@ -1319,6 +1319,80 @@ func GetAdjacencyMatrixByInt(g Analytics, assoc_type string, symmetrize bool) ([
 	return adjacency_matrix, dimension, keys
 }
 
+//*************************************************************
+
+func GetFullAdjacencyMatrix(g Analytics, symmetrize bool) ([][]float64,int,map[int]string) {
+
+	var key_matrix = make(map[VectorPair]float64)
+	var sets = make(Set)
+
+	var err error
+	var cursor A.Cursor
+
+	var STtypes []string = []string{ "Follows", "Contains", "Expresses", "Near" }
+
+	for coll := range STtypes {
+
+		var querystring string
+
+		querystring = "FOR my IN " + STtypes[coll] + " RETURN my"
+		
+		cursor,err = g.S_db.Query(nil,querystring,nil)
+		
+		if err != nil {
+			fmt.Printf("Full adjacency query \"%s\"failed: %v", querystring,err)
+		}
+		
+		defer cursor.Close()
+		
+		for {
+			var doc Link
+			
+			_,err = cursor.ReadDocument(nil,&doc)
+			
+			if A.IsNoMoreDocuments(err) {
+				break
+			} else if err != nil {
+				fmt.Printf("Doc returned: %v", err)
+			} else {
+
+				// Merge an idempotent list of nodes to find int address
+				
+				TogetherWith(sets,"adj",doc.To)
+				TogetherWith(sets,"adj",doc.From)
+				
+				if symmetrize {
+					key_matrix[VectorPair{From: doc.From, To: doc.To }] = 1.0
+					key_matrix[VectorPair{From: doc.To, To: doc.From }] = 1.0
+				} else {
+					key_matrix[VectorPair{From: doc.From, To: doc.To }] = 1.0
+				}
+			}
+		}
+	}
+
+	//fmt.Println(sets)
+
+	dimension := len(sets["adj"])
+	var adjacency_matrix = make([][]float64,dimension)
+	var keys = make(map[int]string)
+
+	for i := range sets["adj"] {
+
+		adjacency_matrix[i] = make([]float64,dimension)
+		keys[i] = sets["adj"][i]
+
+		for j := range sets["adj"] {
+
+			if key_matrix[VectorPair{From: sets["adj"][i], To: sets["adj"][j]}] > 0 {
+				adjacency_matrix[i][j] = 1.0
+			}
+		}
+	}
+
+	return adjacency_matrix, dimension, keys
+}
+
 //**************************************************************
 
 func PrintMatrix(adjacency_matrix [][]float64,dim int,keys map[int]string) {
@@ -1563,7 +1637,7 @@ func InitializeSemanticLinkSet(start string) SemanticLinkSet {
 
 // **************************************************
 
-func MakeAssociations(collname string, db A.Database, kv map[string]Association) {
+func SaveAssociations(collname string, db A.Database, kv map[string]Association) {
 
 	// Create collection
 

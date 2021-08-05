@@ -35,7 +35,7 @@ import (
 
 // Look for the invariants
 
-// Invariants - looks for interometry of fragments -- persistent sequences
+// Invariants - looks for interferometry of fragments -- persistent sequences
 // over consecutive legs. This helps to stabilize conceptual fragments - more
 // certain if they are repeated.
 // Measured by sentence number, not just the selected few.
