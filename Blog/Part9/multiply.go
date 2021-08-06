@@ -259,48 +259,6 @@ func CopyWeights(g S.Analytics, from, to string) {
 
 // ***************************************************************
 
-func TestUpsert(g S.Analytics, matrix, fromnodes, tonodes string) {
-
-	fmt.Println("Zeroing weights in ",tonodes)
-
-	zero := "FOR doc IN " + tonodes + " REMOVE { _key: doc._key } IN " + tonodes
-
-	_, err := g.S_db.Query(nil,zero,nil)
-
-	if err != nil {
-		
-		fmt.Println(err)
-	}
-
-	fmt.Println("Query in ",tonodes)
-
-	//works:	test := "FOR my IN " + matrix + " LET row = PARSE_IDENTIFIER(my._from) UPSERT { _key: row.key } INSERT { _key: row.key, weight: my.weight} UPDATE { weight: OLD.weight + my.weight} INTO " + tonodes
-
-// AQL: unique constraint violated - in index primary of type primary over '_key'; conflicting key: node1 (while executing)
-
-	//fails:	test := "FOR my IN " + matrix + " LET row = PARSE_IDENTIFIER(my._from)  LET vec = DOCUMENT(CONCAT(\""+fromnodes+"\",row)) UPSERT { _key: row.key } INSERT { _key: row.key, weight: my.weight} UPDATE { weight: OLD.weight + my.weight * vec.weight} INTO " + tonodes + " OPTIONS { ignoreErrors: true }"
-
-	//fails:	test := "FOR my IN " + matrix + " LET row = PARSE_IDENTIFIER(my._from) UPSERT { _key: row.key } INSERT { _key: row.key, weight: my.weight} UPDATE { weight: OLD.weight + my.weight * DOCUMENT(CONCAT(\""+fromnodes+"\",row)).weight} INTO " + tonodes
-
-// finally works
-
-	test := "FOR my IN " + matrix + " LET row = PARSE_IDENTIFIER(my._from) FOR vec IN " + fromnodes + " FILTER row.key == vec._key UPSERT { _key: row.key } INSERT { _key: row.key, weight: my.weight * vec.weight} UPDATE { weight: OLD.weight + my.weight * vec.weight} INTO " + tonodes
-
-	fmt.Println("Query test:",test)
-
-	// LET current = append to list and sum it to get the -> to value
-
-	_, err = g.S_db.Query(nil,test,nil)
-
-	if err != nil {
-		
-		fmt.Println(err)
-	}
-
-}
-
-// ***************************************************************
-
 func OperateMatrixOnVector(g S.Analytics, matrix, fromnodes, tonodes string) {
 
 	// At this stage, we should have a copy of the matrix in EdgeMatrix

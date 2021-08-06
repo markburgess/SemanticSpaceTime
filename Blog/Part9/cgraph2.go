@@ -269,7 +269,7 @@ func OperateMatrixOnVector(g S.Analytics, matrix, fromnodes, tonodes string) {
 
 	multiply := "FOR link IN " + matrix + 
 	" LET row = PARSE_IDENTIFIER(link._from) LET col = PARSE_IDENTIFIER(link._to) " + 
-	"FOR vec IN " + fromnodes + " FILTER col.key == vec._key " + 
+	" LET vec = DOCUMENT(CONCAT(\"" + fromnodes + "\",row.key)) " +
 	"UPSERT { _key: row.key }" + 
 	"INSERT { _key: row.key, weight: link.weight * vec.weight, comment: CONCAT(link.weight,\"*\",vec.weight,\"+\") } " + 
 	"UPDATE { weight: OLD.weight + link.weight * vec.weight, comment: CONCAT(OLD.comment,link.weight,\"*\",vec.weight,\"+\") } INTO " + tonodes
