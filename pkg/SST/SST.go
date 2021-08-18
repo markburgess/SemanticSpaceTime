@@ -120,9 +120,9 @@ type IntKeyValue struct {
 
 type Node struct {
 	Key     string `json:"_key"`     // mandatory field (handle) - short name
-	Data    string `json: "data"`    // bulk data
-	Prefix  string
-	Weight float64 `json:"weight"`
+	Data    string `json: "data"`    // Longer description or bulk string data
+	Prefix  string                   // Collection: Hub, Node, Fragment?
+	Weight float64 `json:"weight"`   // importance rank
 }
 
 // ***************************************************************************
@@ -835,104 +835,69 @@ return nodeset
 
 // **************************************************
 
-func AddFrag(g Analytics, node Node) {
+func AddNode(g Analytics, node Node) {
 
-	exists,err := g.S_frags.DocumentExists(nil, node.Key)
-
-	if !exists {
-		_, err = g.S_frags.CreateDocument(nil, node)
-		
-		if err != nil {
-			fmt.Printf("Failed to create non existent fragment: %s %v",node.Key,err)
-			os.Exit(1);
-		}
-
-	} else {
-
-		// Don't need to check correct value, as each tuplet is unique, but check the weight
-		
-		var checknode Node
-
-		_,err := g.S_frags.ReadDocument(nil,node.Key,&checknode)
-
-		if err != nil {
-			fmt.Printf("Failed to read value: %s %v",node.Key,err)
-			os.Exit(1);	
-		}
-
-		if checknode != node {
-
-			fmt.Println("Correcting link weight",checknode,"to",node)
-
-			_, err := g.S_frags.UpdateDocument(nil, node.Key, node)
-
-			if err != nil {
-				fmt.Printf("Failed to update value: %s %v",node,err)
-				os.Exit(1);
-
-			}
-		}
-	}
+	var coll A.Collection = g.S_nodes
+	InsertNodeIntoCollection(g,node,coll)
 }
 
 // **************************************************
 
-func AddNode(g Analytics, node Node) {
+func AddFrag(g Analytics, node Node) {
 
-	exists,err := g.S_nodes.DocumentExists(nil, node.Key)
-
-	if !exists {
-		_, err = g.S_nodes.CreateDocument(nil, node)
-		
-		if err != nil {
-			fmt.Printf("Failed to create non existent node: %s %v",node.Key,err)
-			os.Exit(1);
-		}
-
-	} else {
-
-		// Don't need to check correct value, as each tuplet is unique, but check the weight
-		
-		var checknode Node
-
-		_,err := g.S_nodes.ReadDocument(nil,node.Key,&checknode)
-
-		if err != nil {
-			fmt.Printf("Failed to read value: %s %v",node.Key,err)
-			os.Exit(1);	
-		}
-
-		if checknode != node {
-
-			fmt.Println("Correcting link weight",checknode,"to",node)
-
-			_, err := g.S_nodes.UpdateDocument(nil, node.Key, node)
-
-			if err != nil {
-				fmt.Printf("Failed to update value: %s %v",node,err)
-				os.Exit(1);
-
-			}
-		}
-	}
+	var coll A.Collection = g.S_frags
+	InsertNodeIntoCollection(g,node,coll)
 }
 
 // **************************************************
 
 func AddHub(g Analytics, node Node) {
 
-	exists,err := g.S_hubs.DocumentExists(nil, node.Key)
+	var coll A.Collection = g.S_hubs
+	InsertNodeIntoCollection(g,node,coll)
+}
 
+// **************************************************
+
+func InsertNodeIntoCollection(g Analytics, node Node, coll A.Collection) {
+	
+	exists,err := coll.DocumentExists(nil, node.Key)
+	
 	if !exists {
-		_, err = g.S_hubs.CreateDocument(nil, node)
+		_, err = coll.CreateDocument(nil, node)
 		
 		if err != nil {
 			fmt.Printf("Failed to create non existent node: %s %v",node.Key,err)
 			os.Exit(1);
 		}
+
+	} else {
+
+		// Don't need to check correct value, as each tuplet is unique, but check the weight
+		
+		var checknode Node
+
+		_,err := coll.ReadDocument(nil,node.Key,&checknode)
+
+		if err != nil {
+			fmt.Printf("Failed to read value: %s %v",node.Key,err)
+			os.Exit(1);	
+		}
+
+		if checknode != node {
+
+			fmt.Println("Correcting link weight",checknode,"to",node)
+
+			_, err := coll.UpdateDocument(nil, node.Key, node)
+
+			if err != nil {
+				fmt.Printf("Failed to update value: %s %v",node,err)
+				os.Exit(1);
+
+			}
+		}
 	}
 
-	//return dockey?
 }
 
 // **************************************************
