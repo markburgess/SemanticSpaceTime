@@ -9,6 +9,12 @@ The examples assume that you have ArangoDB and golang installed
 locally on your Linux based computer, as described in Part 2 of the
 series.
 
+For your own work, you may want to alter the programs. Here my
+priority has been to show how to do most things, but also keep the
+code as simple as possible. My choices are probably ad hoc, but I hope
+there's enough here to guide you towards optimizing your own version
+of this.
+
 To keep the reasoning clear, I've simplfied error handling in many
 cases. Use these to learn, but be aware that additional cases and
 checks might be needed for stress testing applications.
