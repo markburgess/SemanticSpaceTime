@@ -268,11 +268,11 @@ func InitializeSmartSpaceTime() {
 //  Graph invariants
 // ****************************************************************************
 
-func NodeLink(g Analytics, c1 Node, rel string, c2 Node, weight float64) {
+func CreateLink(g Analytics, c1 Node, rel string, c2 Node, weight float64) {
 
 	var link Link
 
-	//fmt.Println("NodeLink: c1",c1,"rel",rel,"c2",c2)
+	//fmt.Println("CreateLink: c1",c1,"rel",rel,"c2",c2)
 
 	link.From = c1.Prefix + c1.Key
 	link.To = c2.Prefix + c2.Key
@@ -327,6 +327,26 @@ func CreateNode(g Analytics, short_description,vardescription string, weight flo
 	return concept
 }
 
+// ****************************************************************************
+
+func CreateHub(g Analytics, short_description,vardescription string, weight float64) Node {
+
+	var concept Node
+
+	// if no short description, use a hash of the data
+
+	description := InvariantDescription(vardescription)
+
+	concept.Data = description
+	concept.Key = short_description
+	concept.Prefix = "Hubs/"
+	concept.Weight = weight
+
+	AddNode(g,concept)
+
+	return concept
+}
+
 //**************************************************************
 
 func InvariantDescription(s string) string {
@@ -344,7 +364,7 @@ func NextDataEvent(g *Analytics, shortkey, data string) Node {
 	
 	if g.previous_event_key.Key != "start" {
 		
-		NodeLink(*g, g.previous_event_key, "THEN", key, 1.0)
+		CreateLink(*g, g.previous_event_key, "THEN", key, 1.0)
 	}
 	
 	g.previous_event_key = key
