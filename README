@@ -3,7 +3,9 @@ SEMANTIC SPACETIME
 
 The programs in this repository accompany a series of blog posts.
 They are meant as pedagogical examples, not necessarily as production
-quality reference implementations. 
+quality reference implementations. The blog posts start here:
+
+https://mark-burgess-oslo-mb.medium.com/universal-data-analytics-as-semantic-spacetime-dee7a76661c2
 
 The examples assume that you have ArangoDB and golang installed
 locally on your Linux based computer, as described in Part 2 of the

@@ -257,6 +257,8 @@ func InitializeSmartSpaceTime() {
 
 	ASSOCIATIONS["CONNECTED"] = Association{"CONNECTED",GR_NEAR,"is connected to","is connected to","is not connected to","is not connected to"}
 
+	ASSOCIATIONS["COACTIV"] = Association{"COACTIV",GR_NEAR,"occurred together with","occurred together with","never appears with","never appears with"}
+
 	// *
 
 	//SaveAssociations("ST_Associations",PC.S_db,ASSOCIATIONS)
@@ -285,6 +287,21 @@ func CreateLink(g Analytics, c1 Node, rel string, c2 Node, weight float64) {
 	}
 
 	AddLink(g,link)
+}
+
+// ****************************************************************************
+
+func IncrementLink(g Analytics, c1 Node, rel string, c2 Node) {
+
+	var link Link
+
+	//fmt.Println("CreateLink: c1",c1,"rel",rel,"c2",c2)
+
+	link.From = c1.Prefix + c1.Key
+	link.To = c2.Prefix + c2.Key
+	link.SId = ASSOCIATIONS[rel].Key
+
+	IncrLink(g,link)
 }
 
 // ****************************************************************************
@@ -342,7 +359,7 @@ func CreateHub(g Analytics, short_description,vardescription string, weight floa
 	concept.Prefix = "Hubs/"
 	concept.Weight = weight
 
-	AddNode(g,concept)
+	AddHub(g,concept)
 
 	return concept
 }
@@ -388,6 +405,10 @@ func GetNode(g Analytics, key string) string {
 
 	switch prefix {
 
+	case "Hubs": 
+		coll = g.S_hubs
+		break
+
 	case "Fragments": 
 		coll = g.S_frags
 		break
@@ -395,7 +416,6 @@ func GetNode(g Analytics, key string) string {
 	default:
 		coll = g.S_nodes
 		break
-
 
 	}
 
@@ -615,7 +635,7 @@ func AddIntKV(coll A.Collection, kv IntKeyValue) {
 		_,err = coll.ReadDocument(nil,kv.K,&checkkv)
 
 		if checkkv.V != kv.V {
-			fmt.Println("Correcting data",checkkv,"to",kv)
+			//fmt.Println("Correcting data",checkkv,"to",kv)
 			_, err := coll.UpdateDocument(nil, kv.K, kv)
 			if err != nil {
 				fmt.Printf("Failed to update value: %s %v",kv.K,err)
@@ -887,13 +907,13 @@ func InsertNodeIntoCollection(g Analytics, node Node, coll A.Collection) {
 		_, err = coll.CreateDocument(nil, node)
 		
 		if err != nil {
-			fmt.Printf("Failed to create non existent node: %s %v",node.Key,err)
+			fmt.Println("Failed to create non existent node: ",node,err)
 			os.Exit(1);
 		}
 
 	} else {
 
-		// Don't need to check correct value, as each tuplet is unique, but check the weight
+		// Don't need to check correct value, as each tuplet is unique, but check the data
 		
 		var checknode Node
 
@@ -906,7 +926,7 @@ func InsertNodeIntoCollection(g Analytics, node Node, coll A.Collection) {
 
 		if checknode != node {
 
-			fmt.Println("Correcting link weight",checknode,"to",node)
+			//fmt.Println("Correcting link values",checknode,"to",node)
 
 			_, err := coll.UpdateDocument(nil, node.Key, node)
 
@@ -917,7 +937,6 @@ func InsertNodeIntoCollection(g Analytics, node Node, coll A.Collection) {
 			}
 		}
 	}
-
 }
 
 // **************************************************
@@ -979,10 +998,16 @@ func AddLink(g Analytics, link Link) {
 		_, err := links.CreateDocument(nil, edge)
 		
 		if err != nil {
-			fmt.Printf("Failed to add new link: %v", err)
+			fmt.Println("Failed to add new link", err, link, edge)
 			os.Exit(1);
 		}
 	} else {
+
+		if edge.Weight < 0 {
+
+			// Don't update if the weight is negative
+			return
+		}
 
 		// Don't need to check correct value, as each tuplet is unique, but check the weight
 		
@@ -1006,6 +1031,95 @@ func AddLink(g Analytics, link Link) {
 				os.Exit(1);
 
 			}
+		}
+	}
+}
+
+// **************************************************
+
+func IncrLink(g Analytics, link Link) {
+
+	// Don't add multiple edges that are identical! But allow types
+
+	// fmt.Println("Checking link",link)
+
+	// We have to make our own key to prevent multiple additions
+        // - careful of possible collisions, but this should be overkill
+
+        description := link.From + link.SId + link.To
+	key := fnvhash([]byte(description))
+
+	ass := ASSOCIATIONS[link.SId].Key
+
+	if ass == "" {
+		fmt.Println("Unknown association from link",link,"Sid",link.SId)
+		os.Exit(1)
+	}
+
+	edge := Link{
+ 	 	From: link.From, 
+		SId: ass,
+		To: link.To, 
+		Key: key,
+		Weight: 0,
+	}
+
+	var links A.Collection
+	var coltype int
+
+	// clumsy abs()
+
+	if ASSOCIATIONS[link.SId].STtype < 0 {
+
+		coltype = -ASSOCIATIONS[link.SId].STtype
+
+	} else {
+
+		coltype = ASSOCIATIONS[link.SId].STtype
+
+	}
+
+	switch coltype {
+
+	case GR_FOLLOWS:   links = g.S_Follows
+	case GR_CONTAINS:  links = g.S_Contains
+	case GR_EXPRESSES: links = g.S_Expresses
+	case GR_NEAR:      links = g.S_Near
+
+	}
+
+	exists,_ := links.DocumentExists(nil, key)
+
+	if !exists {
+		_, err := links.CreateDocument(nil, edge)
+		
+		if err != nil {
+			fmt.Println("Failed to add new link", err, link, edge)
+			os.Exit(1);
+		}
+	} else {
+
+		// Don't need to check correct value, as each tuplet is unique, but check the weight
+		
+		var checkedge Link
+
+		_,err := links.ReadDocument(nil,key,&checkedge)
+
+		if err != nil {
+			fmt.Printf("Failed to read value: %s %v",key,err)
+			os.Exit(1);	
+		}
+
+		edge.Weight = checkedge.Weight + 1.0
+
+		//fmt.Println("updating",edge)
+		
+		_, err = links.UpdateDocument(nil, key, edge)
+		
+		if err != nil {
+			fmt.Printf("Failed to update value: %s %v",edge,err)
+			os.Exit(1);
+			
 		}
 	}
 }
