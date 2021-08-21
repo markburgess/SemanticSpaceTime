@@ -914,6 +914,11 @@ func InsertNodeIntoCollection(g Analytics, node Node, coll A.Collection) {
 	} else {
 
 		// Don't need to check correct value, as each tuplet is unique, but check the data
+
+		if node.Data == "" && node.Weight == 0 {
+			// Leave the values alone if we don't mean to update them
+			return
+		}
 		
 		var checknode Node
 
