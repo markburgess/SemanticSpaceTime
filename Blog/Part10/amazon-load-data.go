@@ -5,10 +5,8 @@ import (
 	"fmt"
 	"bufio"
 	"strings"
-	"strconv"
 	"os"
 	S "SST"
-	A "github.com/arangodb/go-driver"
 
 )
 
@@ -28,7 +26,7 @@ const EDGES = "raw/edge.csv"
 
 // As long as we don't use all the lines, some nodes will appear orphaned
 
-const MAXLINES = 5000
+const MAXLINES = 50000
 const SIMILARITY_THRESHOLD = 25
 
 // ****************************************************************************
@@ -61,27 +59,6 @@ func main() {
 
 // ****************************************************************************
 
-func MakeCoPurchaseGraph(g S.Analytics, n int, line string) {
-
-	var fromto []string
-
-	fromto = strings.Split(line,",")
-
-	name_from := "n_" + fromto[0]
-	name_to   := "n_" + fromto[1]
-
-	// Add placeholders so we can link, to be supplemented with description later
-
-	from := S.CreateNode(g, name_from, "", 0)
-	to := S.CreateNode(g, name_to, "", 0)
-
-	var coactivation_count float64 = 3 // this info is not recorded
-
-	S.CreateLink(g, from, "COACTIV", to, coactivation_count)
-}
-
-// ****************************************************************************
-
 func AddNodeDescription(g S.Analytics, n int, line string) {
 
 	// load the word vectors - memory sensitive approach
@@ -98,6 +75,37 @@ func AddNodeDescription(g S.Analytics, n int, line string) {
 	node_key := fmt.Sprintf("n_%d",n)
 	S.CreateNode(g, node_key, line, sales_per_month)
 
+}
+
+// ****************************************************************************
+
+func MakeCoPurchaseGraph(g S.Analytics, n int, line string) {
+
+	var fromto []string
+	var f,t int
+
+	fromto = strings.Split(line,",")
+
+	name_from := "n_" + fromto[0]
+	name_to   := "n_" + fromto[1]
+
+	fmt.Sscanf(fromto[0],"%d",&f)
+	fmt.Sscanf(fromto[1],"%d",&t)
+
+	if f > MAXLINES || t > MAXLINES {
+		// There is a ref to a node we aren't intending to load
+		// fmt.Printf("[%d,%d]",t,f)
+		return
+	}
+
+	// Add placeholders so we can link, to be supplemented with description later
+
+	from := S.CreateNode(g, name_from, "", 0)
+	to := S.CreateNode(g, name_to, "", 0)
+
+	var coactivation_count float64 = 3 // this info is not recorded
+
+	S.CreateLink(g, from, "COACTIV", to, coactivation_count)
 }
 
 // ****************************************************************************
@@ -152,6 +160,14 @@ func NodeRef(prefix,key string) S.Node {
 
 func ProcessFileByLines(g S.Analytics,filename string,process_function func(S.Analytics,int,string)) {
 
+	var marker int
+
+	if MAXLINES > 100000 {
+		marker = 10000
+	} else {
+		marker = MAXLINES / 10
+	}
+
 	file, err := os.Open(filename)
 
 	//fmt.Println("opening",PATH+EDGES)
@@ -175,7 +191,7 @@ func ProcessFileByLines(g S.Analytics,filename string,process_function func(S.An
 
 		count++
 
-		if count % 10000 == 0 {
+		if count % marker == 0 {
 			fmt.Println(count,"...")
 		}
 

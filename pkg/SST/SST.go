@@ -309,7 +309,6 @@ func IncrementLink(g Analytics, c1 Node, rel string, c2 Node) {
 func CreateFragment(g Analytics, short_description,vardescription string) Node {
 
 	var concept Node
-// 	var err error
 
 	// if no short description, use a hash of the data
 

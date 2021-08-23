@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"bufio"
 	"strings"
-	"strconv"
 	"os"
 	S "SST"
 	A "github.com/arangodb/go-driver"
@@ -30,6 +29,7 @@ const EDGES = "raw/edge.csv"
 
 const MAXLINES = 5000
 const SIMILARITY_THRESHOLD = 25
+const RENORM_THRESHOLD = 20
 
 // ****************************************************************************
 
@@ -44,7 +44,7 @@ func main() {
 
 	fmt.Println("Cross-link the product category hubs based on member linkage...first attempt")
  
-	groups := AnnotateHubNearness(g)
+	groups := CrossLinkHubs(g)
 
 	ShowGroups(g,groups)
 	ShowClusterBonds(g)
@@ -54,9 +54,9 @@ func main() {
 
 // ****************************************************************************
 
-func AnnotateHubNearness(g S.Analytics) S.Set {
+func CrossLinkHubs(g S.Analytics) S.Set {
 
-	// Go by hub CONTAINS collection to avoid multiple searches
+	// Go by CONTAINS link collection to avoid multiple searches
 
 	// For each product category, get members:
 	// (a) if co-purchased with different category, link the *hubs* COACTIVE, increasing weight for each purchase
@@ -67,14 +67,14 @@ func AnnotateHubNearness(g S.Analytics) S.Set {
 
 	// We could possibly optimize this to make the COACTIVE link between hubs directly in AQL
 
-	querystring := "FOR coactive in Near FILTER coactive.semantics == \"COACTIV\" FOR hub1 in Contains FILTER hub1._to == coactive._from FOR hub2 in Contains FILTER hub2._to == coactive._to RETURN {_from: hub1._from, _to: hub2._from}"
+	querystring := "FOR coactive in Near FILTER coactive.semantics == \"COACTIV\" FOR hub1 in Contains FILTER hub1._to == coactive._from && hub1._from LIKE \"Hubs/\\%\" FOR hub2 in Contains FILTER hub2._to == coactive._to && hub2._from LIKE \"Hubs/\\%\" RETURN {_from: hub1._from, _to: hub2._from}"
 
 	// Make a matrix of links for the meta graph, counting strength as link weight
 
 	cursor,err := g.S_db.Query(nil,querystring,nil)
 
 	if err != nil {
-		fmt.Printf("Nodes query \"%s\"failed: %v", querystring,err)
+		fmt.Printf("Crosslink query \"%s\"failed: %v", querystring,err)
 	}
 
 	defer cursor.Close()
@@ -88,7 +88,7 @@ func AnnotateHubNearness(g S.Analytics) S.Set {
 		if A.IsNoMoreDocuments(err) {
 			break
 		} else if err != nil {
-			fmt.Printf("Node \"%s\"failed: %v\n", meta,err)
+			fmt.Printf("Link read in CrossLink \"%s\"failed: %v\n", meta,err)
 		} else {
 			if doc.From != doc.To {
 
@@ -147,7 +147,9 @@ func ShowClusterBonds(g S.Analytics) {
 		} else if err != nil {
 			fmt.Printf("Node \"%s\"failed: %v\n", meta,err)
 		} else {
-			fmt.Println("Relative bond", doc.From, doc.To, doc.Weight)
+			if doc.Weight > RENORM_THRESHOLD {
+				fmt.Println("Relative bond:", doc.From, doc.To, doc.Weight)
+			}
 		}
 	}
 }

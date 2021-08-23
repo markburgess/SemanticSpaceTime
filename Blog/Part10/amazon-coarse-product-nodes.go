@@ -26,10 +26,17 @@ const HUBS = "raw/node-label.csv"
 const FEATVEC = "raw/node-feat.csv"
 const EDGES = "raw/edge.csv"
 
-// As long as we don't use all the lines, some nodes will appear orphaned
+// ****************************************************************************
+// Some parameters to control the coarse graining
+// ****************************************************************************
 
-const MAXLINES = 5000
-const SIMILARITY_THRESHOLD = 25
+// As long as we don't use all the input lines, some nodes will appear orphaned
+
+const MAXLINES = 50000
+
+// The larger we make it this square similarity radius, the coarser nodes will be
+
+const SIMILARITY_THRESHOLD = 20 
 
 // ****************************************************************************
 
@@ -44,27 +51,38 @@ func main() {
 
 	fmt.Println("Within each category hub, coarse grain similar nodes to reduce dimension")
  
-	AnnotateVectorNearness(g)
+	// This could be optimized further, but let's show the logic
+
+	keys,names := GetProductCategories(g)
+
+	for k := range keys {
+
+		cluster := ClusterVectorToFragments(g,k,keys[k],names[k])
+
+		CoarseGrainNodesToFragments(g,cluster,keys[k],names[k])
+	}
+
+	fmt.Println("\nNow crosslink the fragments by coactivity")
+
+	groups := CrossLinkFragments(g)
+
+	ShowGroups(g,groups)
+	ShowClusterBonds(g)
 
 }
 
 // ****************************************************************************
 
-func AnnotateVectorNearness(g S.Analytics) {
+func GetProductCategories(g S.Analytics) ([]string,[]string) {
 
-	// First go through all node and get their Data vectors (if any)
-	// Then decide which are close together in vector space 
-	// (depending on representation assumptions)
+	var names,keys []string
 
-	var feature_vec map[string][]float64 = make(map[string][]float64)
-	var querystring string
-	
-	querystring = "FOR doc IN Nodes RETURN doc"
-	
+	querystring := "FOR member IN Hubs RETURN member"
+
 	cursor,err := g.S_db.Query(nil,querystring,nil)
 
 	if err != nil {
-		fmt.Printf("Nodes query \"%s\"failed: %v", querystring,err)
+		fmt.Printf("Category query \"%s\"failed: %v", querystring,err)
 	}
 
 	defer cursor.Close()
@@ -78,7 +96,61 @@ func AnnotateVectorNearness(g S.Analytics) {
 		} else if err != nil {
 			fmt.Printf("Node \"%s\"failed: %v\n", meta,err)
 		} else {
-			//fmt.Println("Node", doc.Key, doc.Data)
+			// Some names are quoted and some are empty!
+
+			var name string
+
+			if doc.Data == "" {
+				name = "(unnamed)"
+			} else {
+
+				name = strings.Trim(doc.Data,"\"")
+			}
+
+			names = append(names,name)
+			keys = append(keys,doc.Key)
+		}
+	}
+
+	return keys,names
+}
+
+// ****************************************************************************
+
+func ClusterVectorToFragments(g S.Analytics, cat int, key, name string) S.Set {
+
+	// First go through all nodes in a category and get their Data vectors (if any)
+	// Then decide which are close together in vector space 
+	// (depending on representation assumptions)
+
+	var feature_vec map[string][]float64 = make(map[string][]float64)
+	var querystring string
+
+	fmt.Println("Trying to aggregate category:",name)
+
+	querystring = "FOR member IN Contains FILTER member._from == \"Hubs/"+key+"\" RETURN DOCUMENT(member._to)"
+
+	// NB, there are zero vectors (0,0,0,0,0...)
+	// If we don't read all the data nodes, then some edges may point to nodes that don't exist
+
+	cursor,err := g.S_db.Query(nil,querystring,nil)
+
+	if err != nil {
+		fmt.Printf("Category query \"%s\"failed: %v", querystring,err)
+	}
+
+	defer cursor.Close()
+
+	for {
+		var doc S.Node
+		meta,err := cursor.ReadDocument(nil,&doc)
+
+		if A.IsNoMoreDocuments(err) {
+			break
+		} else if err != nil {
+			fmt.Printf("Node \"%s\"failed: %v\n", meta,err)
+		} else {
+			// The data are not yet in numeric format, they are strings
 
 			check_vec := strings.Split(doc.Data,",")
 
@@ -90,7 +162,7 @@ func AnnotateVectorNearness(g S.Analytics) {
 
 				for i := 0; i < len(check_vec); i++ {
 
-					// This might be too big for RAM with large graphs
+					// This might be too big for RAM with large graphs!
 
 					feature_vec[doc.Key][i], err = strconv.ParseFloat(check_vec[i], 64)
 
@@ -111,20 +183,147 @@ func AnnotateVectorNearness(g S.Analytics) {
 		keys = append(keys,n1)
 	}
 	
-	// Create a NEAR-type link weighted by vector distance
+	// Cluster together things within a similarity radius
+	// Firt Come First Served, if equi-distant between subclusters
+
+	var clusters S.Set = make(S.Set)
 	
 	for i := 0; i < len(keys); i++ {
 
 		for j := i + 1; j < len(keys); j++ {
 
-			ni := NodeRef("Nodes/",keys[i])
-			nj := NodeRef("Nodes/",keys[j])
 			d2 := Distance2(feature_vec[keys[i]],feature_vec[keys[j]])
 
 			if d2 < SIMILARITY_THRESHOLD {
-				//fmt.Println("Similar products?",ni.Key,nj.Key,d2)
-				S.CreateLink(g, ni, "IS_LIKE", nj, d2)
+
+				S.TogetherWith(clusters,keys[i],keys[j])
 			}
+		}
+	}
+
+	fmt.Println("  Reduced",len(keys),"to",len(clusters),"supernodes")
+	return clusters
+}
+
+// ****************************************************************************
+
+func CoarseGrainNodesToFragments(g S. Analytics, cluster S.Set, hubkey, category string) {
+
+	// Now link every member to a new "fragment of hub" node in Frags collection
+
+	for sub := range cluster {
+
+		frag_hub_name := sub + "_of_" + hubkey
+
+		//fmt.Println("  Create hub",frag_hub_name)
+
+		frag := S.CreateFragment(g,frag_hub_name,"sub part of " + category)
+
+		for member := range cluster[sub] {
+
+			// Weight the link by the size of the cluster
+			// fmt.Println("  Fragment",frag_hub_name,"contains",cluster[sub][member])
+
+			node := NodeRef("Nodes/",cluster[sub][member])
+
+			S.CreateLink(g,frag,"GENERALIZES",node,float64(len(cluster[sub])))
+		}
+	}
+
+}
+
+// ****************************************************************************
+
+func CrossLinkFragments(g S.Analytics) S.Set {
+
+	// This is the analogue of CrossLinkHubs(g S.Analytics) in category-level-graph
+	// Look throught the raw node coactivations and link their Fragments they belong to
+	// count the strength by incrementing the weight
+
+	// For each copurchase link between nodes, look at the fragments they belong to, then extract the 
+	// fragments and link them in the approximation plane. Since several may match, increment the link
+	// weight for each.
+
+	querystring := "FOR coactive in Near FILTER coactive.semantics == \"COACTIV\" FOR frag1 in Contains FILTER frag1._to == coactive._from && frag1._from LIKE \"Fragments/\\%\" FOR frag2 in Contains FILTER frag2._to == coactive._to && frag2._from LIKE \"Fragments/\\%\" RETURN {_from: frag1._from, _to: frag2._from}"
+
+	cursor,err := g.S_db.Query(nil,querystring,nil)
+
+	if err != nil {
+		fmt.Printf("Crosslink query \"%s\"failed: %v", querystring,err)
+	}
+
+	defer cursor.Close()
+
+	var sets = make(S.Set)
+
+	for {
+		var doc S.Link
+		meta,err := cursor.ReadDocument(nil,&doc)
+
+		if A.IsNoMoreDocuments(err) {
+			break
+		} else if err != nil {
+			fmt.Printf("Link read in CrossLink \"%s\"failed: %v\n", meta,err)
+		} else {
+			if doc.From != doc.To {
+
+				//fmt.Println("Linking hubs", doc.From, doc.To)
+
+				S.TogetherWith(sets,doc.From,doc.To)
+
+				f := strings.Split(doc.From,"/")
+				t := strings.Split(doc.To,"/")
+				
+				from := NodeRef(f[0]+"/",f[1])
+				to := NodeRef(t[0]+"/",t[1])
+				
+				S.IncrementLink(g, from, "COACTIV", to)
+			}
+		}
+	}
+
+	return sets
+
+}
+
+// ****************************************************************************
+
+func ShowGroups(g S.Analytics, groups S.Set) {
+
+	for gr := range groups {
+
+		fmt.Println("Cluster",groups[gr])
+
+		for hub := range groups[gr] {
+			fmt.Println("  ",hub,":",groups[gr][hub],"=",S.GetNode(g,groups[gr][hub]))
+		}
+	}
+}
+
+// ****************************************************************************
+
+func ShowClusterBonds(g S.Analytics) {
+
+	querystring := "FOR doc IN Near FILTER doc.semantics == \"COACTIV\" && doc._from LIKE \"Fragments/\\%\" RETURN doc"
+	
+	cursor,err := g.S_db.Query(nil,querystring,nil)
+
+	if err != nil {
+		fmt.Printf("Nodes query \"%s\"failed: %v", querystring,err)
+	}
+
+	defer cursor.Close()
+
+	for {
+		var doc S.Link
+		meta,err := cursor.ReadDocument(nil,&doc)
+
+		if A.IsNoMoreDocuments(err) {
+			break
+		} else if err != nil {
+			fmt.Printf("Node \"%s\"failed: %v\n", meta,err)
+		} else {
+			fmt.Println("Relative bond", doc.From, doc.To, doc.Weight)
 		}
 	}
 }
