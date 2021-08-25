@@ -1898,7 +1898,7 @@ func TogetherWith(sets Set, a1,a2 string) {
 			return        // already ok
 			
 		} else {
-			// merge two sets
+			// merge two sets - this might be a mistake when data are big
 			for m := range sets[s1] {
 				sets[s2] = append(sets[s2],sets[s1][m])
 			}
