@@ -3,7 +3,6 @@ package main
 
 import (
 	"fmt"
-	"bufio"
 	"strings"
 	"strconv"
 	"os"
@@ -14,8 +13,6 @@ import (
 
 // ****************************************************************************
 // * Analyze Amazon sales data as a graph
-// *
-// * WARNING! This is a big data application, use MAXLINEs to limit time/cpu
 // ****************************************************************************
 
 // Data set from: http://snap.stanford.edu/ogb/data/nodeproppred/products.zip
@@ -30,13 +27,9 @@ const EDGES = "raw/edge.csv"
 // Some parameters to control the coarse graining
 // ****************************************************************************
 
-// As long as we don't use all the input lines, some nodes will appear orphaned
-
-const MAXLINES = 50000
-
 // The larger we make it this square similarity radius, the coarser nodes will be
 
-const SIMILARITY_THRESHOLD = 20 
+const SIMILARITY_THRESHOLD = 20
 
 // ****************************************************************************
 
@@ -69,6 +62,7 @@ func main() {
 	ShowGroups(g,groups)
 	ShowClusterBonds(g)
 
+	ShowInteriorExteriorHubLinks(g)
 }
 
 // ****************************************************************************
@@ -267,7 +261,7 @@ func CrossLinkFragments(g S.Analytics) S.Set {
 		} else {
 			if doc.From != doc.To {
 
-				//fmt.Println("Linking hubs", doc.From, doc.To)
+				//fmt.Println("Linking fragments", doc.From, doc.To)
 
 				S.TogetherWith(sets,doc.From,doc.To)
 
@@ -292,7 +286,7 @@ func ShowGroups(g S.Analytics, groups S.Set) {
 
 	for gr := range groups {
 
-		fmt.Println("Cluster",groups[gr])
+		fmt.Println(len(groups[gr]),"cluster size")
 
 		for hub := range groups[gr] {
 			fmt.Println("  ",hub,":",groups[gr][hub],"=",S.GetNode(g,groups[gr][hub]))
@@ -329,6 +323,63 @@ func ShowClusterBonds(g S.Analytics) {
 }
 
 // ****************************************************************************
+
+func ShowInteriorExteriorHubLinks(g S.Analytics) {
+
+// Get total number of links between different Hubs
+
+	querystring := "FOR lnk in Near FILTER lnk.semantics == \"COACTIV\" FOR hub1 in Contains FILTER hub1._to == lnk._from && hub1._from LIKE \"Hubs/\\%\" FOR hub2 in Contains FILTER hub2._to == lnk._to && hub2._from LIKE \"Hubs/\\%\" COLLECT WITH COUNT INTO length RETURN length"
+
+	cursor,err := g.S_db.Query(nil,querystring,nil)
+
+	if err != nil {
+		fmt.Printf("Show Interior Count query \"%s\"failed: %v", querystring,err)
+	}
+
+	defer cursor.Close()
+
+	for {
+		var doc int
+		meta,err := cursor.ReadDocument(nil,&doc)
+
+		if A.IsNoMoreDocuments(err) {
+			break
+		} else if err != nil {
+			fmt.Printf("Interior count \"%s\"failed: %v\n", meta,err)
+		} else {
+			fmt.Println("Total product links between different hubs", doc)
+		}
+	}
+
+	// Get total number of links between different Fragments
+
+	querystring = "FOR lnk in Near FILTER lnk.semantics == \"COACTIV\" FOR frag1 in Contains FILTER frag1._to == lnk._from && frag1._from LIKE \"Fragments/\\%\" FOR frag2 in Contains FILTER frag2._to == lnk._to && frag2._from LIKE \"Fragments/\\%\"  COLLECT WITH COUNT INTO length RETURN length"
+
+	cursor,err = g.S_db.Query(nil,querystring,nil)
+
+	if err != nil {
+		fmt.Printf("Show Interior Count query \"%s\"failed: %v", querystring,err)
+	}
+
+	defer cursor.Close()
+
+	for {
+		var doc int
+		meta,err := cursor.ReadDocument(nil,&doc)
+
+		if A.IsNoMoreDocuments(err) {
+			break
+		} else if err != nil {
+			fmt.Printf("Interior count \"%s\"failed: %v\n", meta,err)
+		} else {
+			fmt.Println("Total product links between coarse different product fragments", doc)
+		}
+	}
+
+
+}
+
+// ****************************************************************************
 // Tools
 // ****************************************************************************
 
@@ -354,43 +405,4 @@ func Distance2(v1 []float64, v2 []float64) float64 {
 
 	//fmt.Println("distance ",d2)
 	return d2
-}
-
-// ****************************************************************************
-
-func ProcessFileByLines(g S.Analytics,filename string,process_function func(S.Analytics,int,string)) {
-
-	file, err := os.Open(filename)
-
-	//fmt.Println("opening",PATH+EDGES)
-
-	if err != nil {
-		fmt.Printf("error opening file: %v\n",err)
-		os.Exit(1)
-	}
-
-	scanner := bufio.NewScanner(file)
-	scanner.Split(bufio.ScanLines)
-
-	var line string
-	var count int = 0 // indices start at 0 in the files
- 
-	for scanner.Scan() {
-		line = scanner.Text()
-
-		process_function(g,count,line)
-		//fmt.Println(count,line,"\n")
-
-		count++
-
-		if count % 10000 == 0 {
-			fmt.Println(count,"...")
-		}
-
-		if count > MAXLINES {
-			break
-		}
-	}
- 
-	file.Close()
 }
