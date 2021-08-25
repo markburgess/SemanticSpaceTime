@@ -1863,9 +1863,14 @@ func TogetherWith(sets Set, a1,a2 string) {
 	var got1 bool = false
 	var got2 bool = false
 
+	if a1 == a2 {
+		return
+	}
+
 	for s := range sets {
 
 		for m:= range sets[s] {
+
 			if sets[s][m] == a1 {
 				s1 = s
 				got1 = true
@@ -1875,8 +1880,15 @@ func TogetherWith(sets Set, a1,a2 string) {
 				s2 = s
 			got2 = true
 			}
+
+			if got1 && got2 {
+				break
+			}
 		}
-		
+
+		if got1 && got2 {
+			break
+		}
 	}
 
 	if got1 && got2 {
