@@ -327,8 +327,16 @@ func main() {
 	
 	fmt.Println("\nSymmetrized nodes:\n")
 
+	var gr int = 1
+
 	for group := range groups {
-		fmt.Println(group,"==",groups[group])
+
+		for member := range groups[group] {
+			fmt.Printf("symm. supernode_%d == %s\n",gr,groups[group][member])
+		}
+
+		gr++
+		fmt.Println()
 	}
 }
 

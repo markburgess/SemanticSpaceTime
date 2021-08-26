@@ -1405,18 +1405,22 @@ func GetAdjacencyMatrixByInt(g Analytics, assoc_type string, symmetrize bool) ([
 	dimension := len(sets["adj"])
 	var adjacency_matrix = make([][]float64,dimension)
 	var keys = make(map[int]string)
+	var i int = 0
+	var j int = 0
 
-	for i := range sets["adj"] {
+	for ri := range sets["adj"] {
 
 		adjacency_matrix[i] = make([]float64,dimension)
-		keys[i] = sets["adj"][i]
+		keys[i] = sets["adj"][ri]
 
-		for j := range sets["adj"] {
+		for rj := range sets["adj"] {
 
-			if key_matrix[VectorPair{From: sets["adj"][i], To: sets["adj"][j]}] > 0 {
+			if key_matrix[VectorPair{From: sets["adj"][ri], To: sets["adj"][rj]}] > 0 {
 				adjacency_matrix[i][j] = 1.0
 			}
+			j++
 		}
+		i++
 	}
 
 	return adjacency_matrix, dimension, keys
@@ -1479,18 +1483,22 @@ func GetFullAdjacencyMatrix(g Analytics, symmetrize bool) ([][]float64,int,map[i
 	dimension := len(sets["adj"])
 	var adjacency_matrix = make([][]float64,dimension)
 	var keys = make(map[int]string)
+	var i int = 0
+	var j int = 0
 
-	for i := range sets["adj"] {
+	for ri := range sets["adj"] {
 
 		adjacency_matrix[i] = make([]float64,dimension)
-		keys[i] = sets["adj"][i]
+		keys[i] = sets["adj"][ri]
 
-		for j := range sets["adj"] {
+		for rj := range sets["adj"] {
 
-			if key_matrix[VectorPair{From: sets["adj"][i], To: sets["adj"][j]}] > 0 {
+			if key_matrix[VectorPair{From: sets["adj"][ri], To: sets["adj"][rj]}] > 0 {
 				adjacency_matrix[i][j] = 1.0
 			}
+			j++
 		}
+		i++
 	}
 
 	return adjacency_matrix, dimension, keys
@@ -1849,41 +1857,54 @@ func AddAssocKV(coll A.Collection, key string, assoc Association) {
 
 
 // ****************************************************************************
-// Set/Collection Aggregation
+// Set/Collection Aggregation - two versions using hashing/lists, which faster?
 // ****************************************************************************
 
-type Set map[string][]string
+type Set map[string]map[string]string
+type LinSet map[string][]string
+
+// ****************************************************************************
+
+func BelongsToSet(sets Set,member string) (bool,string,string) {
+
+	// Generate the formatted superset of all nodes that contains "member" within it
+	
+	for s := range sets {
+		if sets[s][member] == member {
+			var list string
+			for l := range sets[s] {
+				list = list + sets[s][l] + ","
+			}
+			return true,"super-"+s,list
+		}
+	}
+	
+	return false,"",""
+}
 
 // ****************************************************************************
 
 func TogetherWith(sets Set, a1,a2 string) {
+
+	// Place a1 and s2 into the same set, growing the sets if necessary
+	// i.e. gradual accretion of sets by similarity of a1 and a2, we use
+	// maps (hashes) so no linear searching as lists get big
 
 	var s1,s2 string
 
 	var got1 bool = false
 	var got2 bool = false
 
-	if a1 == a2 {
-		return
-	}
-
 	for s := range sets {
 
-		for m:= range sets[s] {
-
-			if sets[s][m] == a1 {
-				s1 = s
-				got1 = true
-			}
+		if sets[s][a1] == a1 {
+			s1 = s
+			got1 = true
+		}
 			
-			if sets[s][m] == a2 {
-				s2 = s
+		if sets[s][a2] == a2 {
+			s2 = s
 			got2 = true
-			}
-
-			if got1 && got2 {
-				break
-			}
 		}
 
 		if got1 && got2 {
@@ -1899,10 +1920,101 @@ func TogetherWith(sets Set, a1,a2 string) {
 			
 		} else {
 			// merge two sets - this might be a mistake when data are big
-			for m := range sets[s1] {
-				sets[s2] = append(sets[s2],sets[s1][m])
+			// would like to just move a tag somehow, but still the search time
+			// has to grow as the clusters cover more data
+
+			// Since this is time consuming, move the smaller set
+
+			l1 := len(sets[s1])
+			l2 := len(sets[s2])
+
+			if (l1 <= l2) {
+				for m := range sets[s1] {
+					sets[s2][m] = sets[s1][m]
+				}
+				delete(sets,s1)
+			} else {
+				for m := range sets[s2] {
+					sets[s1][m] = sets[s2][m]
+				}
+				delete(sets,s2)
 			}
-			delete(sets,s1)
+
+			return
+		}
+	} 
+
+	if got1 { // s1 is the home
+		sets[s1][a2] = a2
+		return
+	}
+
+	if got2 { // s2 is the home
+		sets[s2][a1] = a1
+		return
+	}
+
+	// new pair, pick a key
+
+	sets[a1] = make(map[string]string)
+	sets[a2] = make(map[string]string)
+
+	sets[a1][a1] = a1
+	sets[a1][a2] = a2
+
+}
+
+// ****************************************************************************
+// Linearized version
+// ****************************************************************************
+
+func LinTogetherWith(sets LinSet, a1,a2 string) {
+
+	var s1,s2 string
+
+	var got1 bool = false
+	var got2 bool = false
+
+	for s := range sets {
+
+		for m:= range sets[s] {
+			if sets[s][m] == a1 {
+				s1 = s
+				got1 = true
+			}
+			
+			if sets[s][m] == a2 {
+				s2 = s
+			got2 = true
+			}
+		}
+		
+	}
+
+	if got1 && got2 {
+
+		if s1 == s2 {
+			
+			return        // already ok
+			
+		} else {
+			// merge two sets
+
+			l1 := len(sets[s1])
+			l2 := len(sets[s2])
+
+			if (l1 <= l2) {
+				for m := range sets[s1] {
+					sets[s2] = append(sets[s2],sets[s1][m])
+				}
+				delete(sets,s1)
+			} else {
+				for m := range sets[s1] {
+					sets[s1] = append(sets[s1],sets[s2][m])
+				}
+				delete(sets,s2)
+			}
+
 			return
 		}
 	} 
@@ -1926,7 +2038,7 @@ func TogetherWith(sets Set, a1,a2 string) {
 
 // ****************************************************************************
 
-func BelongsToSet(sets Set,member string) (bool,string,string) {
+func BelongsToLinSet(sets LinSet,member string) (bool,string,string) {
 
 	for s := range sets {
 		for m := range sets[s] {

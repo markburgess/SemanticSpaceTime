@@ -6,7 +6,6 @@ import (
 	"strings"
 	"strconv"
 	"os"
-	"math"
 	S "SST"
 	A "github.com/arangodb/go-driver"
 
@@ -118,7 +117,7 @@ func ClusterVectorToFragments(g S.Analytics) S.Set {
 
 		for j := i + 1; j < len(keys); j++ {
 
-			d2 := Distance(feature_vec[keys[i]],feature_vec[keys[j]])
+			d2 := Distance2(feature_vec[keys[i]],feature_vec[keys[j]])
 
 			if d2 < SIMILARITY_THRESHOLD {
 
@@ -166,7 +165,7 @@ func ShowHubFractionsForEachCluster(g S.Analytics, clusters S.Set) {
 
 func GetCategoryFor(g S.Analytics, key string) int {
 
-	querystring := "FOR m IN Contains FILTER M._to LIKE \"Hubs/\\%\" && M._to == \""+key+"\" RETURN m._from"
+	querystring := "FOR m IN Contains FILTER m._from LIKE \"Hubs/\\%\" && m._to == \"Nodes/"+key+"\" RETURN m._from"
 
 	cursor,err := g.S_db.Query(nil,querystring,nil)
 
@@ -199,15 +198,16 @@ return -1
 // Tools
 // ****************************************************************************
 
-func Distance(v1 []float64, v2 []float64) float64 {
+func Distance2(v1 []float64, v2 []float64) float64 {
 
 	// Simplify this for speed compared to previous - non-Pythagorean
 
 	var d2 float64 = 0
 
 	for i := 0; i < len(v1); i++ {
-		d2 += math.Abs((v1[i] - v2[i]))
+		d2 += (v1[i] - v2[i])*(v1[i] - v2[i])
 	}
 
 	return d2
 }
+
