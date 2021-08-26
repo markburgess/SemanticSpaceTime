@@ -1,0 +1,8 @@
+The repository on github for this post contains the following programs, which you should execute in the following order.
+
+* amazon-load-data.go - load the graph into the Arango SST model.
+* amazon-category-level-graph.go - count link nodes between hubs
+* amazon-coarse-product-nodes.go - count link nodes assume inside hubs
+* amazon-coarse-product-nodes-v2.go - count link nodes then correlate hubs
+* amazon-coarse-product-nodes-v2lin.go - linearized version of previous for benchmarking maps/lists
+
