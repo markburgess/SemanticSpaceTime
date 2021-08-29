@@ -1,0 +1,8 @@
+
+These examples show how to use the golang libraries to extract data:
+
+here_and_now.go  - find the time of day or location in program code
+kv-files.go      - same as previous part. Get key values data from files
+kv.go            - same as previous part. Get key values data from Arangodb
+map_array.go     - using maps in golang
+

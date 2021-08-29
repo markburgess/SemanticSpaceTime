@@ -1,0 +1,10 @@
+
+These examples use the golang packages to compare
+the storing of data in files and directories with
+storing in Arangodb.
+
+directory.go  - read a directory in golang
+file.go       - read a file in golang
+kv-files.go   - store key-value pairs in files
+kv.go         - store key-value pairs in ArangoDB
+

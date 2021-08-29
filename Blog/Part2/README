@@ -1,0 +1,7 @@
+
+These examples are simple runnable illustrations of how to use golang.
+
+graphAPI-1.go  - creating a graph in ArangoDB
+graphAPI-2.go  - create a database and read back some data
+hello.go       - the usual hello world program.
+
