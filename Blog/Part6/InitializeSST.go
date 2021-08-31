@@ -12,8 +12,6 @@ func main() {
 
 	// Prologue
 
-	S.InitializeSmartSpaceTime()
-
 	var dbname string = "SemanticSpacetime"
 	var url string = "http://localhost:8529"
 	var user string = "root"
