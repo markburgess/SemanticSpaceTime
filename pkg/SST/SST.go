@@ -217,7 +217,7 @@ func InitializeSmartSpaceTime() {
 
 	ASSOCIATIONS["HAS_ROLE"] = Association{"HAS_ROLE",GR_EXPRESSES,"has the role of","is a role fulfilled by","has no role","is not a role fulfilled by"}
 
-	ASSOCIATIONS["ORIGINATES_FROM"] = Association{"ORIGINATES_FROM",CONST_STtype["FOLLOWS"],"originates from","is the source/origin of","does not originate from","is not the source/origin of"}
+	ASSOCIATIONS["ORIGINATES_FROM"] = Association{"ORIGINATES_FROM",GR_FOLLOWS,"originates from","is the source/origin of","does not originate from","is not the source/origin of"}
 
 	ASSOCIATIONS["EXPRESSES"] = Association{"EXPRESSES",GR_EXPRESSES,"expresses an attribute","is an attribute of","has no attribute","is not an attribute of"}
 
@@ -276,8 +276,8 @@ func CreateLink(g Analytics, c1 Node, rel string, c2 Node, weight float64) {
 
 	//fmt.Println("CreateLink: c1",c1,"rel",rel,"c2",c2)
 
-	link.From = c1.Prefix + c1.Key
-	link.To = c2.Prefix + c2.Key
+	link.From = c1.Prefix + strings.ReplaceAll(c1.Key," ","_")
+	link.To = c2.Prefix + strings.ReplaceAll(c2.Key," ","_")
 	link.SId = ASSOCIATIONS[rel].Key
 	link.Weight = weight
 
@@ -295,7 +295,7 @@ func IncrementLink(g Analytics, c1 Node, rel string, c2 Node) {
 
 	var link Link
 
-	//fmt.Println("CreateLink: c1",c1,"rel",rel,"c2",c2)
+	//fmt.Println("IncremenLink: c1",c1,"rel",rel,"c2",c2)
 
 	link.From = c1.Prefix + c1.Key
 	link.To = c2.Prefix + c2.Key
@@ -306,7 +306,7 @@ func IncrementLink(g Analytics, c1 Node, rel string, c2 Node) {
 
 // ****************************************************************************
 
-func CreateFragment(g Analytics, short_description,vardescription string) Node {
+func CreateFragment(g Analytics, short_description,vardescription string, weight float64) Node {
 
 	var concept Node
 
@@ -317,6 +317,7 @@ func CreateFragment(g Analytics, short_description,vardescription string) Node {
 	concept.Data = description
 	concept.Key = short_description             // _id
 	concept.Prefix = "Fragments/"
+	concept.Weight = weight
 
 	AddFrag(g,concept)
 
@@ -530,7 +531,7 @@ func UpdateHistogram(g Analytics, histoname, data string) {
 		_, err = coll.CreateDocument(nil, kv)
 		
 		if err != nil {
-			fmt.Printf("Failed to create non existent node: %s %v",kv.K,err)
+			fmt.Printf("Failed to create non existent node in histo: %s %v",kv.K,err)
 			os.Exit(1);
 		}
 		return
@@ -624,7 +625,7 @@ func AddIntKV(coll A.Collection, kv IntKeyValue) {
 		_, err = coll.CreateDocument(nil, kv)
 		
 		if err != nil {
-			fmt.Printf("Failed to create non existent node: %s %v",kv.K,err)
+			fmt.Printf("Failed to create non existent node in AddIntKV: %s %v",kv.K,err)
 			os.Exit(1);
 		}
 	} else {
@@ -906,7 +907,7 @@ func InsertNodeIntoCollection(g Analytics, node Node, coll A.Collection) {
 		_, err = coll.CreateDocument(nil, node)
 		
 		if err != nil {
-			fmt.Println("Failed to create non existent node: ",node,err)
+			fmt.Println("Failed to create non existent node in InsertNodeIntoCollection: ",node,err)
 			os.Exit(1);
 		}
 
@@ -949,7 +950,7 @@ func AddLink(g Analytics, link Link) {
 
 	// Don't add multiple edges that are identical! But allow types
 
-	// fmt.Println("Checking link",link)
+	 //fmt.Println("Checking link",link)
 
 	// We have to make our own key to prevent multiple additions
         // - careful of possible collisions, but this should be overkill
