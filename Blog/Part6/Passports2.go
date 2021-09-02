@@ -101,21 +101,34 @@ func main() {
 
 	g = OpenModel(dbname, service_url, user, pwd)
 
-	CreatePerson(g,"markburgess_osl", "Professor Mark Burgess",123456,0)
+	mb1 := CreatePerson(g,"markburgess_osl", "Professor Mark Burgess",123456,0)
+	mb2 := CreatePerson(g,"Professor Burgess", "Professor Mark Burgess",123456,0)
+
+	CreateLink(g,mb1,"ALIAS",mb2,0,0)
 
 	CreateCountry(g,"USA","United States of America")
 	CreateCountry(g,"UK","United Kingdom")
 
+	CreateLocation(g,"London","London, capital city in England")
+	CreateLocation(g,"Washington DC","Washington, capital city in USA")
+	CreateLocation(g,"New York","Capital of the World")
+
+	LocationCountry(g,"Washington DC","USA")
+	LocationCountry(g,"New York","USA")
+	LocationCountry(g,"London","UK")
+
 	france := CreateCountry(g,"France","France, country in Europe")
 	paris := CreateLocation(g,"Paris","Paris, capital city in France")
+
 	CreateLink(g,paris,"PART_OF",france,0,0)
 
 	// Mark's journey as a sequential process
 
-	CountryIssuedPassport(&g,"Professor Burgess","UK","Number 12345")
-	CountryIssuedVisa(&g,"Professor Burgess","USA","Visa Waiver")
-	PersonLocation(&g,"Professor Burgess","USA")
-	PersonLocation(&g,"Professor Burgess","UK")
+	CountryIssuedPassport(&g,"markburgess_osl","UK","Number 12345")
+	CountryIssuedVisa(&g,"markburgess_osl","USA","Visa Waiver")
+
+	PersonLocation(&g,"markburgess_osl","New York")
+	PersonLocation(&g,"markburgess_osl","London")
 
 	// This could be a problem, because we haven't made a collection for cities
 	// Requires some additional logic
@@ -126,8 +139,9 @@ func main() {
 	// Captain Evil's journey as a sequential process
 
 	CountryIssuedVisa(&g,"Captain Evil","USA","Work Visa")
-	PersonLocation(&g,"Captain Evil","UK")
-	PersonLocation(&g,"Captain Evil","USA")
+
+	PersonLocation(&g,"Captain Evil","London")
+	PersonLocation(&g,"Captain Evil","Washington DC")
 
 }
 
@@ -142,11 +156,11 @@ func PersonLocation(g *Model, person, location string) {
 
 	person_id := strings.ReplaceAll(person," ","_")
 
-	CreatePerson(*g, person_id, "", 0, 0)
+	pers := CreatePerson(*g, person_id, "", 0, 0)
 
 	// Tanagra
 
-	CreateLocation(*g, location, "")
+	loc := CreateLocation(*g, location, "")
 
 	// Event: Darmok, Gillard at Tanagra
 
@@ -154,6 +168,11 @@ func PersonLocation(g *Model, person, location string) {
 	
 	short = strings.ReplaceAll(person + " in " + location," ","_")
 	long = person + " observed in " + location
+
+	minihub := CreateEvent(*g,short,long)
+
+	CreateLink(*g,minihub,"HAPPENED_IN",loc,1,1)
+	CreateLink(*g,minihub,"INVOLVED",pers,1,1)
 
 	// Add to proper timeline
 
@@ -164,9 +183,21 @@ func PersonLocation(g *Model, person, location string) {
 
 //****************************************************
 
-func CountryIssuedPassport(g *Model, person, location, passport string) {
+func LocationCountry(g Model, location, country string) {
 
-	country_hub := CreateLocation(*g, location, "")
+	loc := CreateLocation(g,location,"")
+	cty := CreateCountry(g,country,"")
+
+	CreateLink(g,cty,"CONTAINS",loc,1,1)
+
+	fmt.Println("Location: ",loc.Key,"is in",country)
+}
+
+//****************************************************
+
+func CountryIssuedPassport(g *Model, person, country, passport string) {
+
+	cty := CreateCountry(*g, country, "")
 
 	person_id := strings.ReplaceAll(person," ","_")
 	person_node := CreatePerson(*g, person_id, "", 0, 0)
@@ -177,14 +208,14 @@ func CountryIssuedPassport(g *Model, person, location, passport string) {
 
 	ASSOCIATIONS[pass_id] = Association{pass_id,GR_EXPRESSES,"grants passport to","holds passport from","did not grant passport to","does not hold passport from"}
 
-	CreateLink(*g, country_hub, pass_id, person_node, time_limit, 0)
+	CreateLink(*g, cty, pass_id, person_node, time_limit, 0)
 
 	// Now the event
 
 	var short,long string
 	
-	short = strings.ReplaceAll(location + " grants " + passport + " to " + person," ","_")
-	long = location + " granted passport " + passport + " to " + person
+	short = strings.ReplaceAll(country + " grants " + passport + " to " + person," ","_")
+	long = country + " granted passport " + passport + " to " + person
 
 	// Add to proper timeline
 
@@ -195,9 +226,9 @@ func CountryIssuedPassport(g *Model, person, location, passport string) {
 
 //****************************************************
 
-func CountryIssuedVisa(g *Model, person, location, visa string) {
+func CountryIssuedVisa(g *Model, person, country, visa string) {
 
-	country_hub := CreateLocation(*g, location, "")
+	cty := CreateCountry(*g, country, "")
 
 	person_id := strings.ReplaceAll(person," ","_")
 	person_node := CreatePerson(*g, person_id, "", 0, 0)
@@ -208,14 +239,14 @@ func CountryIssuedVisa(g *Model, person, location, visa string) {
 
 	ASSOCIATIONS[visa_id] = Association{visa_id,GR_EXPRESSES,"grants visa to","holds visa from","does not visa to","does not hold visa from"}
 
-	CreateLink(*g, country_hub, visa_id, person_node, time_limit, 0)
+	CreateLink(*g, cty, visa_id, person_node, time_limit, 0)
 
 	// Now the event
 
 	var short,long string
 	
-	short = strings.ReplaceAll(location + " grants " + visa + " to " + person," ","_")
-	long = location + " grants visa " + visa + " to " + person
+	short = strings.ReplaceAll(country + " grants " + visa + " to " + person," ","_")
+	long = country + " grants visa " + visa + " to " + person
 
 	// Add to proper timeline
 
@@ -244,7 +275,11 @@ func InitializeSmartSpaceTime() {
 
 	// *
 
+	ASSOCIATIONS["HAPPENED_IN"] = Association{"HAPPENED_IN",GR_FOLLOWS,"happened in","was the location of","did not happen in","was not the location of"}
+
 	ASSOCIATIONS["CAUSEDBY"] = Association{"CAUSEDBY",GR_FOLLOWS,"caused by","may cause","was not caused by","probably didn't cause"}
+
+	ASSOCIATIONS["INVOLVED"] = Association{"INVOLVED",GR_FOLLOWS,"involved","was involved in","did not involve","was not involved in"}
 
 	ASSOCIATIONS["DERIVES_FROM"] = Association{"DERIVES_FROM",GR_FOLLOWS,"derives from","leads to","does not derive from","does not leadto"}
 
@@ -483,7 +518,7 @@ func CreatePerson(g Model, short_description,vardescription string, number int, 
 
 	concept.Description = description
 	concept.Number = number
-	concept.Key = short_description
+	concept.Key = strings.ReplaceAll(short_description," ","_")
 	concept.Prefix = "Persons/"
 	concept.Weight = weight
 
@@ -501,7 +536,7 @@ func CreateCountry(g Model, short_description,vardescription string) Node {
 	description := InvariantDescription(vardescription)
 
 	concept.Description = description
-	concept.Key = short_description
+	concept.Key = strings.ReplaceAll(short_description," ","_")
 	concept.Prefix = "Countries/"
 
 	AddCountry(g,concept)
@@ -518,7 +553,7 @@ func CreateLocation(g Model, short_description,vardescription string) Node {
 	description := InvariantDescription(vardescription)
 
 	concept.Description = description
-	concept.Key = short_description
+	concept.Key = strings.ReplaceAll(short_description," ","_")
 	concept.Prefix = "Locations/"
 
 	AddLocation(g,concept)
@@ -535,7 +570,7 @@ func CreateEvent(g Model, short_description,vardescription string) Node {
 	description := InvariantDescription(vardescription)
 
 	concept.Description = description
-	concept.Key = short_description
+	concept.Key = strings.ReplaceAll(short_description," ","_")
 	concept.Prefix = "Events/"
 
 	AddEvent(g,concept)
