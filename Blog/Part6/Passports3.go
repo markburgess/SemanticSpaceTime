@@ -12,7 +12,7 @@ import (
 )
 
 // ********************************************************************************
-// * Passport v2: modifying the SST library by pasting in directly (see below)
+// * Passport v3: adding explicit denial - or negative space representation
 // ********************************************************************************
 
 type Model struct {
@@ -102,152 +102,31 @@ func main() {
 
 	g = OpenModel(dbname, service_url, user, pwd)
 
-	mb1 := CreatePerson(g,"markburgess_osl", "Professor Mark Burgess",123456,0)
-	mb2 := CreatePerson(g,"Professor Burgess", "Professor Mark Burgess",123456,0)
-
-	CreateLink(g,mb1,"ALIAS",mb2,0,0)
-
-	CreateCountry(g,"USA","United States of America")
-	CreateCountry(g,"UK","United Kingdom")
-
-	CreateLocation(g,"London","London, capital city in England")
-	CreateLocation(g,"Washington DC","Washington, capital city in USA")
-	CreateLocation(g,"New York","Capital of the World")
-
-	LocationCountry(g,"Washington DC","USA")
-	LocationCountry(g,"New York","USA")
-	LocationCountry(g,"London","UK")
-
-	france := CreateCountry(g,"France","France, country in Europe")
-	paris := CreateLocation(g,"Paris","Paris, capital city in France")
-
-	CreateLink(g,paris,"PART_OF",france,0,0)
-
-	// Mark's journey as a sequential process
-
-	CountryIssuedPassport(&g,"markburgess_osl","UK","Number 12345")
-	CountryIssuedVisa(&g,"markburgess_osl","USA","Visa Waiver")
-
-	PersonLocation(&g,"markburgess_osl","New York")
-	PersonLocation(&g,"markburgess_osl","London")
-
-	// This could be a problem, because we haven't made a collection for cities
-	// Requires some additional logic
-
-	CountryIssuedVisa(&g,"Emily","France","Schengen work visa")
-	PersonLocation(&g,"Emily","Paris")
-
-	// Captain Evil's journey as a sequential process
-
-	CountryIssuedVisa(&g,"Captain Evil","USA","Work Visa")
-
-	PersonLocation(&g,"Captain Evil","London")
-	PersonLocation(&g,"Captain Evil","Washington DC")
+	CountryDeniesVisa(&g,"Emily","UK","UK work visa")
 
 }
 
 //****************************************************
 
-func PersonLocation(g *Model, person, location string) {
-
-	// First to associate a person with a location as an event, we form an event hub
-        // we don't have details here, so just add empty values or don't channge
-
-	// Darmok
-
-	person_id := strings.ReplaceAll(person," ","_")
-
-	pers := CreatePerson(*g, person_id, "", 0, 0)
-
-	// Tanagra
-
-	loc := CreateLocation(*g, location, "")
-
-	// Event: Darmok, Gillard at Tanagra
-
-	var short,long string
-	
-	short = strings.ReplaceAll(person + " in " + location," ","_")
-	long = person + " observed in " + location
-
-	minihub := CreateEvent(*g,short,long)
-
-	CreateLink(*g,minihub,"HAPPENED_IN",loc,1,1)
-	CreateLink(*g,minihub,"INVOLVED",pers,1,1)
-
-	// Add to proper timeline
-
-	fmt.Println("Timeline: ",short)
-	NextDataEvent(g,short,long)
-
-}
-
-//****************************************************
-
-func LocationCountry(g Model, location, country string) {
-
-	loc := CreateLocation(g,location,"")
-	cty := CreateCountry(g,country,"")
-
-	CreateLink(g,cty,"CONTAINS",loc,1,1)
-
-	fmt.Println("Location: ",loc.Key,"is in",country)
-}
-
-//****************************************************
-
-func CountryIssuedPassport(g *Model, person, country, passport string) {
+func CountryDeniesVisa(g *Model, person, country, visa string) {
 
 	cty := CreateCountry(*g, country, "")
 
 	person_id := strings.ReplaceAll(person," ","_")
 	person_node := CreatePerson(*g, person_id, "", 0, 0)
-
-	time_limit := 1
-
-	pass_id := strings.ReplaceAll(passport," ","_")
-
-	ASSOCIATIONS[pass_id] = Association{pass_id,GR_EXPRESSES,"grants passport to","holds passport from","did not grant passport to","does not hold passport from"}
-
-	CreateLink(*g, cty, pass_id, person_node, time_limit, 0)
-
-	// Now the event
-
-	var short,long string
-	
-	short = strings.ReplaceAll(country + " grants " + passport + " to " + person," ","_")
-	long = country + " granted passport " + passport + " to " + person
-
-	// Add to proper timeline
-
-	fmt.Println("Timeline: ",long)
-	NextDataEvent(g,short,long)
-
-}
-
-//****************************************************
-
-func CountryIssuedVisa(g *Model, person, country, visa string) {
-
-	cty := CreateCountry(*g, country, "")
-
-	person_id := strings.ReplaceAll(person," ","_")
-	person_node := CreatePerson(*g, person_id, "", 0, 0)
-
-	time_limit := 1
 
 	visa_id := strings.ReplaceAll(visa," ","_")
 
-	ASSOCIATIONS[visa_id] = Association{visa_id,GR_EXPRESSES,"grants visa to","holds visa from","does not visa to","does not hold visa from"}
+	ASSOCIATIONS[visa_id] = Association{visa_id,GR_EXPRESSES,"grants visa to","holds visa from","does not grant visa to","does not hold visa from"}
 
-	CreateLink(*g, cty, visa_id, person_node, time_limit, 0)
+	BlockLink(*g, cty, visa_id, person_node)
 
 	// Now the event
 
 	var short,long string
 	
 	short = strings.ReplaceAll(country + " grants " + visa + " to " + person," ","_")
-	long = country + " grants visa " + visa + " to " + person
+	long = country + " denies visa " + visa + " to " + person + " and on the watchlist!"
 
 	// Add to proper timeline
 
@@ -526,6 +405,29 @@ func CreatePerson(g Model, short_description,vardescription string, number int, 
 	AddPerson(g,concept)
 
 	return concept
+}
+
+
+// ****************************************************************************
+
+func BlockLink(g Model, c1 Node, rel string, c2 Node) {
+
+	var link Link
+
+	//fmt.Println("BlockLink: c1",c1,"rel",rel,"c2",c2)
+
+	link.From = c1.Prefix + strings.ReplaceAll(c1.Key," ","_")
+	link.To = c2.Prefix + strings.ReplaceAll(c2.Key," ","_")
+	link.SId = ASSOCIATIONS[rel].Key
+	link.Weight = 666
+	link.Negate = true
+
+	if link.SId != rel {
+		fmt.Println("Associations not set up -- missing InitializeSmartSpacecTime?")
+		os.Exit(1)
+	}
+
+	AddLink(g,link)
 }
 
 // ****************************************************************************

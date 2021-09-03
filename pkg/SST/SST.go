@@ -131,6 +131,7 @@ type Link struct {
 	From     string `json:"_from"`     // mandatory field
 	To       string `json:"_to"`       // mandatory field
         SId      string `json:"semantics"` // Matches Association key
+	Negate     bool `json:"negation"`  // is this enable or block?
 	Weight  float64 `json:"weight"`
 	Key      string `json:"_key"`      // mandatory field (handle)
 }
@@ -280,6 +281,29 @@ func CreateLink(g Analytics, c1 Node, rel string, c2 Node, weight float64) {
 	link.To = c2.Prefix + strings.ReplaceAll(c2.Key," ","_")
 	link.SId = ASSOCIATIONS[rel].Key
 	link.Weight = weight
+	link.Negate = false
+
+	if link.SId != rel {
+		fmt.Println("Associations not set up -- missing InitializeSmartSpacecTime?")
+		os.Exit(1)
+	}
+
+	AddLink(g,link)
+}
+
+// ****************************************************************************
+
+func BlockLink(g Analytics, c1 Node, rel string, c2 Node, weight float64) {
+
+	var link Link
+
+	//fmt.Println("CreateLink: c1",c1,"rel",rel,"c2",c2)
+
+	link.From = c1.Prefix + strings.ReplaceAll(c1.Key," ","_")
+	link.To = c2.Prefix + strings.ReplaceAll(c2.Key," ","_")
+	link.SId = ASSOCIATIONS[rel].Key
+	link.Weight = weight
+	link.Negate = true
 
 	if link.SId != rel {
 		fmt.Println("Associations not set up -- missing InitializeSmartSpacecTime?")
@@ -968,6 +992,7 @@ func AddLink(g Analytics, link Link) {
 	edge := Link{
  	 	From: link.From, 
 		SId: ass,
+		Negate: link.Negate,
 		To: link.To, 
 		Key: key,
 		Weight: link.Weight,
