@@ -35,13 +35,10 @@ func main() {
 
 	// 1. test cellibrium graph
 
-
 	flag.Usage = usage
 	flag.Parse()
 	args := flag.Args()
 
-	S.InitializeSmartSpaceTime()
-		
 	var dbname string = "SemanticSpacetime"
 	var url string = "http://localhost:8529"
 	var user string = "root"
