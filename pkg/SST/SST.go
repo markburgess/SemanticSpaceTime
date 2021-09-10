@@ -66,8 +66,8 @@ type Neighbours []int
 
 type ConnectionSemantics struct {
 
-	LinkType string
-	From     string
+	LinkType string  // Association type
+	From     string  // Node key pointed to
 
 	// Used in aggregation
 
@@ -106,9 +106,10 @@ S_Near      A.Collection
 
 // Chain memory 
 previous_event_key Node
+previous_event_slice []Node
 }
 
-// ************************************************************
+// ***************************************************************************
 
 type IntKeyValue struct {
 
@@ -396,7 +397,7 @@ func InvariantDescription(s string) string {
 }
 
 // ****************************************************************************
-// Event Histoyy
+// Event History
 // ****************************************************************************
 
 func NextDataEvent(g *Analytics, shortkey, data string) Node {
@@ -413,7 +414,43 @@ func NextDataEvent(g *Analytics, shortkey, data string) Node {
 	return key 
 }
 
-//**************************************************************
+// ****************************************************************************
+
+func NextParallelEvents(g *Analytics, shortkeys []string, data []string) []Node {
+
+	// If each timestep has a number of parallel slit possibilities, we need to link them all
+
+	var keys []Node = make([]Node,0)
+
+	for to := range shortkeys {
+
+		key := CreateNode(*g, shortkeys[to], data[to], 1.0)   // selection #n
+		
+		if g.previous_event_key.Key != "start" {
+
+			for from := range g.previous_event_slice {
+
+				CreateLink(*g, g.previous_event_slice[from], "THEN", key, 1.0)
+			}
+		}
+		
+		keys = append(keys,key)
+		g.previous_event_slice = append(g.previous_event_slice,key)
+	}
+
+	g.previous_event_key = g.previous_event_slice[0]
+		
+	return keys 
+}
+
+// ****************************************************************************
+
+func PreviousEvent(g *Analytics) Node {
+
+	return g.previous_event_key
+}
+
+// ****************************************************************************
 
 func GetNode(g Analytics, key string) string {
 
