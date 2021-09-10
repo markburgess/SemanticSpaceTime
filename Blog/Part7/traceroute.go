@@ -118,26 +118,14 @@ func ParseTrace(trace []string) {
 			continue
 		}
 
+		// Make a unique key for the cluster
+
 		sort.Strings(hop.Tuple)
 		hop.Key = hop.Tuple[0]
 
 		for addr := 1; addr < len(hop.Tuple); addr++ {
 			
 			hop.Key = hop.Key + "_" + hop.Tuple[addr]
-		}
-
-		// Single IPs are Nodes - skip dark nodes *
-		// Spacelike parallel slices are Hubs
-
-		if len(hop.Tuple) > 1 && hop.Key != "*_*_*" {
-
-			hub := S.CreateHub(g,hop.Key,"parallel ports",3)
-			
-			for addr := 1; addr < len(hop.Tuple); addr++ {
-				
-				member := S.CreateNode(g,hop.Tuple[addr],"IP node",1)
-				S.CreateLink(g, hub, "CONTAINS", member,1)
-			}
 		}
 		
 		hops = append(hops,hop)
@@ -172,7 +160,7 @@ func ParseTrace(trace []string) {
 				
 				// Exiting workhole, now we measured the tunnel, record it as one longitudinal supernode
 				
-				tunnel := Hop{ Key: fmt.Sprintf("wormhole_%d_from_%s_to_%s",wormhole,mouth.Key,next.Key)}
+				tunnel := Hop{ Key: fmt.Sprintf("wormhole_%d_from_%s_to_%s",wormhole,mouth.Key,next.Key), Tuple: next.Tuple }
 				nodes,comments := CoActivationGroupMerge(&g,tunnel)
 				S.NextParallelEvents(&g,nodes,comments)
 				
@@ -224,10 +212,18 @@ func CoActivationGroupMerge(g *S.Analytics, this Hop) ([]string,[]string) {
 	// The Tuple array contains the co-active members. Since these are probed in parallel
 	// they belong to different/parallel proper timelines
 
-	for a := 1; a < len(this.Tuple); a++ {
+	hub := S.CreateHub(*g,this.Key,"Symmetric service hub",1)
+
+	for a := 0; a < len(this.Tuple); a++ {
 
 		// Check for any hubs that also contain these addresses, as we may
 		// need to join them rather than starting a new hub
+
+		// Single IPs are Nodes - skip dark nodes *
+		// Spacelike parallel slices are Hubs
+
+		member := S.CreateNode(*g,this.Tuple[a],"IP node",1)
+		S.CreateLink(*g, hub, "CONTAINS", member,1)
 
 		hubs := HubThatContain(*g,this.Tuple[a])
 		
@@ -237,7 +233,7 @@ func CoActivationGroupMerge(g *S.Analytics, this Hop) ([]string,[]string) {
 		for h1 := 0; h1 < len(hubs); h1++ {
 			for h2 := h1 + 1; h2 < len(hubs); h2++ {
 				
-				fmt.Println("\nX",this.Key,hubs[h1],"NEAR",hubs[h2])
+				fmt.Println("!!!Merging hubs",this.Key,hubs[h1],"NEAR",hubs[h2])
 
 				S.CreateLink(*g,hubs[h1],"COACTIV",hubs[h2],1)
 				S.CreateLink(*g,hubs[h2],"COACTIV",hubs[h1],1)
