@@ -1,0 +1,15 @@
+
+This example opens a pipe from the Linux traceroute program, with default settings.
+
+  go run traceroute.go  google.com
+
+Traceroute makes three parallel pings to each location along the route
+and reports on the addresses that come back. If the route hits some
+kind of load balancer, then different addresses will be reported. These are joined
+by a hub node to show that they belong to the same organization. If
+the router blocks ICMP packets then * is returned.  The program
+collects the outputs and organizes them, linking parallel addresses,
+and chains of * * * into "wormholes" of a certain path length.
+The graph can be observed by plotting the full graph in Arango. It should have
+a snake-like thread from beginning to end.
+
