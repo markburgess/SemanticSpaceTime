@@ -11,6 +11,8 @@ import (
 
 // ********************************************************************************
 // * Run AFTER doors.go
+// * Find all the nodes with the same in and out links. This shows symmetry
+// * but doesn't result in aggregate coarse grains if there are multiple external lines
 // ********************************************************************************
 
 type SMatrix struct {
