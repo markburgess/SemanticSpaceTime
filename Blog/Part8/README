@@ -2,9 +2,14 @@
 These examples illustrate the use of the SST package
 
 sst.go   - put some data into a graph using the SST library
+
 doors.go - model and analyze a causal process (see blog) using the SST library
+scatter.go - run after doors.go to show coarse grains with symmetrical scatter
+scatter2.go - run after doors.go to show aggregated grains
 
 scan.go  - NLP scan a document and turn its parts into a simple graph database
+           e.g. go run scan.go obama.dat
+
 query.go - query the database based on search terms and show stories
 
 
