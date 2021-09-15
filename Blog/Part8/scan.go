@@ -699,7 +699,7 @@ func AnnotateSentence(ctx *context.Context,filename string, s_number int,sentenc
 				
 				// fragment(fraglen, number, event)
 				key := fmt.Sprintf("F:L%d,N%d,E%d",i,f,index)
-				frag := S.CreateFragment(G,key,fragment)
+				frag := S.CreateFragment(G,key,fragment,1.0)
 
 				S.CreateLink(G,event,"CONTAINS",frag,1.0)
 
