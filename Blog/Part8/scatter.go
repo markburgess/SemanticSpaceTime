@@ -39,7 +39,7 @@ func main() {
 
 	for grain := range grains {
 
-		fmt.Printf("%20s = %s\n", grain,grains[grain])
+		fmt.Printf("%25s <-- %s\n", grain,grains[grain])
 	}
 }
 
@@ -78,7 +78,7 @@ func FindCoarseGrains(g S.Analytics) map[string][]string {
 
 			in := strings.Split(doc.In,"/")
 			out := strings.Split(doc.Out,"/")
-			key := in[1] + "->" + out[1]
+			key := "<" + in[1] + "|" + out[1] + ">"
 
 			grains[key] = append(grains[key],doc.Node)
 
