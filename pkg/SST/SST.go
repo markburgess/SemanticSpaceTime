@@ -429,6 +429,8 @@ func NextParallelEvents(g *Analytics, shortkeys []string, data []string) []Node 
 		
 		if g.previous_event_key.Key != "start" {
 
+			// Link all the previous keys in slice
+
 			for from := range g.previous_event_slice {
 
 				CreateLink(*g, g.previous_event_slice[from], "THEN", key, 1.0)
