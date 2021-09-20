@@ -160,7 +160,8 @@ func ParseTrace(trace []string) {
 				
 				// Exiting workhole, now we measured the tunnel, record it as one longitudinal supernode
 				
-				tunnel := Hop{ Key: fmt.Sprintf("wormhole_%d_from_%s_to_%s",wormhole,mouth.Key,next.Key), Tuple: next.Tuple }
+				wkey := fmt.Sprintf("wormhole_%d_from_%s_to_%s",wormhole,mouth.Key,next.Key)
+				tunnel := Hop{ Key: wkey, Tuple: []string{wkey} }
 				nodes,comments := CoActivationGroupMerge(&g,tunnel)
 				S.NextParallelEvents(&g,nodes,comments)
 				
@@ -176,13 +177,14 @@ func ParseTrace(trace []string) {
 
 		if wormhole == 0 {
 
+			gateways, comments := CoActivationGroupMerge(&g,hops[h])
+			S.NextParallelEvents(&g,gateways,comments)
+
 			if hops[h].Key != "*_*_*" && next.Key == "*_*_*" {
+				//fmt.Println("     Entering a wormhole * * *")
 				mouth = hops[h]
 				wormhole++
 			}
-			
-			gateways, comments := CoActivationGroupMerge(&g,hops[h])
-			S.NextParallelEvents(&g,gateways,comments)
 		}
 		
 	}
