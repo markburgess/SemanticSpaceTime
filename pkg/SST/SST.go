@@ -972,7 +972,7 @@ func InsertNodeIntoCollection(g Analytics, node Node, coll A.Collection) {
 		
 		if err != nil {
 			fmt.Println("Failed to create non existent node in InsertNodeIntoCollection: ",node,err)
-			os.Exit(1);
+			return
 		}
 
 	} else {
@@ -990,7 +990,7 @@ func InsertNodeIntoCollection(g Analytics, node Node, coll A.Collection) {
 
 		if err != nil {
 			fmt.Printf("Failed to read value: %s %v",node.Key,err)
-			os.Exit(1);	
+			return	
 		}
 
 		if checknode != node {
@@ -1001,7 +1001,7 @@ func InsertNodeIntoCollection(g Analytics, node Node, coll A.Collection) {
 
 			if err != nil {
 				fmt.Printf("Failed to update value: %s %v",node,err)
-				os.Exit(1);
+				return
 
 			}
 		}
