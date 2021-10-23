@@ -60,13 +60,13 @@ db._query('FOR reg IN Region FILTER GEO_DISTANCE([4.60971, -74.08175],reg.coordi
 
 db._query('FOR reg IN Region FILTER GEO_DISTANCE([4.60971, -74.08175],reg.coordinates) < 400000000 FOR aset IN Contains FILTER aset.semantics == "ASET_IN" FILTER aset._to == reg._id FOR aif IN Contains FILTER aif.semantics=="HAS_INTERFACE" && aif._from == aset._from RETURN aif._to')
 
-SHORTEST-PATH
---------------
-
+SHORTEST-PATH searches
+----------------------
 Now we've separated semantics (CONTAINS,EXPRESSES) from routing adjacency function (NEAR)
 
 ADJ_NODE - we can follow routes between AliasSets (this is what we have direct data for)
 ADJ_IP   - we can follow routes between interfaces (point to point, need to be joined through AliasSets)
+----------------------
 
 // Show neighbours of N2
 
@@ -76,6 +76,24 @@ db._query('FOR a in Near FILTER a.semantics == "ADJ_NODE" && a._from == "AliasSe
 
 db._query('FOR v, e, p IN 1..5 OUTBOUND "AliasSets/N2" GRAPH "concept_spacetime" RETURN { vertices: p.vertices[*]._key, edges: p.edges[*].semantics }')
 
-// Show shortest path from N2 to N495438
+// Shortest path from N2 to N3
 
-db._query("FOR v, e IN ANY SHORTEST_PATH 'AliasSets/N2' TO 'AliasSets/N495438' Near RETURN [v._key, e.semantics]");
+db._query("FOR v, e IN ANY SHORTEST_PATH 'AliasSets/N2' TO 'AliasSets/N3' Near RETURN [v._key, e._key]");
+[object ArangoQueryCursor, count: 3, cached: false, hasMore: false]
+
+[ 
+  [ 
+    "N2", 
+    null 
+  ], 
+  [ 
+    "N495436", 
+    "key_4826197003988944128" 
+  ], 
+  [ 
+    "N3", 
+    "key_4865902978761188941" 
+  ] 
+]
+
+
