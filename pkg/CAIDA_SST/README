@@ -3,7 +3,19 @@
 
    Cellibrium/Smart Spacetime model for CAIDA data sets
 
+https://publicdata.caida.org/datasets/topology/ark/ipv4/itdk/2020-08/
+
+      midar-iff.ifaces.bz2                2020-09-11 12:55  533M  
+      midar-iff.links.bz2                 2020-09-11 12:50  570M  
+      midar-iff.nodes.as.bz2              2020-09-25 02:53  105M  
+      midar-iff.nodes.bz2                 2020-09-11 12:45  439M  
+      midar-iff.nodes.geo.bz2             2020-09-23 02:41  212M  
+
+      itdk-run-20200819-dns-names.txt.bz2 2020-09-06 14:51   22M  IPv4 Routed /24 DNS Names Dataset
+
 ====================================================================
+
+For the data model, see the figure model.png
 
 CONTAINS
 
@@ -83,7 +95,6 @@ db._query('FOR p IN 1..5 OUTBOUND "AliasSets/N2" GRAPH "concept_spacetime" RETUR
 // Where is a node?
 
 db._query('FOR p IN 1..5 OUTBOUND "AliasSets/N2" GRAPH "concept_spacetime" RETURN { vertices: p.vertices[*]._key, edges: p.edges[Contains].semantics }')
-
 
 // Shortest path from N2 to N3
 
