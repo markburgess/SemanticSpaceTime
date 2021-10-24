@@ -88,20 +88,24 @@ ADJ_IP   - we can follow routes between interfaces (point to point, need to be j
 
 db._query('FOR a in Near FILTER a.semantics == "ADJ_NODE" && a._from == "AliasSets/N2" RETURN a._to')
 
-// Traverse graph from N2
-
-db._query('FOR p IN 1..5 OUTBOUND "AliasSets/N2" GRAPH "concept_spacetime" RETURN { vertices: p.vertices[*]._key, edges: p.edges[*].semantics }')
-
-// Where is a node?
-
-db._query('FOR p IN 1..5 OUTBOUND "AliasSets/N2" GRAPH "concept_spacetime" RETURN { vertices: p.vertices[*]._key, edges: p.edges[Contains].semantics }')
-
 // Shortest path from N2 to N3
 
 db._query("FOR v, e IN ANY SHORTEST_PATH 'AliasSets/N2' TO 'AliasSets/N3' Near RETURN [v._key, e._key]");
 
 // Path functions https://www.arangodb.com/docs/3.8/aql/graphs-traversals.html - hard to use
 
-// Alternative
+// Show locations for N2
 
-db._query('FOR p1 IN Contains FILTER p1._to == "AliasSets/N2" FOR p2 IN Contains FILTER p2._to == p1._from RETURN { source: p1._to, region: p2._to, country: p2._from }')
+db._query('FOR p1 IN Contains FILTER p1._from == "AliasSets/N2" FOR p2 IN Contains FILTER p2._from == p1._to RETURN { source: p1._to, region: p2._to, country: p2._from }')
+
+// Show IP addresses in N40957
+
+db._query('FOR p1 IN Contains FILTER p1._from == "AliasSets/N40957" && p1.semantics == "HAS_INTERFACE"  RETURN { source: p1._to }')
+
+// Show domains in N40957
+
+db._query('FOR p1 IN Contains FILTER p1._from == "AliasSets/N40957" && p1.semantics == "HAS_INTERFACE" FOR p2 IN Expresses FILTER p2._to == p1._to RETURN { source: p1._to, region: p2._to, country: p2._from }')
+
+// Show AliasSets for domain DNS/veloce_2007_ar_jal_rocketnet_com_br
+
+db._query('FOR p1 IN Expresses FILTER p1._from == "DNS/veloce_2007_ar_jal_rocketnet_com_br" FOR p2 IN Contains FILTER p1._to == p2._to RETURN p2._from')
