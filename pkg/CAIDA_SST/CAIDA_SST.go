@@ -187,11 +187,12 @@ type VectorPair struct {
 
 func InitializeSmartSpaceTime() {
 
+	// - sign indicates arrow points in opposite direction to assumed semantics, e.g. "CONTAINS"
 
 	ASSOCIATIONS["PART_OF"] = Association{"PART_OF",-GR_CONTAINS,"incorporates","is part of","is not part of","doesn't contribute to"}
 
-	ASSOCIATIONS["ASET_IN"] = Association{"ASET_IN",GR_CONTAINS,"is located in","contains","is not in","doesn't contain"}
-	ASSOCIATIONS["REGION_IN"] = Association{"REGION_IN",GR_CONTAINS,"is located in","contains","is not in","doesn't contain"}
+	ASSOCIATIONS["ASET_IN"] = Association{"ASET_IN",-GR_CONTAINS,"is located in","contains","is not in","doesn't contain"}
+	ASSOCIATIONS["REGION_IN"] = Association{"REGION_IN",-GR_CONTAINS,"is located in","contains","is not in","doesn't contain"}
 	ASSOCIATIONS["HAS_INTERFACE"] = Association{"HAS_INTERFACE",GR_CONTAINS,"has interface address","is an interface address of","does not have interface","not an interface address of"}
 
 	// *
@@ -339,6 +340,10 @@ func CreateAS(g ITDK, name,method string) Node {
 func CreateRegion(g ITDK, shortname,fullname string, lat,long float64) Node {
 
 	var region Node
+
+	if fullname == "" {
+		fullname = "Data error in file format"
+	}
 
 	if shortname == "" {
 		shortname = strings.ReplaceAll(fullname," ","_")
