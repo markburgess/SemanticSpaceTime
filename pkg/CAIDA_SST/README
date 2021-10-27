@@ -76,6 +76,11 @@ db._query('FOR reg IN Region FILTER GEO_DISTANCE([4.60971, -74.08175],reg.coordi
 
 db._query('FOR reg IN Region FILTER GEO_DISTANCE([4.60971, -74.08175],reg.coordinates) < 400000000 FOR aset IN Contains FILTER aset.semantics == "ASET_IN" FILTER aset._to == reg._id FOR aif IN Contains FILTER aif.semantics=="HAS_INTERFACE" && aif._from == aset._from RETURN aif._to')
 
+// ...oops previous syntax, replace second filter with && -- faster!? no same
+
+db._query('FOR reg IN Region FILTER GEO_DISTANCE([4.60971, -74.08175],reg.coordinates) < 400000000 FOR aset IN Contains FILTER aset.semantics == "ASET_IN" && aset._to == reg._id FOR aif IN Contains FILTER aif.semantics=="HAS_INTERFACE" && aif._from == aset._from RETURN aif._to')
+
+
 SHORTEST-PATH searches
 ----------------------
 Now we've separated semantics (CONTAINS,EXPRESSES) from routing adjacency function (NEAR)
@@ -88,7 +93,7 @@ ADJ_IP   - we can follow routes between interfaces (point to point, need to be j
 
 db._query('FOR a in Near FILTER a.semantics == "ADJ_NODE" && a._from == "AliasSets/N2" RETURN a._to')
 
-// Shortest path from N2 to N3
+// Shortest path from N2 to N3 .. note returns unnamed array [] rather than named JSON
 
 db._query("FOR v, e IN ANY SHORTEST_PATH 'AliasSets/N2' TO 'AliasSets/N3' Near RETURN [v._key, e._key]");
 
