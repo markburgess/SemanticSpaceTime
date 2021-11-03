@@ -87,7 +87,8 @@ type ITDK struct {
 	
 	S_DNS       A.Collection
 	S_AS        A.Collection
-	S_AliasSets A.Collection // (aka "nodes" in CAIDA speak)
+	S_Devices   A.Collection // (aka "nodes" in CAIDA speak)
+	S_Unknown   A.Collection // hubs that bond "hyperlinks" or wormholes/tunnels (ether,MPLS, etc)
 	S_Country   A.Collection
 	S_Region    A.Collection
 	S_IPv4      A.Collection
@@ -139,12 +140,14 @@ type Node struct {
 // ***************************************************************************
 
 type Link struct {
-	From     string `json:"_from"`     // mandatory field
-	To       string `json:"_to"`       // mandatory field
-        SId      string `json:"semantics"` // Matches Association key
-	Negate     bool `json:"negation"`  // is this enable or block?
-	Weight  float64 `json:"weight"`
-	Key      string `json:"_key"`      // mandatory field (handle)
+	From        string `json:"_from"`     // mandatory field
+	To          string `json:"_to"`       // mandatory field
+	CommentFrom string `json:"NBfrom"`    // Comment about from node
+	CommentTo   string `json:"NBto"  `    // Comment about to node
+        SId         string `json:"semantics"` // Matches Association key
+	Negate        bool `json:"negation"`  // is this enable or block?
+	Weight     float64 `json:"weight"`
+	Key         string `json:"_key"`      // mandatory field (handle)
 }
 
 // ****************************************************************************
@@ -193,7 +196,10 @@ func InitializeSmartSpaceTime() {
 
 	ASSOCIATIONS["ASET_IN"] = Association{"ASET_IN",-GR_CONTAINS,"is located in","contains","is not in","doesn't contain"}
 	ASSOCIATIONS["REGION_IN"] = Association{"REGION_IN",-GR_CONTAINS,"is located in","contains","is not in","doesn't contain"}
+
 	ASSOCIATIONS["HAS_INTERFACE"] = Association{"HAS_INTERFACE",GR_CONTAINS,"has interface address","is an interface address of","does not have interface","not an interface address of"}
+
+	ASSOCIATIONS["HAS_UNKNOWN"] = Association{"HAS_UNKNOWN",-GR_CONTAINS,"connects through unknown","connects to device","does not connect through unknown","does not connect to device"}
 
 	// *
 
@@ -201,8 +207,8 @@ func InitializeSmartSpaceTime() {
 
 	// *
 
-	ASSOCIATIONS["ADJ_NODE"] = Association{"ADJ_NODE",GR_NEAR,"has route to","has route to","no route to","no route to"}
-	ASSOCIATIONS["ADJ_IP"] = Association{"ADJ_IP",GR_NEAR,"is connected to","is connected to","is not connected to","is not connected to"}
+	ASSOCIATIONS["ADJ_NODE"] = Association{"ADJ_NODE",GR_NEAR,"has route IP to","has IP route to","no IP route to","no route to"}
+	ASSOCIATIONS["ADJ_IP"] = Association{"ADJ_IP",GR_NEAR,"is IP adjacent to","is IP adjacent to","is not connected to","is not connected to"}
 
 	// *
 
@@ -229,6 +235,31 @@ func CreateLink(g ITDK, c1 Node, rel string, c2 Node, weight float64) {
 	link.SId = ASSOCIATIONS[rel].Key
 	link.Weight = weight
 	link.Negate = false
+
+	if link.SId != rel {
+		fmt.Println("Associations not set up -- missing InitializeSmartSpacecTime?",rel)
+		os.Exit(1)
+	}
+
+	AddLink(g,link)
+}
+
+// ****************************************************************************
+
+func CommentedLink(g ITDK, c1 Node, rel string, c2 Node, nbfr,nbto string, weight float64) {
+
+	var link Link
+
+	//fmt.Println("CreateLink: c1",c1,"rel",rel,"c2",c2)
+
+	link.From = c1.prefix + strings.ReplaceAll(c1.Key," ","_")
+	link.To = c2.prefix + strings.ReplaceAll(c2.Key," ","_")
+	link.SId = ASSOCIATIONS[rel].Key
+	link.Weight = weight
+	link.Negate = false
+
+	link.CommentFrom = nbfr
+	link.CommentTo = nbto
 
 	if link.SId != rel {
 		fmt.Println("Associations not set up -- missing InitializeSmartSpacecTime?",rel)
@@ -277,47 +308,62 @@ func IncrementLink(g ITDK, c1 Node, rel string, c2 Node) {
 
 // ****************************************************************************
 
-func CreateAliasSet(g ITDK, name string) Node {
+func CreateDevice(g ITDK, name string) Node {
 
-	var alias_set Node
+	var device Node
 
-	alias_set.Key = name
-	alias_set.prefix = "AliasSets/"
-	alias_set.Comment = ""
-	alias_set.Weight = 0
+	device.Key = name
+	device.prefix = "Devices/"
+	device.Comment = ""
+	device.Weight = 0
 
-	InsertNodeIntoCollection(g,alias_set,g.S_AliasSets)
-	return alias_set
+	InsertNodeIntoCollection(g,device,g.S_Devices)
+	return device
+}
+
+// ****************************************************************************
+
+func CreateUnknown(g ITDK, name string) Node {
+
+	var unknown Node
+
+	unknown.Key = name
+	unknown.prefix = "Unknown/"
+	unknown.Comment = ""
+	unknown.Weight = 0
+
+	InsertNodeIntoCollection(g,unknown,g.S_Unknown)
+	return unknown
 }
 
 // ****************************************************************************
 
 func CreateIPv4(g ITDK, name string) Node {
 
-	var alias_set Node
+	var ip Node
 
-	alias_set.Key = name
-	alias_set.prefix = "IPv4/"
-	alias_set.Comment = ""
-	alias_set.Weight = 0
+	ip.Key = name
+	ip.prefix = "IPv4/"
+	ip.Comment = ""
+	ip.Weight = 0
 
-	InsertNodeIntoCollection(g,alias_set,g.S_IPv4)
-	return alias_set
+	InsertNodeIntoCollection(g,ip,g.S_IPv4)
+	return ip
 }
 
 // ****************************************************************************
 
 func CreateIPv6(g ITDK, name string) Node {
 
-	var alias_set Node
+	var ip Node
 
-	alias_set.Key = name
-	alias_set.prefix = "IPv6/"
-	alias_set.Comment = ""
-	alias_set.Weight = 0
+	ip.Key = name
+	ip.prefix = "IPv6/"
+	ip.Comment = ""
+	ip.Weight = 0
 
-	InsertNodeIntoCollection(g,alias_set,g.S_IPv6)
-	return alias_set
+	InsertNodeIntoCollection(g,ip,g.S_IPv6)
+	return ip
 }
 
 // ****************************************************************************
@@ -430,8 +476,12 @@ func GetNode(g ITDK, key string) Node {
 		coll = g.S_AS
 		break
 
-	case "AliasSets": 
-		coll = g.S_AliasSets
+	case "Devices": 
+		coll = g.S_Devices
+		break
+
+	case "Unknown": 
+		coll = g.S_Unknown
 		break
 
 	case "Country": 
@@ -521,216 +571,6 @@ func fnvhash(b []byte) string { // Currently trusting this to have no collisions
         return fmt.Sprintf("key_%d",h)
 }
 
-//********************************************************
-
-func UpdateHistogram(g ITDK, histoname, data string) {
-
-	// Sanitize key - no spaces
-
-	keyname := strings.ReplaceAll(data," ","_")
-
-	// Check/Create collection
-
-	var err error
-	var coll_exists bool
-	var coll A.Collection
-
-	coll_exists, err = g.S_db.CollectionExists(nil, histoname)
-
-	if coll_exists {
-		coll, err = g.S_db.Collection(nil, histoname)
-
-		if err != nil {
-			fmt.Printf("Existing collection: %v", err)
-			os.Exit(1)
-		}
-
-	} else {
-
-		coll, err = g.S_db.CreateCollection(nil, histoname, nil)
-
-		if err != nil {
-			fmt.Printf("Failed to create collection: %v", err)
-		}
-
-
-	}
-
-	exists,err := coll.DocumentExists(nil, keyname)
-
-	if !exists {
-
-		var kv IntKeyValue
-
-		kv.K = keyname
-		kv.V = 1
-
-		_, err = coll.CreateDocument(nil, kv)
-		
-		if err != nil {
-			fmt.Printf("Failed to create non existent node in histo: %s %v",kv.K,err)
-			os.Exit(1);
-		}
-		return
-	}
-
-	IncrementIntKV(g, histoname, keyname)
-}
-
-//********************************************************
-
-func SaveIntKVMap(collname string, db A.Database, kv []IntKeyValue) {
-
-	// Create collection
-
-	var err error
-	var coll_exists bool
-	var coll A.Collection
-
-	coll_exists, err = db.CollectionExists(nil, collname)
-
-	if coll_exists {
-		fmt.Println("Collection " + collname +" exists already")
-
-		coll, err = db.Collection(nil, collname)
-
-		if err != nil {
-			fmt.Printf("Existing collection: %v", err)
-			os.Exit(1)
-		}
-
-	} else {
-
-		coll, err = db.CreateCollection(nil, collname, nil)
-
-		if err != nil {
-			fmt.Printf("Failed to create collection: %v", err)
-		}
-	}
-
-	for k := range kv {
-
-		AddIntKV(coll, kv[k])
-	}
-}
-
-// **************************************************
-
-func PrintIntKV(db A.Database, coll_name string) {
-
-	var err error
-	var cursor A.Cursor
-
-	querystring := "FOR doc IN " + coll_name +" LIMIT 10 RETURN doc"
-
-	cursor,err = db.Query(nil,querystring,nil)
-
-	if err != nil {
-		fmt.Printf("Query \""+ querystring +"\" failed: %v", err)
-		return
-	}
-
-	defer cursor.Close()
-
-	for {
-		var kv IntKeyValue
-
-		metadata,err := cursor.ReadDocument(nil,&kv)
-
-		if A.IsNoMoreDocuments(err) {
-			break
-		} else if err != nil {
-			fmt.Printf("KV returned: %v", err)
-		} else {
-			
-			fmt.Print("debug (K,V): (",kv.K,",", kv.V,")    ....    (",metadata,")\n")
-		}
-	}
-}
-
-// **************************************************
-
-func AddIntKV(coll A.Collection, kv IntKeyValue) {
-
-	// Add data with convergent semantics, CFEngine style
-
-	exists,err := coll.DocumentExists(nil, kv.K)
-
-	if !exists {
-
-		fmt.Println("Adding/Restoring",kv)
-		_, err = coll.CreateDocument(nil, kv)
-		
-		if err != nil {
-			fmt.Printf("Failed to create non existent node in AddIntKV: %s %v",kv.K,err)
-			os.Exit(1);
-		}
-	} else {
-
-		var checkkv IntKeyValue
-		
-		_,err = coll.ReadDocument(nil,kv.K,&checkkv)
-
-		if checkkv.V != kv.V {
-			//fmt.Println("Correcting data",checkkv,"to",kv)
-			_, err := coll.UpdateDocument(nil, kv.K, kv)
-			if err != nil {
-				fmt.Printf("Failed to update value: %s %v",kv.K,err)
-				os.Exit(1);
-			}
-		}
-	}
-}
-
-// **************************************************
-
-func IncrementIntKV(g ITDK, coll_name, key string) {
-
-        // UPDATE doc WITH { karma: doc.karma + 1 } IN users
-
-	querystring := "LET doc = DOCUMENT(\"" + coll_name + "/" + key + "\")\nUPDATE doc WITH { value: doc.value + 1 } IN " + coll_name
-
-	cursor,err := g.S_db.Query(nil,querystring,nil)
-
-	if err != nil {
-		fmt.Printf("Query \""+ querystring +"\" failed: %v", err)
-	}
-
-	cursor.Close()
-}
-
-// **************************************************
-
-func LoadIntKV2Map(db A.Database, coll_name string, extkv map[string]int) {
-
-	var err error
-	var cursor A.Cursor
-
-	querystring := "FOR doc IN " + coll_name +" LIMIT 10 RETURN doc"
-
-	cursor,err = db.Query(nil,querystring,nil)
-
-	if err != nil {
-		fmt.Printf("Query failed: %v", err)
-	}
-
-	defer cursor.Close()
-
-	for {
-		var kv IntKeyValue
-
-		_,err = cursor.ReadDocument(nil,&kv)
-
-		if A.IsNoMoreDocuments(err) {
-			break
-		} else if err != nil {
-			fmt.Printf("KV returned: %v", err)
-		} else {
-			extkv[kv.K] = kv.V
-		}
-	}
-}
-
 //***********************************************************************
 
 func OpenITDK(dbname, service_url, user, pwd string) ITDK {
@@ -752,19 +592,19 @@ func OpenITDK(dbname, service_url, user, pwd string) ITDK {
 	// Arango's cluster controller wants us to declare which links to search
 
 	F_edges.Collection = "Follows"
-	F_edges.From = []string{"AliasSets","AS"} // May not use this...
-	F_edges.To = []string{"AliasSets","AS"}
+	F_edges.From = []string{"Devices","AS"} // May not use this...
+	F_edges.To = []string{"Devices","AS"}
 
 	C_edges.Collection = "Contains"
-	C_edges.From = []string{"Country","Region","AliasSets","AS"}
-	C_edges.To = []string{"Region","AliasSets","IPv4","IPv6"}
+	C_edges.From = []string{"Country","Region","Devices","Unknown","AS"}
+	C_edges.To = []string{"Region","Devices","Unknown","IPv4","IPv6"}
 
 	N_edges.Collection = "Near"
-	N_edges.From = []string{"AliasSets","IPv4","IPv6","AS"}
-	N_edges.To = []string{"AliasSets","IPv4","IPv6","AS"}
+	N_edges.From = []string{"Devices","Unknown","IPv4","IPv6","AS"}
+	N_edges.To = []string{"Devices","IPv4","IPv6","AS"}
 
 	E_edges.Collection = "Expresses"
-	E_edges.From = []string{"AliasSets","DNS","AS"}
+	E_edges.From = []string{"Devices","DNS","AS"}
 	E_edges.To = []string{"IPv4","IPv6","DNS"}
 
 	var options A.CreateGraphOptions
@@ -801,11 +641,12 @@ func OpenITDK(dbname, service_url, user, pwd string) ITDK {
 
 	var dns_vertices A.Collection
 	var as_vertices A.Collection
-	var alias_vertices A.Collection
+	var device_vertices A.Collection
 	var country_vertices A.Collection
 	var region_vertices A.Collection
 	var ipv4_vertices A.Collection
 	var ipv6_vertices A.Collection
+	var unknown_vertices A.Collection
 
 	dns_vertices, err = graph.VertexCollection(nil, "DNS")
 
@@ -813,10 +654,16 @@ func OpenITDK(dbname, service_url, user, pwd string) ITDK {
 		fmt.Printf("Vertex collection DNS: %v\n", err)
 	}
 
-	alias_vertices, err = graph.VertexCollection(nil, "AliasSets")
+	device_vertices, err = graph.VertexCollection(nil, "Devices")
 
 	if err != nil {
-		fmt.Printf("Vertex collection AliasSets: %v\n", err)
+		fmt.Printf("Vertex collection Devices: %v\n", err)
+	}
+
+	unknown_vertices, err = graph.VertexCollection(nil, "Unknown")
+
+	if err != nil {
+		fmt.Printf("Vertex collection Unknown: %v\n", err)
 	}
 
 	country_vertices, err = graph.VertexCollection(nil, "Country")
@@ -885,7 +732,8 @@ func OpenITDK(dbname, service_url, user, pwd string) ITDK {
 
 	g.S_DNS = dns_vertices
 	g.S_AS = as_vertices
-	g.S_AliasSets = alias_vertices
+	g.S_Devices = device_vertices
+	g.S_Unknown = unknown_vertices
 	g.S_Country = country_vertices
 	g.S_Region = region_vertices
 	g.S_IPv4 = ipv4_vertices

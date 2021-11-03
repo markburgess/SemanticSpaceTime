@@ -9,17 +9,18 @@ import (
 	"strings"
 	"strconv"
 	"net"
+	"sort"
 
 	C "CAIDA_SST"
 )
 
 // ********************************************************************************
 
-const MAXLINES = 500000 // real    123m49.225s
+const MAXLINES = 500 //000 // real    123m49.225s
 
 // Data files from https://publicdata.caida.org/datasets/topology/ark/ipv4/itdk/2020-08/
 
-const ALIASSETS = "midar-iff.nodes"
+const DEVICES = "midar-iff.nodes"
 const GEO = "midar-iff.nodes.geo"
 const LINKS = "midar-iff.links"
 const AS = "midar-iff.nodes.as"
@@ -55,7 +56,7 @@ func main() {
 	// Load the files one by one
 
 	fmt.Println("Processing .nodes file")
-	ProcessFileByLines(g,path + "/" + ALIASSETS, AddAliasSets)
+	ProcessFileByLines(g,path + "/" + DEVICES, AddDevices)
 
 	fmt.Println("Processing .links file")
 	ProcessFileByLines(g,path + "/" + LINKS, AddLinks)
@@ -80,13 +81,15 @@ func usage() {
 
 // ********************************************************************************
 
-func AddAliasSets(g C.ITDK, linenumber int, line string) {
+func AddDevices(g C.ITDK, linenumber int, line string) {
 
-	//  Format: node <node_id>:   i1 i2 [i3] ..
+	// Format: node <node_id>:   i1 i2 [i3] ..
+        // These interfaces belong to a single device, see
+        // https://www.caida.org/catalog/papers/2011_midar_tr/midar-tr.pdf
 
 	list := strings.Split(string(line)," ")
 
-	alias_set,_,_ := GetAliasSetWithIP(g,list[1])
+	alias_set,_,_ := GetDeviceWithIP(g,list[1])
 
 	for i := 2; i < len(list); i++ {
 
@@ -105,8 +108,8 @@ func AddAliasSets(g C.ITDK, linenumber int, line string) {
 func AddLinks(g C.ITDK, linenumber int, line string) {
 
 	//  Format: link <link_id>:   <N1>:i1   <N2>:i2   [<N3>:[i3] .. [<Nm>:[im]]
-	//  Example: link L104:  N242484:211.79.48.158 N1847:211.79.48.157 N5849773
-        //  First is receiver, all others are source routes to receiver 
+	//  Example: link L104:   N242484:211.79.48.158 N1847:211.79.48.157 N5849773
+        //           [0]  [1]  [2][3]                   [4] ...
 
 	list := strings.Split(string(line)," ")
 
@@ -114,35 +117,54 @@ func AddLinks(g C.ITDK, linenumber int, line string) {
 	// list[0] == "link"
 	// list[1]  don't need this?
 	// list[2] is an additional stray space
+        // list[3] is receiver, all others are source routes to receiver 
 
 	recv_node := list[3]
 
-	alias1 , ipaddr1, ipnode1 := GetAliasSetWithIP(g,recv_node)
+	alias_recv , ipaddr_recv, ipnode_recv := GetDeviceWithIP(g,recv_node)
 
-	if ipaddr1 != "" {
-		C.CreateLink(g,alias1,"HAS_INTERFACE",ipnode1,0)
+	// All the rest are connections ... 
+        // if more than one (len list > 4) there must be an unknown intermediary
+
+	if len(list) == 3 {
+
+		alias_neigh, ipaddr_neigh, ipnode_neigh := GetDeviceWithIP(g,list[3])
+
+		// Annotate the link with the IP addresses if known, else ambiguous
+
+		C.CommentedLink(g,alias_recv,"ADJ_NODE",alias_neigh,ipaddr_recv,ipaddr_neigh,0)
+
+		if ipaddr_recv != "" && ipaddr_neigh != "" && ipaddr_recv != ipaddr_neigh {
+
+			C.CreateLink(g,ipnode_recv,"ADJ_IP",ipnode_neigh,0)
+		}
+
+		return
 	}
 
-	// All the rest are connections ...
+	// >3 devices, implies some intermediate hub (switch, MPLS cloud, etc)
 
-	for i := 3; i < len(list); i++ {
+	name := InventName(alias_recv.Key,list,3)      // combine names from 3 ..
+	unkn := C.CreateUnknown(g,name)
 
-		if len(list[i]) < 2 {  // stray space
+	// Two link types express the same connection, with different semantics
+	// to enable selective searches
+
+	C.CommentedLink(g,alias_recv,"HAS_UNKNOWN",unkn,ipaddr_recv,"*",0)
+	C.CommentedLink(g,alias_recv,"ADJ_NODE",unkn,ipaddr_recv,"*",0)
+
+	for i := 4; i < len(list); i++ {
+
+		if len(list[i]) < 2 {
 			continue
 		}
 
-		alias2 , ipaddr2, ipnode2 := GetAliasSetWithIP(g,list[i])
+		alias_neigh, ipaddr_neigh, _ := GetDeviceWithIP(g,list[i])
 
-		C.CreateLink(g,alias1,"ADJ_NODE",alias2,0)
+		// Annotate the link with the IP addresses if known, else ambiguous
 
-		if ipaddr2 != "" {
-			C.CreateLink(g,alias2,"HAS_INTERFACE",ipnode2,0)
-		}
-
-		if ipaddr1 != "" && ipaddr2 != "" && ipaddr1 != ipaddr2 {
-
-			C.CreateLink(g,ipnode1,"ADJ_IP",ipnode2,0)
-		}
+		C.CommentedLink(g,alias_neigh,"HAS_UNKNOWN",unkn,ipaddr_neigh,"*",0)
+		C.CommentedLink(g,alias_neigh,"ADJ_NODE",unkn,ipaddr_neigh,"*",0)
 	}
 
 }
@@ -162,7 +184,7 @@ func AddAS(g C.ITDK, linenumber int, line string) {
 	alias_set = strings.Trim(alias_set,":")
 
 	a = C.CreateAS(g,AS,method)
-	n = C.CreateAliasSet(g,alias_set)
+	n = C.CreateDevice(g,alias_set)
 
 	C.CreateLink(g,n,"PART_OF",a,0)
 }
@@ -195,7 +217,7 @@ func AddGeo(g C.ITDK, linenumber int, line string) {
 		return
 	}
 
-	n := C.CreateAliasSet(g,alias_set)
+	n := C.CreateDevice(g,alias_set)
 	c := C.CreateCountry(g,country)
 	r := C.CreateRegion(g,region,city,lat,long)
 
@@ -296,16 +318,16 @@ func GetIP(g C.ITDK, s string) (string,C.Node) {
 
 // ****************************************************************************
 
-func GetAliasSetWithIP(g C.ITDK, s string) (C.Node,string,C.Node) {
+func GetDeviceWithIP(g C.ITDK, s string) (C.Node,string,C.Node) {
 
-	var aliasset,ip C.Node
+	var device,ip C.Node
 	var ipaddr net.IP
 	
 	array := strings.Split(s,":")
 
 	id := array[0]
 
-	aliasset = C.CreateAliasSet(g,id)
+	device = C.CreateDevice(g,id)
 
 	if len(array) > 1 {
 		ipaddr = net.ParseIP(array[1])
@@ -320,5 +342,31 @@ func GetAliasSetWithIP(g C.ITDK, s string) (C.Node,string,C.Node) {
 		}
 	}
 
-	return aliasset, string(ipaddr), ip
+	return device, string(ipaddr), ip
+}
+
+// ****************************************************************************
+
+func InventName(src string, list []string, offset int) string {
+
+	var name string = ""
+	var parts []string = make([]string,0)
+	var n int = 0
+
+	parts = append(parts,src)
+
+	for i := offset; i < len(list); i++ {
+		n++
+		parts = append(parts,list[i])
+	}
+
+	// Avoid too much duplication by re-ordering
+
+	sort.Strings(parts)
+
+	for n = 0; n < len(parts); n++ {
+		name += "_" + parts[n]
+	} 
+
+	return C.InvariantDescription(name)
 }

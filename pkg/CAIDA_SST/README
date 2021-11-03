@@ -15,26 +15,34 @@ https://publicdata.caida.org/datasets/topology/ark/ipv4/itdk/2020-08/
 
 ====================================================================
 
+The data in these files is a preprocessed summary based on a complex
+inference model.  As a result, the data have specific semantics.
+
+====================================================================
+
 For the data model, see the figure model.png
+
+THe term "node" is ambiguous and used with several meanings. Here
+we choose Node --> Devices as these represent routing machinery.
 
 CONTAINS
 
 -An AS is a logical region, which contains an AliasSet (Node) completely
 -A country is physical region that contains smaller regions (cities)
--AliasSets contain one or more IPs uniquely
--If singleton IPs, AliasSet/IP contains IP/IP
+-Devices contain one or more IPs uniquely
+-If singleton IPs, Device/IP contains IP/IP
 
 EXPRESS
 
 -Regions/Cities have GeoCoordinates but don't contain them, as they are unique
 -DNS is an attribute of an IP address, or vice versa, since several DNS could be at one IP.
 -IP addresses are connected uniquely to other IP addresses (of the same type)
--AliasSets (routers) are connected to other AliasSets
+-Devices (routers) are connected to other Devices
 
 NEAR
 
 IPs connect to other IPs
-AliasSets connect to other AliasSets
+Devices connect to other Devices
 Regions can connect to other regions (geographically or via IP)
 Countries can connect to other countries (geographically or via IP)
 
@@ -59,7 +67,7 @@ db._query('FOR reg IN Region FILTER GEO_DISTANCE([4.60971 -74.08175],reg.coordin
 
 // Show IP addresses for an AliasSet N1
 
-db._query('FOR ip in Contains FILTER ip.semantics == "HAS_INTERFACE" && ip._from == "AliasSets/N1"  RETURN ip._to')
+db._query('FOR ip in Contains FILTER ip.semantics == "HAS_INTERFACE" && ip._from == "Devices/N1"  RETURN ip._to')
 
 // Show Regions within 40,000 km of x,y
 // (Region) _to: region <--ASET_IN-- _from: aset
@@ -85,32 +93,32 @@ SHORTEST-PATH searches
 ----------------------
 Now we've separated semantics (CONTAINS,EXPRESSES) from routing adjacency function (NEAR)
 
-ADJ_NODE - we can follow routes between AliasSets (this is what we have direct data for)
-ADJ_IP   - we can follow routes between interfaces (point to point, need to be joined through AliasSets)
+ADJ_NODE - we can follow routes between Devices (this is what we have direct data for)
+ADJ_IP   - we can follow routes between interfaces (point to point, need to be joined through Devices)
 ----------------------
 
 // Show neighbours of N2
 
-db._query('FOR a in Near FILTER a.semantics == "ADJ_NODE" && a._from == "AliasSets/N2" RETURN a._to')
+db._query('FOR a in Near FILTER a.semantics == "ADJ_NODE" && a._from == "Devices/N2" RETURN a._to')
 
 // Shortest path from N2 to N3 .. note returns unnamed array [] rather than named JSON
 
-db._query("FOR v, e IN ANY SHORTEST_PATH 'AliasSets/N2' TO 'AliasSets/N3' Near RETURN [v._key, e._key]");
+db._query("FOR v, e IN ANY SHORTEST_PATH 'Devices/N2' TO 'Devices/N3' Near RETURN [v._key, e._key]");
 
 // Path functions https://www.arangodb.com/docs/3.8/aql/graphs-traversals.html - hard to use
 
 // Show locations for N2
 
-db._query('FOR p1 IN Contains FILTER p1._from == "AliasSets/N2" FOR p2 IN Contains FILTER p2._from == p1._to RETURN { source: p1._to, region: p2._to, country: p2._from }')
+db._query('FOR p1 IN Contains FILTER p1._from == "Devices/N2" FOR p2 IN Contains FILTER p2._from == p1._to RETURN { source: p1._to, region: p2._to, country: p2._from }')
 
 // Show IP addresses in N40957
 
-db._query('FOR p1 IN Contains FILTER p1._from == "AliasSets/N40957" && p1.semantics == "HAS_INTERFACE"  RETURN { source: p1._to }')
+db._query('FOR p1 IN Contains FILTER p1._from == "Devices/N40957" && p1.semantics == "HAS_INTERFACE"  RETURN { source: p1._to }')
 
 // Show domains in N40957
 
-db._query('FOR p1 IN Contains FILTER p1._from == "AliasSets/N40957" && p1.semantics == "HAS_INTERFACE" FOR p2 IN Expresses FILTER p2._to == p1._to RETURN { source: p1._to, region: p2._to, country: p2._from }')
+db._query('FOR p1 IN Contains FILTER p1._from == "Devices/N40957" && p1.semantics == "HAS_INTERFACE" FOR p2 IN Expresses FILTER p2._to == p1._to RETURN { source: p1._to, region: p2._to, country: p2._from }')
 
-// Show AliasSets for domain DNS/veloce_2007_ar_jal_rocketnet_com_br
+// Show Devices for domain DNS/veloce_2007_ar_jal_rocketnet_com_br
 
 db._query('FOR p1 IN Expresses FILTER p1._from == "DNS/veloce_2007_ar_jal_rocketnet_com_br" FOR p2 IN Contains FILTER p1._to == p2._to RETURN p2._from')
