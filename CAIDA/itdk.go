@@ -16,7 +16,7 @@ import (
 
 // ********************************************************************************
 
-const MAXLINES = 500 //000 // real    123m49.225s
+const MAXLINES = 500000 // real    123m49.225s
 
 // Data files from https://publicdata.caida.org/datasets/topology/ark/ipv4/itdk/2020-08/
 
@@ -56,7 +56,7 @@ func main() {
 	// Load the files one by one
 
 	fmt.Println("Processing .nodes file")
-	ProcessFileByLines(g,path + "/" + DEVICES, AddDevices)
+	//ProcessFileByLines(g,path + "/" + DEVICES, AddDevices)
 
 	fmt.Println("Processing .links file")
 	ProcessFileByLines(g,path + "/" + LINKS, AddLinks)
@@ -89,7 +89,7 @@ func AddDevices(g C.ITDK, linenumber int, line string) {
 
 	list := strings.Split(string(line)," ")
 
-	alias_set,_,_ := GetDeviceWithIP(g,list[1])
+	device,_,_ := GetDeviceWithIP(g,list[1])
 
 	for i := 2; i < len(list); i++ {
 
@@ -99,7 +99,7 @@ func AddDevices(g C.ITDK, linenumber int, line string) {
 			continue
 		}
 
-		C.CreateLink(g,alias_set,"HAS_INTERFACE",ipnode2,0)
+		C.CreateLink(g,device,"HAS_INTERFACE",ipnode2,0)
 	}
 }
 
@@ -121,18 +121,18 @@ func AddLinks(g C.ITDK, linenumber int, line string) {
 
 	recv_node := list[3]
 
-	alias_recv , ipaddr_recv, ipnode_recv := GetDeviceWithIP(g,recv_node)
+	device_recv , ipaddr_recv, ipnode_recv := GetDeviceWithIP(g,recv_node)
 
 	// All the rest are connections ... 
         // if more than one (len list > 4) there must be an unknown intermediary
 
 	if len(list) == 3 {
 
-		alias_neigh, ipaddr_neigh, ipnode_neigh := GetDeviceWithIP(g,list[3])
+		device_neigh, ipaddr_neigh, ipnode_neigh := GetDeviceWithIP(g,list[3])
 
 		// Annotate the link with the IP addresses if known, else ambiguous
 
-		C.CommentedLink(g,alias_recv,"ADJ_NODE",alias_neigh,ipaddr_recv,ipaddr_neigh,0)
+		C.CommentedLink(g,device_recv,"ADJ_NODE",device_neigh,ipaddr_recv,ipaddr_neigh,0)
 
 		if ipaddr_recv != "" && ipaddr_neigh != "" && ipaddr_recv != ipaddr_neigh {
 
@@ -144,14 +144,14 @@ func AddLinks(g C.ITDK, linenumber int, line string) {
 
 	// >3 devices, implies some intermediate hub (switch, MPLS cloud, etc)
 
-	name := InventName(alias_recv.Key,list,3)      // combine names from 3 ..
+	name := InventName(device_recv.Key,list,3)      // combine names from 3 ..
 	unkn := C.CreateUnknown(g,name)
 
 	// Two link types express the same connection, with different semantics
 	// to enable selective searches
 
-	C.CommentedLink(g,alias_recv,"HAS_UNKNOWN",unkn,ipaddr_recv,"*",0)
-	C.CommentedLink(g,alias_recv,"ADJ_NODE",unkn,ipaddr_recv,"*",0)
+	C.CommentedLink(g,device_recv,"ADJ_UNKNOWN",unkn,ipaddr_recv,"*",0)
+	C.CommentedLink(g,device_recv,"ADJ_NODE",unkn,ipaddr_recv,"*",0)
 
 	for i := 4; i < len(list); i++ {
 
@@ -159,12 +159,12 @@ func AddLinks(g C.ITDK, linenumber int, line string) {
 			continue
 		}
 
-		alias_neigh, ipaddr_neigh, _ := GetDeviceWithIP(g,list[i])
+		device_neigh, ipaddr_neigh, _ := GetDeviceWithIP(g,list[i])
 
 		// Annotate the link with the IP addresses if known, else ambiguous
 
-		C.CommentedLink(g,alias_neigh,"HAS_UNKNOWN",unkn,ipaddr_neigh,"*",0)
-		C.CommentedLink(g,alias_neigh,"ADJ_NODE",unkn,ipaddr_neigh,"*",0)
+		C.CommentedLink(g,device_neigh,"ADJ_UNKNOWN",unkn,ipaddr_neigh,"*",0)
+		C.CommentedLink(g,device_neigh,"ADJ_NODE",unkn,ipaddr_neigh,"*",0)
 	}
 
 }
@@ -176,15 +176,15 @@ func AddAS(g C.ITDK, linenumber int, line string) {
 	//  Format: node.AS <node_id>:..<AS> <method>
         //  Use the Comment field for method
 
-	var alias_set, AS, method string
+	var device, AS, method string
 	var n,a C.Node
 
-	fmt.Sscanf(line,"node.AS %s %s %s",&alias_set,&AS,&method)
+	fmt.Sscanf(line,"node.AS %s %s %s",&device,&AS,&method)
 
-	alias_set = strings.Trim(alias_set,":")
+	device = strings.Trim(device,":")
 
 	a = C.CreateAS(g,AS,method)
-	n = C.CreateDevice(g,alias_set)
+	n = C.CreateDevice(g,device)
 
 	C.CreateLink(g,n,"PART_OF",a,0)
 }
@@ -201,7 +201,7 @@ func AddGeo(g C.ITDK, linenumber int, line string) {
 
 	list := strings.Split(string(line),"\t")
 
-        alias_set := strings.Trim(list[0],":")
+        device_set := strings.Trim(list[0],":")
 	//continent := list[1]
 	country := list[2]
 	region := list[3]
@@ -217,7 +217,7 @@ func AddGeo(g C.ITDK, linenumber int, line string) {
 		return
 	}
 
-	n := C.CreateDevice(g,alias_set)
+	n := C.CreateDevice(g,device_set)
 	c := C.CreateCountry(g,country)
 	r := C.CreateRegion(g,region,city,lat,long)
 
@@ -349,6 +349,8 @@ func GetDeviceWithIP(g C.ITDK, s string) (C.Node,string,C.Node) {
 
 func InventName(src string, list []string, offset int) string {
 
+	// Make a composite hub name, e.g. _N110915_N24129039_N24129039
+
 	var name string = ""
 	var parts []string = make([]string,0)
 	var n int = 0
@@ -356,8 +358,11 @@ func InventName(src string, list []string, offset int) string {
 	parts = append(parts,src)
 
 	for i := offset; i < len(list); i++ {
+
+		// Strip off any trailing IP addresses
+		s := strings.Split(list[i],":")
 		n++
-		parts = append(parts,list[i])
+		parts = append(parts,s[0])
 	}
 
 	// Avoid too much duplication by re-ordering
@@ -368,5 +373,17 @@ func InventName(src string, list []string, offset int) string {
 		name += "_" + parts[n]
 	} 
 
-	return C.InvariantDescription(name)
+	full := C.InvariantDescription(name)
+
+	// Names have to be less than 250 chars
+
+	var short string
+
+	if len(full) > 250 {
+		short = full[:250]
+	} else {
+		short = full
+	}
+
+	return short
 }

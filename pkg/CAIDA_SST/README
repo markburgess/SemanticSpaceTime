@@ -18,6 +18,38 @@ https://publicdata.caida.org/datasets/topology/ark/ipv4/itdk/2020-08/
 The data in these files is a preprocessed summary based on a complex
 inference model.  As a result, the data have specific semantics.
 
+The different entities in the graph are:
+
+Devices: locations known to be single bits of machinery. A device may have
+         multiple IP addresses. these are labelled N1, N2, ...
+
+           <device> HAS_INTERFACE (expresses) <ip>
+           <device> ADJ_NODE (near) <unknown>
+           <device> ADJ_UNKNOWN (near) <unknown>
+
+Unknown: an unknown intermediary involved in tunnelling from one device 
+         to another, e.g. a switch, repeater, or MPLS mesh. This has an
+         anonymous IP address, so we have to make up a name for it.
+
+           <device> ADJ_UNKNOWN (near) <unknown> 
+
+IPv4/v6: addresses expressed by devices
+
+Country: geography
+
+Region:  a city or sub-country
+
+          <region> REGION_IN (-contains) <country>
+
+AS:      BGP entity consists of many devices, may span multiple regions, but
+         non-overlapping
+
+           <device> PART_OF (-contains) <AS>
+
+DNS:     BIND entity consists of many IP addresses, may overlap
+
+          <domain> HAS_ADDR (expresses) <ip>
+
 ====================================================================
 
 For the data model, see the figure model.png
