@@ -44,7 +44,7 @@ func main() {
 	
 	var path string = args[0]
 	
-	var dbname string = "ITDK-snapshot"
+	var dbname string = "ITDK-snapshot-model"
 	var service_url string = "http://localhost:8529"
 	var user string = "root"
 	var pwd string = "mark"
@@ -56,7 +56,7 @@ func main() {
 	// Load the files one by one
 
 	fmt.Println("Processing .nodes file")
-	//ProcessFileByLines(g,path + "/" + DEVICES, AddDevices)
+	ProcessFileByLines(g,path + "/" + DEVICES, AddDevices)
 
 	fmt.Println("Processing .links file")
 	ProcessFileByLines(g,path + "/" + LINKS, AddLinks)
