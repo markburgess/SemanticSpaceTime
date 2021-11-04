@@ -369,7 +369,7 @@ func CreateIPv6(g ITDK, name string) Node {
 
 // ****************************************************************************
 
-func CreateAS(g ITDK, name,method string) Node {
+func CreateAS(g ITDK, name, method string) Node {
 
 	var as Node
 
