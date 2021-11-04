@@ -13,6 +13,8 @@ https://publicdata.caida.org/datasets/topology/ark/ipv4/itdk/2020-08/
 
       itdk-run-20200819-dns-names.txt.bz2 2020-09-06 14:51   22M  IPv4 Routed /24 DNS Names Dataset
 
+See method: https://www.caida.org/catalog/papers/2011_midar_tr/midar-tr.pdf
+
 ====================================================================
 
 The data in these files is a preprocessed summary based on a complex
