@@ -16,7 +16,7 @@ import (
 
 // ********************************************************************************
 
-const MAXLINES = 500000 // real    123m49.225s
+const MAXLINES = 5000000 
 
 // Data files from https://publicdata.caida.org/datasets/topology/ark/ipv4/itdk/2020-08/
 

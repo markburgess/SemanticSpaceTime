@@ -207,7 +207,7 @@ func InitializeSmartSpaceTime() {
 
 	ASSOCIATIONS["ADJ_NODE"] = Association{"ADJ_NODE",GR_NEAR,"has route IP to","has IP route to","no IP route to","no route to"}
 
-	ASSOCIATIONS["ADJ_UNKNOWN"] = Association{"ADJ_UNKNOWN",-GR_CONTAINS,"connects through unknown","connects to device","does not connect through unknown","does not connect to device"}
+	ASSOCIATIONS["ADJ_UNKNOWN"] = Association{"ADJ_UNKNOWN",GR_NEAR,"connects through unknown","connects to device","does not connect through unknown","does not connect to device"}
 
 	ASSOCIATIONS["ADJ_IP"] = Association{"ADJ_IP",GR_NEAR,"is IP adjacent to","is IP adjacent to","is not connected to","is not connected to"}
 

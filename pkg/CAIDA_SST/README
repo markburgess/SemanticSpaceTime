@@ -85,7 +85,7 @@ GEO-SEARCHING
 
 arangosh
 
-db._useDatabase("ITDK-snapshot")
+db._useDatabase("ITDK-snapshot-model")
 
 db.Region.ensureIndex({ type: "geo", fields: [ "coordinates" ], geoJson:true })
 
@@ -154,3 +154,14 @@ db._query('FOR p1 IN Contains FILTER p1._from == "Devices/N40957" && p1.semantic
 // Show Devices for domain DNS/veloce_2007_ar_jal_rocketnet_com_br
 
 db._query('FOR p1 IN Expresses FILTER p1._from == "DNS/veloce_2007_ar_jal_rocketnet_com_br" FOR p2 IN Contains FILTER p1._to == p2._to RETURN p2._from')
+
+// Show me the hyperlinks...(unknown routing hubs/fabrics)
+
+db._query('FOR p1 IN Unknown RETURN p1')
+
+// Show me the Devices addresses that are linked by Unknown tunnels...
+
+db._query('FOR unkn IN Contains FILTER unkn.semantics == "ADJ_UNKNOWN" RETURN unkn._from')
+
+
+
