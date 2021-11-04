@@ -24,7 +24,7 @@ Devices: locations known to be single bits of machinery. A device may have
          multiple IP addresses. these are labelled N1, N2, ...
 
            <device> HAS_INTERFACE (expresses) <ip>
-           <device> ADJ_NODE (near) <unknown>
+           <device> ADJ_NODE (near) <device>
            <device> ADJ_UNKNOWN (near) <unknown>
 
 Unknown: an unknown intermediary involved in tunnelling from one device 
