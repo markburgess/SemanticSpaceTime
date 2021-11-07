@@ -16,7 +16,7 @@ import (
 
 // ********************************************************************************
 
-const MAXLINES = 5000000 
+const MAXLINES = 500000000 
 
 // Data files from https://publicdata.caida.org/datasets/topology/ark/ipv4/itdk/2020-08/
 
@@ -126,9 +126,9 @@ func AddLinks(g C.ITDK, linenumber int, line string) {
 	// All the rest are connections ... 
         // if more than one (len list > 4) there must be an unknown intermediary
 
-	if len(list) == 3 {
+	if len(list) <= 6 { // Only 2 nodes in this line
 
-		device_neigh, ipaddr_neigh, ipnode_neigh := GetDeviceWithIP(g,list[3])
+		device_neigh, ipaddr_neigh, ipnode_neigh := GetDeviceWithIP(g,list[4])
 
 		// Annotate the link with the IP addresses if known, else ambiguous
 
@@ -136,6 +136,7 @@ func AddLinks(g C.ITDK, linenumber int, line string) {
 
 		if ipaddr_recv != "" && ipaddr_neigh != "" && ipaddr_recv != ipaddr_neigh {
 
+			fmt.Println("Rare event, direct evidence of link IP 2 IP",ipnode_recv,ipnode_neigh)
 			C.CreateLink(g,ipnode_recv,"ADJ_IP",ipnode_neigh,0)
 		}
 
@@ -154,17 +155,22 @@ func AddLinks(g C.ITDK, linenumber int, line string) {
 	C.CommentedLink(g,device_recv,"ADJ_NODE",unkn,ipaddr_recv,"*",0)
 
 	for i := 4; i < len(list); i++ {
-
+		
 		if len(list[i]) < 2 {
 			continue
 		}
-
-		device_neigh, ipaddr_neigh, _ := GetDeviceWithIP(g,list[i])
-
-		// Annotate the link with the IP addresses if known, else ambiguous
+		
+		device_neigh, ipaddr_neigh, ipnode_neigh := GetDeviceWithIP(g,list[i])
 
 		C.CommentedLink(g,device_neigh,"ADJ_UNKNOWN",unkn,ipaddr_neigh,"*",0)
 		C.CommentedLink(g,device_neigh,"ADJ_NODE",unkn,ipaddr_neigh,"*",0)
+
+		if ipaddr_recv != "" && ipaddr_neigh != "" && ipaddr_recv != ipaddr_neigh {
+
+			fmt.Println("Rare event, direct evidence link IP 2 IP",ipnode_recv,ipnode_neigh)
+			C.CreateLink(g,ipnode_recv,"ADJ_IP",ipnode_neigh,0)
+		}
+
 	}
 
 }
@@ -322,7 +328,8 @@ func GetDeviceWithIP(g C.ITDK, s string) (C.Node,string,C.Node) {
 
 	var device,ip C.Node
 	var ipaddr net.IP
-	
+	var ipstring string
+
 	array := strings.Split(s,":")
 
 	id := array[0]
@@ -330,6 +337,7 @@ func GetDeviceWithIP(g C.ITDK, s string) (C.Node,string,C.Node) {
 	device = C.CreateDevice(g,id)
 
 	if len(array) > 1 {
+
 		ipaddr = net.ParseIP(array[1])
 		
 		if ipaddr != nil {
@@ -339,10 +347,12 @@ func GetDeviceWithIP(g C.ITDK, s string) (C.Node,string,C.Node) {
 			} else {
 				ip = C.CreateIPv4(g,array[1])
 			}
+
+			ipstring = array[1]
 		}
 	}
 
-	return device, string(ipaddr), ip
+	return device, ipstring, ip
 }
 
 // ****************************************************************************

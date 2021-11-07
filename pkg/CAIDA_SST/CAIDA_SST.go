@@ -229,7 +229,7 @@ func CreateLink(g ITDK, c1 Node, rel string, c2 Node, weight float64) {
 
 	var link Link
 
-	//fmt.Println("CreateLink: c1",c1,"rel",rel,"c2",c2)
+	//fmt.Println("CreateLink: ",c1,"rel",rel,"c2",c2)
 
 	link.From = c1.prefix + strings.ReplaceAll(c1.Key," ","_")
 	link.To = c2.prefix + strings.ReplaceAll(c2.Key," ","_")
@@ -251,8 +251,6 @@ func CommentedLink(g ITDK, c1 Node, rel string, c2 Node, nbfr,nbto string, weigh
 
 	var link Link
 
-	//fmt.Println("CreateLink: c1",c1,"rel",rel,"c2",c2)
-
 	link.From = c1.prefix + strings.ReplaceAll(c1.Key," ","_")
 	link.To = c2.prefix + strings.ReplaceAll(c2.Key," ","_")
 	link.SId = ASSOCIATIONS[rel].Key
@@ -266,6 +264,8 @@ func CommentedLink(g ITDK, c1 Node, rel string, c2 Node, nbfr,nbto string, weigh
 		fmt.Println("Associations not set up -- missing InitializeSmartSpacecTime?",rel)
 		os.Exit(1)
 	}
+
+	//fmt.Println("Adding commentedLink:",link)
 
 	AddLink(g,link)
 }
@@ -868,6 +868,8 @@ func AddLink(g ITDK, link Link) {
 		SId: ass,
 		Negate: link.Negate,
 		Weight: link.Weight,
+		CommentFrom: link.CommentFrom,
+		CommentTo: link.CommentTo,
 		Key: key,
 	}
 
@@ -925,7 +927,7 @@ func AddLink(g ITDK, link Link) {
 
 		if checkedge != edge {
 
-			fmt.Println("Correcting link weight",checkedge,"to",edge)
+			//fmt.Println("Correcting link",checkedge,"to",edge)
 
 			_, err := links.UpdateDocument(nil, key, edge)
 
