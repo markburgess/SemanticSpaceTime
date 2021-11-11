@@ -56,7 +56,7 @@ func main() {
 	// Load the files one by one
 
 	fmt.Println("Processing .nodes file")
-	ProcessFileByLines(g,path + "/" + DEVICES, AddDevices)
+	//ProcessFileByLines(g,path + "/" + DEVICES, AddDevices)
 
 	fmt.Println("Processing .links file")
 	ProcessFileByLines(g,path + "/" + LINKS, AddLinks)
@@ -227,7 +227,7 @@ func AddGeo(g C.ITDK, linenumber int, line string) {
 	c := C.CreateCountry(g,country)
 	r := C.CreateRegion(g,region,city,lat,long)
 
-	C.CreateLink(g,n,"ASET_IN",r,0)
+	C.CreateLink(g,n,"DEVICE_IN",r,0)
 	C.CreateLink(g,r,"REGION_IN",c,0)
 }
 
