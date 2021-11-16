@@ -63,6 +63,7 @@ func main() {
 		
 		nlog := math.Log(float64(N[k]))
 		klog := math.Log(float64(key[N[k]]))
+
 		if nlog > 0 {
 			fmt.Printf("%10f %f\n", klog,nlog)
 		}
@@ -75,6 +76,9 @@ func GetDegreeDistribution(g C.ITDK, k_in,k_out map[string]int, N map[int]int) {
 
 	var err error
 	var cursor A.Cursor
+
+	// Here just looking at all the adjacency relations ADJ_* of type Near
+	// could add a filter, e.g. FOR n in Near FILTER n.semantics == "ADJ_NODE"
 
 	instring := "FOR n in Near COLLECT node = n._to INTO inn RETURN { K: node, V: COUNT(inn[*])}"
 	outstring := "FOR n in Near COLLECT node = n._from INTO out RETURN { K: node, V: COUNT(out[*])}"
