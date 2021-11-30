@@ -23,6 +23,8 @@ checks might be needed for stress testing applications.
 
 To link the package to your golang installation, you can create a symbolic link
 
+   git clone https://github.com/markburgess/SemanticSpaceTime
+
    ln -s ~/path/SemanticSpacetime/pkg/SST ~/go/src/SST
 
 
