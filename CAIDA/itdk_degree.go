@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"sort"
 	"math"
+	"os"
 	C "CAIDA_SST"
 	A "github.com/arangodb/go-driver"
 
