@@ -87,6 +87,7 @@ func GetDegreeDistribution(g C.ITDK, k_in,k_out map[string]int, N map[int]int) {
 
 	if err != nil {
 		fmt.Printf("Query failed: %v", err)
+		os.Exit(1)
 	}
 
 	defer cursor.Close()
@@ -109,6 +110,7 @@ func GetDegreeDistribution(g C.ITDK, k_in,k_out map[string]int, N map[int]int) {
 
 	if err != nil {
 		fmt.Printf("Query failed: %v", err)
+		os.Exit(1)
 	}
 
 	defer cursor.Close()
