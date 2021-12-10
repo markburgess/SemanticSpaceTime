@@ -6,6 +6,8 @@ import (
 	"sort"
 	"math"
 	"os"
+	"context"
+	"time"
 	C "CAIDA_SST"
 	A "github.com/arangodb/go-driver"
 
@@ -84,7 +86,13 @@ func GetDegreeDistribution(g C.ITDK, k_in,k_out map[string]int, N map[int]int) {
 	instring := "FOR n in Near COLLECT node = n._to INTO inn RETURN { K: node, V: COUNT(inn[*])}"
 	outstring := "FOR n in Near COLLECT node = n._from INTO out RETURN { K: node, V: COUNT(out[*])}"
 
-	cursor,err = g.S_db.Query(nil,instring,nil)
+	// This will take a long time, so we need to extend the timeout
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(time.Hour*8))
+
+	defer cancel()
+
+	cursor,err = g.S_db.Query(ctx,instring,nil)
 
 	if err != nil {
 		fmt.Printf("Query failed: %v", err)
@@ -107,7 +115,7 @@ func GetDegreeDistribution(g C.ITDK, k_in,k_out map[string]int, N map[int]int) {
 		}
 	}
 
-	cursor,err = g.S_db.Query(nil,outstring,nil)
+	cursor,err = g.S_db.Query(ctx,outstring,nil)
 
 	if err != nil {
 		fmt.Printf("Query failed: %v", err)
