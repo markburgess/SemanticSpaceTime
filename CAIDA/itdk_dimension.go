@@ -16,7 +16,6 @@ import (
 // ********************************************************************************
 
 const max_hop_radius = 20  // Smaller radius as there is no long range order
-const symm_factor = 1.5 // defines the spacefilling geometry nature (communication strength)
 
 // ********************************************************************************
 
@@ -116,8 +115,8 @@ func GetVolumeDistribution(g C.ITDK, collection string, startnode string, sample
 		// calculate delta/delta for each step and for wholes...
 
 		if hops > 2 {
-			deltay := math.Log(effvolume[hops])            // log V
-			deltax := math.Log(float64(hops)*symm_factor)  // log r
+			deltay := math.Log(effvolume[hops])  // log V
+			deltax := math.Log(float64(hops)+1)  // log r+1
 			grad = deltay/deltax
 		}
 
