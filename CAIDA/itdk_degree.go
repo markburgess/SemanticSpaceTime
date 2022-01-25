@@ -3,7 +3,6 @@ package main
 
 import (
 	"fmt"
-	"sort"
 	"math"
 	"os"
 	"context"
@@ -42,40 +41,41 @@ func main() {
 	var k_out = make(map[string]int,0)
 	var Nk = make(map[int]int,0)
 
-	GetDegreeDistribution(g,k_in,k_out,Nk)
+	GetDegreeDistribution(g,k_in,k_out,Nk,"Devices")
 
 	var N []int
 	var key = make(map[int]int)
 
 	// Copy the distrbution into a sortable array
 
+	var sum,tot int = 0,0
+
 	for k := range Nk {
-		if Nk[k] > 0 {			
+		if Nk[k] > 1 {			
 			N = append(N,Nk[k])
 			key[Nk[k]] = k
+
+			sum += Nk[k] * k
+			tot += Nk[k]
+			
+			nlog := math.Log(float64(Nk[k]))
+			klog := math.Log(float64(k))
+			
+			if nlog > 0 {
+				fmt.Printf("%10f %f\n", klog,nlog)
+			}
 		}
 	}
-
-	// Sort the numbers
-
-	sort.Ints(N)
-
-	// Log-log plot to see if there is a power law line
 	
-	for k := len(N)-1; k >= 0; k-- {
-		
-		nlog := math.Log(float64(N[k]))
-		klog := math.Log(float64(key[N[k]]))
+	k_av := float64(sum) / float64(tot)
 
-		if nlog > 0 {
-			fmt.Printf("%10f %f\n", klog,nlog)
-		}
-	}
+	fmt.Printf("Effective dimension as average <k_out>/2 = %f\n",k_av/2.0)
+
 }
 
 // ********************************************************************************
 
-func GetDegreeDistribution(g C.ITDK, k_in,k_out map[string]int, N map[int]int) {
+func GetDegreeDistribution(g C.ITDK, k_in,k_out map[string]int, N map[int]int, collection string) {
 
 	var err error
 	var cursor A.Cursor
@@ -83,8 +83,8 @@ func GetDegreeDistribution(g C.ITDK, k_in,k_out map[string]int, N map[int]int) {
 	// Here just looking at all the adjacency relations ADJ_* of type Near
 	// could add a filter, e.g. FOR n in Near FILTER n.semantics == "ADJ_NODE"
 
-	instring := "FOR n in Near COLLECT node = n._to INTO inn RETURN { K: node, V: COUNT(inn[*])}"
-	outstring := "FOR n in Near COLLECT node = n._from INTO out RETURN { K: node, V: COUNT(out[*])}"
+	instring := "FOR n in Near FILTER n._to LIKE '"+collection+"/%' COLLECT node = n._to INTO inn RETURN { K: node, V: COUNT(inn[*])}"
+	outstring := "FOR n in Near FILTER n._from LIKE '"+collection+"/%' COLLECT node = n._from INTO out RETURN { K: node, V: COUNT(out[*])}"
 
 	// This will take a long time, so we need to extend the timeout
 
