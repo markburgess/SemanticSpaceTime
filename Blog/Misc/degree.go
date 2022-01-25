@@ -56,6 +56,17 @@ func main() {
 	for i := len(degrees)-1; i >= 0; i-- {
 		fmt.Println(degrees[i])
 	}
+
+	var sum int = 0
+	var k_av float64 = 0
+
+	for  name := range k_out {
+		sum += k_out[name]
+	}
+
+	k_av = float64(sum) / float64(len(k_out))
+
+	fmt.Printf("Effective dimension as average k_out = %f\n",k_av)
 }
 
 // ********************************************************************************
