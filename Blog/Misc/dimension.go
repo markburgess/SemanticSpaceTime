@@ -15,9 +15,8 @@ import (
 
 // ********************************************************************************
 
-const N = 3
-const max_hop_radius = 100
-const symm_factor = 1.5 // defines the spacefilling geometry nature (communication strength)
+const N = 5
+const max_hop_radius = 20
 
 // ********************************************************************************
 
@@ -67,7 +66,7 @@ func GetVolumeDistribution(g S.Analytics, collection string, startnode string, s
 	var cursor A.Cursor
 	var effvolume = make(map[int]float64,0)
 
-	fmt.Println("Start from ",collection,startnode)
+	fmt.Println("# Start from ",collection,startnode)
 	
 	for hop_radius := 1; hop_radius < max_hop_radius; hop_radius += 1 {
 		
@@ -113,8 +112,8 @@ func GetVolumeDistribution(g S.Analytics, collection string, startnode string, s
 		// calculate delta/delta for each step and for wholes...
 
 		if hops > 2 {
-			deltay := math.Log(effvolume[hops])            // log V
-			deltax := math.Log(float64(hops)*symm_factor)  // log r
+			deltay := math.Log(effvolume[hops])                      // log V
+			deltax := math.Log(float64(hops)-0.5+1.0/float64(hops))  // log r
 			grad = deltay/deltax
 		}
 
@@ -124,7 +123,7 @@ func GetVolumeDistribution(g S.Analytics, collection string, startnode string, s
 			max[startnode] = grad
 		}
 
-		//fmt.Printf("(%s) %d %f (grad = %f) %f\n",startnode,hops,effvolume[hops],grad,max[startnode])
+		//fmt.Printf("# (%s) %d %f (grad = %f) %f\n",startnode,hops,effvolume[hops],grad,max[startnode])
 	}
 }
 
@@ -193,7 +192,7 @@ func GetStats(samples map[int][]float64, max map[string]float64) {
 	}
 
 	for mx := range max {
-		fmt.Println("Max",max[mx])
+		fmt.Println("# Max",max[mx],"for",N)
 	}
 }
 

@@ -10,8 +10,8 @@ import (
 
 // ********************************************************************************
 
-const N = 3
-const L = 100
+const N = 5
+const L = 50
 
 // ********************************************************************************
 
@@ -27,6 +27,7 @@ func main() {
 	g = S.OpenAnalytics(dbname, service_url, user, pwd)
 
 	// Build a hypercube in N dimensions
+	fmt.Println("Hypercube",N)
 
 	var basis_clock [N]int
 
