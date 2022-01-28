@@ -24,7 +24,7 @@ func main() {
 	var dbname string = "ITDK-snapshot-model"
 	var service_url string = "http://localhost:8529"
 	var user string = "root"
-	var pwd string = "mark"
+	var pwd string = "phohx3OP%ohCh4bam"//"mark"
 	
 	var g C.ITDK
 	
@@ -73,7 +73,7 @@ func GetVolumeDistribution(g C.ITDK, collection string, startnode string, sample
 	
 	for hop_radius := 1; hop_radius < max_hop_radius; hop_radius += 1 {
 		
-		qstring := fmt.Sprintf("FOR node IN 1..%d ANY '%s/%s' Near OPTIONS { order: 'bfs',  uniqueVertices: 'global' } COLLECT WITH COUNT INTO counter RETURN counter", hop_radius,collection,startnode)
+		qstring := fmt.Sprintf("FOR node IN 1..%d ANY '%s/%s' Near OPTIONS { bfs: 'true', order: 'bfs',  uniqueVertices: 'global' } COLLECT WITH COUNT INTO counter RETURN counter", hop_radius,collection,startnode)
 		
 		// This might take a long time, so we need to extend the timeout
 		

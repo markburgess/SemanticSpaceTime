@@ -45,6 +45,7 @@ func main() {
 		fmt.Printf("\n%20s %s %s %s\n","Node", "k_in", "k_out", "k")
 
 	for name := range k {
+
 		degrees = append(degrees,k[name])
 		fmt.Printf("%20s %3d %3d %3d\n",name, k_in[name], k_out[name], k[name])
 	}
