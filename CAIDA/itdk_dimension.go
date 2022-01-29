@@ -45,7 +45,7 @@ func main() {
 
 	collection := "Devices" // IPv4, Devices
 
-	startnodes := ScatterSamples(g, collection,10)
+	startnodes := ScatterSamples(g, collection,100)
 
 	for s := range startnodes {
 		GetVolumeDistribution(g, collection, startnodes[s], samples, max)
@@ -127,8 +127,8 @@ func GetVolumeDistribution(g C.ITDK, collection string, startnode string, sample
 		}
 
 		if hops > 2 {
-			deltay := math.Log(effvolume[hops])  // log V
-			deltax := math.Log(float64(hops)+1)  // log r+1
+			deltay := math.Log(effvolume[hops]+1)  // log V
+			deltax := math.Log(float64(hops)+1)    // log r+1
 			grad = deltay/deltax
 
 			if effvolume[hops] == effvolume[hops-1] {
@@ -186,11 +186,15 @@ func GetAllNodes(g C.ITDK, all_nodes map[string]bool, collection string) {
 
 func GetStats(samples map[int][]float64, max map[string]float64) {
 
-	for hops := 1; hops < max_hop_radius; hops += 1 {
+	for hops := 1; hops < len(samples); hops += 1 {
 
 		var dim,vardim float64 = 0,0
 
 		n := float64(len(samples[hops]))
+
+		if n < 1 {
+			continue
+		}
 
 		for s := range samples[hops] {
 
