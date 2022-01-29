@@ -24,7 +24,7 @@ func main() {
 	var dbname string = "ITDK-snapshot-model"
 	var service_url string = "http://localhost:8529"
 	var user string = "root"
-	var pwd string = "phohx3OP%ohCh4bam"//"mark"
+	var pwd string = "mark"
 	
 	var g C.ITDK
 	
@@ -100,6 +100,9 @@ func GetVolumeDistribution(g C.ITDK, collection string, startnode string, sample
 			} else if err != nil {
 				fmt.Printf("Doc returned: %v", err)
 			} else {
+				if count < 1 {
+					count = 1
+				}
 				effvolume[hop_radius] = count
 				//fmt.Println("hop_radius",hop_radius,"count",count, effvolume[hop_radius])
 			}
@@ -114,10 +117,20 @@ func GetVolumeDistribution(g C.ITDK, collection string, startnode string, sample
 		
 		// calculate delta/delta for each step and for wholes...
 
+		if effvolume[hops] < 2 {
+			samples[hops] = append(samples[hops],0)
+			max[startnode] = 0
+			return
+		}
+
 		if hops > 2 {
 			deltay := math.Log(effvolume[hops])  // log V
 			deltax := math.Log(float64(hops)+1)  // log r+1
 			grad = deltay/deltax
+
+			if effvolume[hops] == effvolume[hops-1] {
+				break
+			}
 		}
 
 		samples[hops] = append(samples[hops],grad)
