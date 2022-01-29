@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"io/ioutil"
 	"context"
 	"time"
 	"math/rand"
@@ -24,8 +25,10 @@ func main() {
 	var dbname string = "ITDK-snapshot-model"
 	var service_url string = "http://localhost:8529"
 	var user string = "root"
-	var pwd string = "mark"
 	
+	p, _ := ioutil.ReadFile("/home/mark/password")
+	var pwd string = string(p)
+
 	var g C.ITDK
 	
 	g = C.OpenITDK(dbname, service_url, user, pwd)
