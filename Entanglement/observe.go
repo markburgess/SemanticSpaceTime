@@ -26,7 +26,7 @@ func main () {
 
 			E,Delta := Trial(theta_L,theta_R)
 
-			fmt.Printf("(%3.1f,%6.1f) %.3f %.3f (%.3f)\n",theta_L,theta_R,E,Delta,math.Cos((theta_L-theta_R)/360.0*2*3.14))
+			fmt.Printf("(%3.1f,%6.1f) %.3f %.3f (%.3f)\n",theta_L,theta_R,E,Delta,-math.Cos((theta_L-theta_R)/360.0*2*3.14))
 		}
 	}
 }
@@ -123,19 +123,11 @@ func Observe(id string) int {
 		time.Sleep(E.TICK)
 	}	
 
-	// Now assume q meets detector, find the Qbit orientation
-	// from the leading edge of the wave up or down, assuming
-	// that the act of observing
+	// Now assume q meets detector, we break the entanglement
+	// refusing new updates to stabilize the state for measurement
+	// This improves the accuracy of the result by O(0.01)
 
-	/* This changes q by convolution/interference, which is promised to qbar
-	and the entanglement is broken. If the equilibration is not decisively
-	determined by this measurement, it will quickly be forgotten by q|bar
-	overwriting, so these cannot be independent asynchronous processes.
-		Interference is part of the q|bar entanglement. We signal measurement
-        by breaking entanglement ... which writes the convolution to opposite end
-        and stops reading new updates at this end */
-
-	E.StopAccepting(id)
+	E.StopAccepting(id) 
 
 	// Stable measurement now possible at this end
 
