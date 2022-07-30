@@ -62,7 +62,7 @@ func OneEndDetected(id string) bool {
 func DetectorInteraction(id string, q,d []byte) (int,float64) {
 
 	angle := PhaseShifted(q,d)
-	eigenvalue := 0
+	eigenvalue := 0 // GetRandUpDown() - if random here, less accurate result with QM
 
 	convolution := make([]byte,WAVELENGTH)
 

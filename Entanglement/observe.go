@@ -8,7 +8,8 @@ import (
 	E "Entangle"
 )
 
-const max_rounds = 100
+const max_rounds = 500
+const showspins = false
 
 // ****************************************************************************
 // * OBSERVATION v3 - start this before the entangled pair
@@ -56,7 +57,13 @@ func Trial(thetaL,thetaR float64) (float64,float64) {
 		eL := Observe("L")
 		eR := Observe("R")
 
-		//fmt.Printf("%4d %4d %4d\n",rounds,eL,eR)
+		if showspins {
+			if (eL != 0 && eR != 0) {
+				fmt.Printf("expt %4d:      L = %4d,     R = %4d\n",rounds,eL,eR)
+			} else {
+				fmt.Printf("expt %4d:      L = %4d,     R = %4d  (no result)\n",rounds,eL,eR)
+			}
+		}
 		
 		if eL == -1 && eR == 1 {
 			Nny++
