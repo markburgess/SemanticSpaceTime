@@ -56,9 +56,6 @@ type Narrative struct {
 	index int
 }
 
-const MAXCLUSTERS = 7
-const LEG_WINDOW = 100
-
 var WORDCOUNT int = 0
 var LEGCOUNT int = 0
 
@@ -74,10 +71,17 @@ var THRESH_ACCEPT float64 = 0
 var TOTAL_THRESH float64 = 0
 var MAX_IMPORTANCE float64
 
-// Relating to relative concentrations of memory LTM
+// ************** SOME INTRINSIC SPACETIME SCALES ****************************
 
-const REPEATED_HERE_AND_NOW  = 1.0
+const MAXCLUSTERS = 7
+const LEG_WINDOW = 100
+
+var ATTENTION_LEVEL float64 = 0.6
+var SENTENCE_THRESH float64 = 10
+
+const REPEATED_HERE_AND_NOW  = 1.0 // initial primer
 const INITIAL_VALUE = 0.5
+
 const MEANING_THRESH = 20  // reduce this if too few samples
 
 // ****************************************************************************
@@ -89,22 +93,17 @@ const MEANING_THRESH = 20  // reduce this if too few samples
 // implicated in selection at the "smart sensor" level, i.e. innate adaptation
 // about what is retained from the incomning `signal'
 
-var LTM_NGRAM [MAXCLUSTERS]map[int][]string
+var LTM_NGRAMS_IN_SENTENCE [MAXCLUSTERS]map[int][]string
+
+// inverse: in which sentences did the ngrams appear? Sequence of integer times by ngram
+var LTM_EVERY_NGRAM_OCCURRENCE [MAXCLUSTERS]map[string][]int
+
+var HISTO_AUTO_CORRE_NGRAM [MAXCLUSTERS]map[int]int  // [sentence_distance]count
 
 // Short term memory is used to cache the ngram scores
 var STM_NGRAM_RANK [MAXCLUSTERS]map[string]float64
 
-// inverse: in which sentences did the ngrams appear? Sequence of integer times by ngram
-var LTM_NGRAM_OCCURRENCES [MAXCLUSTERS]map[string][]int
-
-var HISTO_AUTO_CORRE_NGRAM [MAXCLUSTERS]map[int]int  // [sentence_distance]count
-
 var G S.Analytics
-
-// SOME INTRINSIC SCALES
-
-var ATTENTION_LEVEL float64 = 0.6
-var SENTENCE_THRESH float64 = 10
 
 // ****************************************************************************
 // SCAN themed stories as text to understand their components
@@ -136,8 +135,8 @@ func main() {
 	for i := 1; i < MAXCLUSTERS; i++ {
 
 		STM_NGRAM_RANK[i] = make(map[string]float64)
-		LTM_NGRAM[i] = make(map[int][]string)
-		LTM_NGRAM_OCCURRENCES[i] = make(map[string][]int)
+		LTM_NGRAMS_IN_SENTENCE[i] = make(map[int][]string)
+		LTM_EVERY_NGRAM_OCCURRENCE[i] = make(map[string][]int)
 	} 
 	
 	ctx := context.Background()
@@ -438,27 +437,27 @@ func SearchInvariants(g S.Analytics) {
 		// Search through all sentence ngrams and measure distance between repeated
 		// try to indentify any scales that emerge
 
-		for ngram := range LTM_NGRAM_OCCURRENCES[n] {
+		for ngram := range LTM_EVERY_NGRAM_OCCURRENCE[n] {
 
 			if (InsignificantPadding(ngram)) {
 				continue
 			}
 
-			frequency := len(LTM_NGRAM_OCCURRENCES[n][ngram])
+			frequency := len(LTM_EVERY_NGRAM_OCCURRENCE[n][ngram])
 
 			const ngram_scale = 3
 			const spatial_granularity = 100 // sentences
 
 			if frequency < ngram_scale {
 				continue
-				//fmt.Println(LTM_NGRAM_OCCURRENCES[n][ngram],"----------")
+				//fmt.Println(LTM_EVERY_NGRAM_OCCURRENCE[n][ngram],"----------")
 			}
 
 			fmt.Println("Theme long invariant",ngram,frequency)
 
 			last = 0
 
-			for location := 0; location < len(LTM_NGRAM_OCCURRENCES[n][ngram]); location++ {
+			for location := 0; location < len(LTM_EVERY_NGRAM_OCCURRENCE[n][ngram]); location++ {
 
 				// This is about seeing if an ngram is a recurring input in the stream.
 				// Does the subject recur several times over some scale? The scale may be
@@ -471,8 +470,8 @@ func SearchInvariants(g S.Analytics) {
 				// two one relative to first occurrence (absolulte range), one to last occurrence??
 				// only the last is invariant on the scale of a story
 				
-				delta = LTM_NGRAM_OCCURRENCES[n][ngram][location] - last			
-				last = LTM_NGRAM_OCCURRENCES[n][ngram][location]
+				delta = LTM_EVERY_NGRAM_OCCURRENCE[n][ngram][location] - last			
+				last = LTM_EVERY_NGRAM_OCCURRENCE[n][ngram][location]
 
 				//fmt.Println("DELTA",delta,delta/10*10)
 				HISTO_AUTO_CORRE_NGRAM[n][delta/10*10]++
@@ -734,12 +733,12 @@ func AnnotateSentence(ctx *context.Context,filename string, s_number int,sentenc
 
 	for i := min_cluster; i < max_cluster; i += incr {
 
-		// LTM_NGRAM is the ngrams from sentence number index - how is this different from context?
+		// LTM_NGRAMS_IN_SENTENCE is the ngrams from sentence number index - how is this different from context?
 		// context may contain additional info about environment, and is quality ranked
 
-		for f := range LTM_NGRAM[i][s_number] {
+		for f := range LTM_NGRAMS_IN_SENTENCE[i][s_number] {
 			
-			fragment := LTM_NGRAM[i][s_number][f]
+			fragment := LTM_NGRAMS_IN_SENTENCE[i][s_number][f]
 			
 			TOTAL_THRESH++
 			
@@ -810,19 +809,19 @@ func NextWordAndUpdateNgrams(s_idx int, word string, rrbuffer [MAXCLUSTERS][]str
 
 			// Long term memory of fragments
 
-			LTM_NGRAM[n][s_idx] = append(LTM_NGRAM[n][s_idx],key)
+			LTM_NGRAMS_IN_SENTENCE[n][s_idx] = append(LTM_NGRAMS_IN_SENTENCE[n][s_idx],key)
 
 			// and keep inverse: which sentence indices (times) phrases appeared?
 
-			LTM_NGRAM_OCCURRENCES[n][key] = append(LTM_NGRAM_OCCURRENCES[n][key],s_idx)
+			LTM_EVERY_NGRAM_OCCURRENCE[n][key] = append(LTM_EVERY_NGRAM_OCCURRENCE[n][key],s_idx)
 
 		}
 	}
 
 	rank += MemoryUpdateNgram(1,word)
 
-	LTM_NGRAM[1][s_idx] = append(LTM_NGRAM[1][s_idx],word)
-	LTM_NGRAM_OCCURRENCES[1][word] = append(LTM_NGRAM_OCCURRENCES[1][word],s_idx)
+	LTM_NGRAMS_IN_SENTENCE[1][s_idx] = append(LTM_NGRAMS_IN_SENTENCE[1][s_idx],word)
+	LTM_EVERY_NGRAM_OCCURRENCE[1][word] = append(LTM_EVERY_NGRAM_OCCURRENCE[1][word],s_idx)
 
 	return rank, rrbuffer
 }

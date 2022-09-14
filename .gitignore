@@ -1,5 +1,6 @@
 # intermediate / autogen
 
+*.pdf
 *.la
 *.lo
 *.o
