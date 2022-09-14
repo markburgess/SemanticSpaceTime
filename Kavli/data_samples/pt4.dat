@@ -1,0 +1,405 @@
+
+<h1>Systemic promises</h1>
+
+<p>
+A system is commonly understood to mean a number of parts, which collectively
+perform a function. Agents within systems have intentional behaviour,
+so they can make promises collectively, by cooperation, or
+individually.  They can be built from humans, animals, machinery,
+businesses, or public sector organizations.
+
+<h2>What is a system?</h2>
+
+<p>
+A system is an emergent phenomenon. The virtual or systemic properties
+promised by a system come about from the collaboration of actual
+promises made by its internal agencies. No individual component within
+typically promises the qualities that a system embodies.</p>
+
+<p>
+For example, the fire fighting emergency service promises to cover
+half a city, respond to several simultaneous emergency calls and put
+out fires within a maximum amount of time.  There is no single
+component that leads to this promise being kept.  The electricity
+company promises power continuously, without interruption. The police
+force promises public safety, but there is no public safety component.</p>
+
+<p>
+Systems can promise things that individuals can't. If a military
+officer pointed to a soldier and imposed: `You soldier, surround the
+enemy!'  few individual soldiers would be able to respond. However, if
+the soldier was a super agent, composed of many collaborating parts
+(like a swarm of bees), it would be a different story.</p>
+
+<h2>The myth of system and user</h2>
+
+<p>
+Systems are thought to be mighty, and users lowly.  More often than
+not we build the myth of system versus user, as a kind of David and
+Goliath story, because there is a `boundary of control', or a region
+we call the system, in which we have a high degree of confidence in
+promises.  Beyond this limit, exists `the users', like the savages
+beyond the city walls. Because we are not so close to them, they are
+treated differently.  We are not sure about what promises they keep.</p>
+
+<img src="castle.png">
+<caption>The separation of user and system is not enscribed in any
+  Kafkaesque constitution.</caption>
+
+<p>
+The benefits of a system usually come about the from interaction
+between system and user, so why do we persist in this separation?  One
+reason is that we use proxies to deliver the services, by spawning off
+a surrogate of a system in the form of some kind of product, which
+will be received by the user. At this point the relationship between
+user and system becomes somewhat remote from the organization that
+built it. The surrogate does not typically learn or adapt as an active
+part in a cooperative relationship (though modern systems often allow
+upgrades, which are based on the learning of the parent system).
+Service industries have an easier time of this issue, because they do
+not spawn off a surrogate, but rather continue in direct touch with
+their users.</p>
+
+<p>
+The challenge in designing a system is to include users as a part of
+the system, and treat those promises just like any others in the
+machinery. The agency that is the final consumer is often not what we
+call the user at all. It is that agent that receives the outcome of
+what user plus system promise together. For example, a system might be
+a recording studio, the user a band, the outcome a musical
+recording, and the final recipient the listener.</p>
+
+<h2>Systemic promises</h2>
+
+<p>
+Let's think about what kinds of promises we expect from systems.
+At a low level, we might expect:</p>
+<ul>
+<li> Service levels and times (dynamics).
+<li> Configurations or compositional chemistry.(statics).
+</ul>
+<p>
+The kinds of promises that belong to the system as a whole belong to
+two kinds:</p>
+<ul>
+<li> Engineered collaborative properties (by direct causation)
+<li> Emergent collaborative properties (by indirect causation)
+</ul>
+<p>
+Since we usually can't draw a clear boundary around a service part of
+a system, the user is a key part of the collaboration and outcome.
+The properties that cannot easily be attributed to a specific
+individual include the following:</p>
+<ul>
+<li> Continuity: the observed constancy of promise-keeping, so that
+any agent using a promise would assess it to be kept at any time.
+
+<li> Stability: the property that any small perturbations to the
+  system (from dependencies or usage) will not cause its promises to
+  break down catastrophically.
+
+<li> Resilience (opposite of fragility): like stability, the property that
+usage will not significantly affect the promises made by an agent.
+
+<li> Redundancy: The duplication of resources in such a way that
+there are no common dependencies between duplicates, i.e. so that
+the failure of one does not imply the failure of another.
+
+<li> Learning (sometimes called anti-fragility): the property of
+  promising to alter any promise (in detail or in number) based on
+  information observed about an agent's environment.
+
+<li> Adaptability: the property of being reusable in different scenarios
+
+<li> Plasticity: the property of being able change in response to
+  outside pressure without breaking the system's promises.
+
+<li> Elasticity: the ability to change in response to outside
+  pressure and then return to the original condition without breaking
+  the system's promises.
+
+<li> Scalability: the property that the outcomes promised to any agent do not depend
+on the total number of agents in the system.
+
+<li> Integrity (rigidity): the property of being unaffected by external pressures.
+
+<li> Security: the promise that all risks to the system have been
+  analyzed and approved as a matter of policy.
+
+<li> Ease of use: the promise that a user will not have to expend
+  much effort or cost to use the service provided.
+</ul>
+<p>
+These are just a few of the properties that concern us.  You can think
+of more desirable properties, or different names for these.</p>
+
+<p>
+Although no particular agent could be blamed for enabling a property,
+it is plausible that a single agent could prevent the keeping of a
+promise. In systems, the chains of causation can by quite Byzantine
+though. In fact, in any system of cooperative promises, there are loops
+that make direct causation a non-trivial issue. This is why it makes
+sense to think of systems as emergent phenomena.</p>
+
+<p>
+A negative property like fragility seems like an odd thing to promise,
+but such a promise could be very important. We label boxes fragile for
+transport precisely to try to influence delivery agents to take extra
+care with them, or to reduce our own liability in case of an accident. 
+</p>
+
+
+<h2>Who intends systemic promises?</h2>
+
+<p>
+If no particular agent promises systemic behaviour, then who is
+responsible for the result? All agents and none are responsible.  If
+that sounds like too much French philosophy, this is possibly because
+the whole idea of the system is abstract.</p>
+
+<p>
+As always, promise theory's simple prediction is that it is not any
+part of a system that results in semantics. It is always the observer
+or recipient of promises that assesses whether or not promises are
+kept as intended. It is in the eye of the beholder.</p>
+
+<p>
+Thus any observer gets to make the judgement that a system is secure
+relative to its own knowledge. If we ask a consultant to tell us
+whether our system is secure, we'd better hope the he or she knows
+enough to predict every possible failure mode. </p>
+
+<p>
+Suppose you want to promise `ease of use'. There is no ease of use
+plug-in or battery pack to provide this quality, so you have to look at
+the agencies you have and ask how could promises by them result in the
+emergent effect of ease of use?  Now you have to perform some semantic
+sleight of hand. Can you use already learned common knowledge or cultural norms to
+short cut a lengthy learning process?  Can you minimize the work
+required to learn an interaction pattern?  At this point you might
+think: well if I'm going to impose something on these agents, why not
+just give commands?  Why frame it as promises?</p>
+
+<p>
+By now the answer should be clear. You could use impositions, but the agents
+might be neither willing nor able to act on them. They
+would not be as motivated to cooperation as if they were making
+voluntary promises that they say an individual benefit in keeping.
+So, even if you propose promises for those agencies to keep, you have
+to put yourself in their situation, understand what they know and what
+skills they have, and then propose a promise. Would you make that
+promise in that situation? This is how to maximize the likelihood of
+a successful outcome.</p>
+
+<h2>Breaking down the systemic promises for real agencies</h2>
+
+<p>
+Figuring out how systemic promises emerge from the real promises of
+individual agents is the task of the modern engineer. We should not
+make light of the challenge. System designers think more like town
+planners rather that bricklayers, and need to know how to think around
+corners, not merely in straight lines.</p>
+
+<p>
+Directing `birds of a feather to flock together' as a systemic promise
+could involve arranging for individual agents to stay close to their
+neighbours.  Another example might be: `Godliness will result result
+from promising to wash your hands often'.</p>
+
+<p>
+If you work entirely from the bottom up, you never have to confront
+the idea that some concrete agencies in your system actually have to
+promise real measurable outcomes.  On the other hand, you might never
+confront the way users experience your system either. That means you
+won't understand how to build a lasting relationship with users.</p>
+
+<p>
+The challenge of designing a system from the top down is that you
+never confront whether there are any agencies that can deliver
+appropriate promises.  Your first thought will be to divide and
+conquer and you will start duplicating work.  You might end up
+duplicating.
+</p>
+
+
+<h2>Why do systems succeed or fail in keeping promises?</h2>
+
+<p>
+Systems of many parts promise a variety of attributes. 
+A painting may promise form but not colour, or colour but not form.
+Does the painting collectively promise to represent its subject or not?
+Again, only the recipient of the promise can judge whether or not
+the promise has been kept.</p>
+
+<p>
+Which part of a plane leads to flight? Which parts can fail without
+breaking the collective promise? There might be workarounds, like a skilled
+pilot gliding the plane.</p>
+
+<p>
+A school might succeed in the promise of education</p>
+<ul>
+<li> Because a specific teacher was helpful
+<li> Because exams motivated students to study
+<li> Because other students passed on information
+<li> Because it had a good library
+</ul>
+<p>
+Only the individual student can say which of the promises, perhaps all,
+were sufficient in its own context.</p>
+
+<p>
+Promises and intentionality come from humans, but humans keep promises
+through a variety of intermediaries, any of which might fail. 
+When systems fail to keep promises, it might be unintended, or it
+might be deliberate deception. Much attention to the idea that
+failures are unintended and should not lead to blame of individual
+humans or technological agents in systems. Very little attention is
+given to the notion of deception and deliberate sabotage of systems,
+it is common to point to individual component failures in computer
+`malware', forged artwork, pirated music, etc.</p>
+
+<p>
+Dunbar's limitations can lead to systemic promise failures by
+overloading Packet loss and process starvation are the analogues in
+computing.  As it is impossible to completely specify a human-machine
+system, and machines work on behalf of humans, it ends up being
+humans, not machines, who must make the system work.
+</p>
+
+<h2>Complexity, separation and modularity</h2>
+
+<p>
+The matter of complexity in systems comes out a bit muddled in the
+literature, as it delves into the convolutions of physics, while
+residing distinctly in a world of information. While it has popular
+appeal, there are few experts who `know it like a friend'.</p>
+
+<p>
+It has been suggested that it is entwining or muddling of information together
+that leads to complexity. This is actually quite wrong. Indeed, in a
+somewhat counter-intuitive sense, the opposite is true.</p>
+
+<p>
+Complexity is measured by the explosion of possible outcomes that
+develop as a system evolves. This is a growth of information (also
+called entropy).  When parts of a system interact strongly, it means
+that a change in one place leads to a change in another. This leads to
+brittleness and fragility rather than complexity.  If you could
+replace 1000 pennies with a ten pound note, it would be less complex
+to deal with.</p>
+
+<p>
+Sometimes, fragility causes system states to split into several
+outcomes.  Logical if-then-else reasoning is an example of one of
+those causes.  It is then these so-called `bifurcations' or branchings
+of outcomes that lead to the explosion of states and parts.
+This is provoked by strong coupling, but it is not caused by it.
+Indeed, muddling things together reduces the total number, so
+ironically it makes things less complex.</p>
+
+<p>
+Separation of concerns, i.e. the tidying instinct, is in fact a
+strategy that brings about bifurcations, and hence proliferation. It
+leads to complexity because it increases the number of things that
+need to interact, leading to new entropy.  Branching without pruning
+brings complexity. One of the reasons we fear complexity is because we
+fail to understand it.</p>
+
+<h2>The collapse of complex systems</h2>
+
+<p>
+The separation of concerns is a very interesting belief system
+invented by humans. It has become almost ubiquitous in information
+technology and management. It is referred to as siloing in management.
+Promise Theory casts doubt on its validity.</p>
+
+<p>
+One reason why belief in divide and conquer came about might be an
+artifice of our limited thinking capacities.  Just as the limited size
+of an army leads you to deal with one invader at a time, so the Dunbar
+numbers for our thinking capacity imply limits on our brain power for
+handling other relationships. Similarly, our grammar skills do not
+support too many levels of parenthetic remarks, and we cannot do more
+than about 5 things at a time. All of these cases point to a strategy
+of trying to push away parts of a problem that we can avoid dealing
+with, like leaving behind travel items so you can actually carry your luggage.  
+</p>
+
+<p>
+The mistake we potentially make is in believing that our inability to
+carry the weight implies that the weight is not actually important, and
+should not be carried.</p>
+
+<p>
+As a counterpoint to that idea, 
+anthropologist Joseph Tainter made an interesting study of societies
+going back through time, looking for the reasons they collapsed.  His
+conclusion was roughly this: as societies grow, there is a cost
+benefit to specializing into different roles to scale up. This is because
+individuals are not smart enough to be experts in everything, they have
+limited brain and muscle power. But that separation comes at a cost.
+If we want a service from a specialist, we now have to reconnect with them.
+As agencies separate, they often form their own private languages
+that are not equilibrated with the general population, so there is a language
+barrier cost too. This leads to reduced trust. Agents then make clients
+jump through hoops to validate themselves. Bureaucracy is born!
+Eventually, the cost of reconnecting through barriers (because of a loss
+of a trusting relationship) exceeds what agents can afford, and the system
+breaks apart as user begin to work around the barriers. Separation of concerns
+leads to collapse.</p>
+
+<p>
+The autonomous agent model, in Promise Theory, makes this very plain.
+We centralize services in order to avoid the cost of talking to many
+other agents, but that puts all of the stress in one place. The
+bottleneck is born.  The bottleneck then has to either limit its
+clients, or double up. As the service doubles up, a new service is
+required to coordinate the bottlenecks.  The hierarchy is born.
+The hierarchy leads to further branching.</p>
+
+<p>
+As the distance between agents increases, trust is lost and certainty
+demands adding more promises back to make up for the loss of the
+direct promises. The cost of all this infrastructure grows until agents
+no longer see a cost benefit to centralizing, and the structures break apart.</p>
+
+<p>
+A goal for system design is surely to avoid this process if possible.
+The difficult lies in evaluating which promises are cheap and which
+are expensive at any given time. It is the desire to save on costs that
+seduces us to reformulate these relationships and fall into the trap.</p>
+
+
+<h2>Through the lens of promises</h2>
+
+<p>
+What general lessons can we extract from thinking in promises?</p>
+
+<ul>
+<li> Client role: clients are responsible for their use of services.
+
+<li> Coupling strength is best kept weak to avoid fragility,
+  dependency.
+
+<li> Interchangeability and compatibility are about keeping
+  intentions constant.
+
+<li> In the end it's all about knowledge, or what you know.
+
+</ul>
+
+<p>
+Promise theory reveals, through simple principles, why individual
+subjectivity is important even in the relatively impartial world of
+engineering.  It offers a few tools for thinking about the issues, and
+it even has some rules of thumb to avoid making the worst mistakes. </p>
+
+<p>
+If you think in promises a little every day, I cannot promise that it
+will change the way you see the world (because that would violate the
+principle of autonomy), but it might allow you to see things in
+sharper focus, and question the way we often impose assumptions on a
+situation. You alone can promise to ask the right questions and take
+fewer promises for granted.
+</p>

@@ -1,0 +1,823 @@
+
+
+<h1>Engineering component systems</h1>
+
+<p>
+Tidiness is next to godliness, or so goes the mantra of the obsessive
+compulsive. The decentralized society model of cooperation proves to
+be an important pattern when designing cooperative systems, but it
+leads to apparent complexity too. An apparent way around this is to
+find a middle ground, by dividing it up into specialized components.
+</p>
+
+<p>
+During the 1800s, Western culture became obsessed with the need to
+categorize things and separate them tidily into boxes.  Why? One
+answer might be that we cannot hold many things in our minds because
+of our limited Dunbar slots.  Whatever the reason, our cultural
+aesthetic is for put things tidily into boxes, and arrange shelves
+neatly.  </p>
+
+<p>
+Meanwhile, jungles and ecosystems stubbornly refuse to be patterned in
+this way.  Nature selected jungles as its strategy for stable
+survival, not carefully organized rows and columns, or even a
+taxonomic tree of partitioned species.  Those organizations are all
+human affectations.  Indeed, there are plenty of reasons tidiness
+would not be a successful strategy.  The complexity of mapping and
+interacting across boundaries is the understated price we pay for a
+tidy separation of concerns.</p>
+
+<p>
+Yet, building things from replicatable patterns is exactly what nature
+does. So the idea of making components with different functional
+categories is not foreign to nature. Where does the balance lie?
+Let's see what light promises shed on this matter.
+</p>
+
+<h2>Reasoning with cause</h2>
+
+<p>
+Engineering is based on the idea of cause and effect.  If we can
+identify property or phenomenon X, this implies property of phenomenon
+Y under certain circumstances. Indeed, if we can even promise these
+properties, we can engineer with some certainty.</p>
+
+<p>
+For example, if an agent promises to use a service X in order to keep
+a promise of its own Y, then we could infer that promise Y is fragile
+to the loss of service X.
+These are chains of causation.
+</p>
+
+<img src="houseofcards.png">
+<caption>Reasoning leads to branching processes fan out into many possibilities that decrease
+certainty.</caption>
+
+
+<h2>Componentization - divide and build!</h2>
+
+<p>
+The design of functional systems from components is a natural topic to
+analyze using promises: how we break down a problem into components,
+and how we put together new and unplanned systems from a pre-existing
+set of parts.  Indeed, the concept of autonomous agents exists for
+precisely this purpose.</p>
+
+<p>
+Decomposing systems into components is not {\em necessary} for systems
+to work (an alternative with similar cost-benefit is the use of
+repeatable patterns), but it is often desirable for economic reasons.
+A component design is really a commoditization of a reusable pattern,
+and the economics of component design are the same as the economics of
+mass production.</p>
+
+<p>
+The electronics industry is a straightforward and well known example
+of component design and use. There we have seen how the first
+components: resistors, inductors, capacitors, and transistors were
+manufactured as ranges of separate atomic entities, each making a
+variety of promises about their properties. Later, as miniaturization
+took hold, many of these were packaged into `chips' that were more
+convenient, but less atomic components. This has further led to an
+evolution of the way in which devices are manufactured and repaired.
+It is more common now to replace an entire integrated unit than to
+solder in a new capacitor, for example.</p>
+
+<p>
+An analogy with medicine would be that one favours transplanting whole
+organs rather than repairing existing ones.</p>
+
+
+<h2>What do we mean by components?</h2>
+
+<p>
+Being a bit formal about what we mean by promises allows us to
+understand other definitions from a single concept.</p>
+
+<p>
+A component is an entity that behaves like an agent and makes a number
+of promises to other agents, within the context of a system.  It could
+be represented as a bundle of promises.  Components exist within the
+scope of a larger system. For weakly coupled systems, components can
+be called standalone.</p>
+
+
+<img src="cake.png">
+<caption>Components can be standalone, without dependencies, or dependent, with.</caption>
+
+<p>
+A standalone or independent component is an agent that makes only
+unconditional promises. e.g. a candle.  In strongly coupled systems or
+subsystems, components are integral parts, embedded in a larger whole.
+A dependent (or embedded) component is an agent that makes one or more
+conditional promises. e.g. sugar in a cake.
+</p>
+
+
+<h2>What systemic promises should components keep?</h2>
+
+<p>
+In addition to the functional promises that a component would try to
+keep, there are certain issues of design that would tend to make us
+call an agent a component of a larger system.  Typical promises that
+components would be designed to keep could include:</p>
+<ul>
+<li> To be replaceable or upgradable.
+<li> To be reusable, interchangeable or compatible.
+<li> To behave predictably.
+<li> To be (maximally) self-contained, or avoid depending on other components to keep their promises.
+</ul>
+
+<h2>Can agents themselves have components?</h2>
+
+<p>
+What about the internal structure of agents in the promises? Can they
+have components?  The answer depends on the level of detail to which
+we want to decompose an object and talk about its promises.  Clearly
+components can have as much private, internal structure as we like --
+that is a matter of design choice.</p>
+
+<p>
+For example, we might consider a cake to be a component in a
+supermarket inventory. This makes certain promises like flavour
+chocolate, nut-free, low calorie, etc. The cake has a list of
+ingredients or components too, like flour and sugar. The flour might
+promise to be whole grain, and the sugar might promise to be brown
+sugar. The definition of agents is a modelling choice.
+</p>
+
+<h2>Component design and roles</h2>
+
+<p>One simple structure for promise patterns is
+to map components simply onto roles. A component is simply a
+collection of one or more agents that forms a role, either by
+association or cooperation. Once embedded within a larger system,
+these roles can become appointed too.
+</p>
+
+<table>
+<tr><th>System</th><th>Component</th><th>Role</th></tr>
+<tr><td>Television</td><td>Integrated circuit </td><td> Amplifier</td></tr>
+<tr><td>Pharmacy </td><td> Pill </td><td> Sedative</td></tr>
+<tr><td>Patient </td><td> Intravenous drug </td><td> Antibiotic</td></tr>
+<tr><td>Vertebrate </td><td> Bone </td><td> Skeleton</td></tr>
+<tr><td>Cart </td><td> Wheel </td><td> Mobility enabler</td></tr>
+<tr><td>Play-list </td><td> Song by artist </td><td> Soft Jazz interlude</td></tr>
+</table>
+<p>
+The table illustrates some example
+components and their roles in some common systems.
+<p>
+
+<h2>Fragile promises in component design</h2>
+
+<p>
+Building an appliance on components that make exclusive promises, i.e.
+promises that can only be kept for a limited number of users is a
+fragile strategy. Trying to design for the avoidance of such
+conflicts, is a good idea, however one often has incomplete
+information about how components will be used, making it impossible to
+predict.  This is one of the flaws in top-down design.</p>
+
+<p>
+Some components contend for their dependencies.  Components that make
+conditional promises, where the condition must be satisfied by only
+one exclusive promise from another component may be called {\em
+  contentious}. Multiple agents contend with one another to satisfy
+the the condition, but only one can do so.  For example, it is only
+possible to plug one appliance into a power socket at a time.  Only
+one patient can swallow a pill at a time, thus a pill is a contentious
+agent that promises relief if taken.</p>
+
+<p>
+Designing with contentious components can sometimes save on costs, but
+it can lead to bottlenecks and resource issues in continuous system
+operation. Contentious promises are therefore fragile.</p>
+
+<ul>
+<li> For example, an engine that promises to run only if it gets a special kind
+of fuel would be risky. What if the fuel becomes scarce?
+
+<li> Multiple electrical appliances connected to the same power line contend
+for the promise of electrical power. If the maximum rating is a promise
+of, say 10 Amperes, they multiple appliances requiring a high current
+could easily exceed this.
+
+<li> A similar example can be made with traffic.  Cars could be called
+contentious components of traffic, as they contend for the limited
+road and petrol/gas pumps at fuelling stations.
+
+
+<li> Software applications running on a shared database or server have to
+contend for availability and capacity.
+</ul>
+<p>
+The examples reveal the effect of imperfect information during
+component design. The designer of an appliance cannot know the
+availability of dependencies when designing an isolated component,
+which begs the question: should one try to design components without
+the context of their use? The alternative is to allow components to
+emerge through experience, and abstract them out of their contexts
+by observing a common pattern.</p>
+
+<p>
+We make risky choices usually to minimize costs, given the probability
+of needing to deliver on a promise of a resource.  The risk comes from
+the fact that contention between promises is closely related to single
+points of failure, in coordination and calibration.
+Contention leads to fragility.</p>
+
+<h2>Reusability of components</h2>
+
+<p>
+If we are able to partition systems into components that make
+well-understood promises, then it's natural to suppose that some of
+these promises will be useful is more than one scenario. Then we can
+imagine making components of general utility---reusable components.</p>
+
+<p>
+Reusability is about being able to take a component that works in one
+scenario and use it in another.  We achieve this when we take an agent
+and insert it into another system of agents, whose use-promises match
+the our component's promises.</p>
+
+<p>
+Any agency can be reusable, so don't think just about electronic
+components, flour and sugar, etc. Think also about organizations,
+accounts departments, human beings that promise skills, even movies.
+For instance, a knife is a component that can be used in many different scenarios
+for cutting. It doesn't matter if it is used to cut bread or cheese,
+or to perform surgery. Electrical power offers a promise that can be
+used by a large number of other components, so we may call that
+reusable. Reusability means that a component makes a promise that can
+be accepted by and bind to many other agents use-promises.</p>
+
+<img src="reuse.png">
+<caption>Reusability of a power adapter as a component that makes promises
+to share electric current from a plug to a number of sockets</caption>
+
+<p>
+Formally, a component cannot be intrinsically reusable, but it can be
+reusable relative to some other components, within its field of use.
+Then we can say that a component is reusable if its promised
+properties meet or exceed the use-promises (`requirements') of every
+environment in which it is needed.
+</p>
+
+<h2>Interchangeability of components</h2>
+
+<p>
+Two components might be called interchangeable, relative to an
+observer if every promise made by the first component to the observer
+is also made identically by the second, and vice versa.</p>
+
+<p>
+When components are changed, or revised, the local properties of the
+resulting system could change. This might further affect the promises
+of the entire system, as perceived by a user, if the promise bindings
+allow it. In this case, either the total system has to change its
+promises, or a total revision of the design might be needed to
+maintain the same promises of the total system. Interchangeable
+components promise that this will not happen.</p>
+
+<img src="interchange.png">
+<caption>Interchangeability means that components have to make exactly the same
+promises. These two power strips are not interchangeable.</caption>
+
+<p>
+A knife can be interchanged with an identical new knife in a
+restaurant without changing the function, even if one has a wooden
+handle and the other plastic.  A family pet probably can't be
+interchanged with another family pet without changing the total family
+system.</p>
+
+
+<h2>Compatibility of components</h2>
+
+<p>
+Compatibility of components is a weaker condition than
+interchangeability. Two components may be called compatible if one
+forms the same set of promise bindings with an agent as the second,
+but the details of the promises might not be identical in every
+detail.</p>
+
+<p>
+Compatibility means that all the essential promises are in place.  If
+components are compatible, it is possible for them to bind to the same
+contexts, even if the precise promises are not maintained at the same
+levels.</p>
+
+
+<img src="compat.png">
+<caption>Compatibility means that a replacement will do the job without
+all the promises being identical. This is up the the user of the promises
+to judge.</caption>
+
+<p>
+British power plugs are not interchangeable or compatible with the
+power sockets in America or the rest of Europe because they do not
+make complementary promises. Similarly, we can say that British and
+American power plugs are not interchangeable<footnote>British power
+  plugs are somewhat over-engineered for robustness and safety, with
+individual fuses to isolate damaged equipment.</footnote>.</p>
+
+<p>
+Conversely, there might be cases where it doesn't matter which of a
+number of alternative components is chosen -- the promises made are
+unspecific and the minor differences in how promises are kept do not
+affect a larger outcome. In other scenarios it could matter
+explicitly.
+Imagine two brands of chocolate cake at the supermarket. These
+offerings can be considered components in a larger network of
+promises.  How do we select or design these components so that other
+promises can be kept?</p>
+<ul>
+<li> <i>Doesn't matter</i>: You would normally choose a cheap brand of cake, 
+but it is temporarily unavailable, so you buy the more expensive premium version.
+<li> <i>Matters</i>: One of the cakes contains nuts that you are allergic to, so
+it does not fulfill your needs.
+</ul>
+<p>
+If the promise made by the cake is too unspecific for its consumer,
+there can be a mismatch between expectation and service.
+</p>
+
+<h2>Backwards compatibility</h2>
+
+<p>
+Replacement components are often said to require backwards
+compatibility, meaning that a replacement component will not undermine
+the promises made by an existing system.  In fact, if one wants status
+quo, the correct term should be interchangeability, as a new component
+might be compatible but still not function in the same way.</p>
+
+<p>
+When repairing devices, we are tempted to replace components
+with new ones that are almost the same, but this can lead to problems,
+even if the new components are `better' in relation to its own promises.
+For example, the promise of increased power in a new engine for a plane might lead
+to an imbalance in the engines, making handling difficult.  Similarly,
+changing one tyre of a car might cause the car to pull in one
+direction.</p>
+
+<p>
+Making the same kinds of promises as an older component is a necessary
+condition for interchangeability, but it is not sufficient to
+guarantee no change in the total design. We need identical promises
+-- no more and no less, else there is the possibility that new
+promises introduced into a component will be able to conflict with the total
+system in such a way as to be misaligned with the goals of the total
+design.</p>
+
+<p>
+Diesel fuel makes many of the same promises as petrol or gasolene, but
+these fuels are not interchangeable in current engines.  The insertion
+of new output transistors with better specification into a particular
+Hifi amplifier actually improved the sound quality of the device. The
+transistors cannot be considered interchangeable, even though there
+was an improvement, because the promises they made were not the same,
+and the total system was affected. Now the older system was weaker and
+cannot be considered an adequate replacement for the new.</p>
+
+<h2>Upgrading and regression testing</h2>
+
+<p>
+When upgrading components that are not identical, a possibility is to
+design in a compatibility mode such that no new promises are added
+when used in this way. This allows component promises to remain
+interchangeable and expectations to be maintained. Downgrading
+can also be compatible but not interchangeable.</h2>
+
+
+<img src="regression.png">
+<caption>A regression test involves assessing whether component
+  promises are still kept after changing the component.</caption>
+
+<p>
+A regression test is a tripwire or probe that makes a promise (-) to
+assess a service promise made by some software. The same promise is
+made to every agent promising a different version of the service
+promise.  The ability to detect faults in components is limited to
+those precise behaviours (+) the test-agent promises to use with by
+promising to use them (-).
+</p>
+
+<h2>Specific and generic promise expectations</h2>
+
+<p>
+Imagine we have a number of components that make similar promises.  If
+the promises are identical, then the components are identical and it
+clearly doesn't matter which component we use.  However, if the
+promises are generic and vague, there is a high level of uncertainty
+in forming expectations about the behaviour of the components.</p>
+
+<p>
+Suppose a car rental company promises us a vehicle. It
+could give us a small model, a large model, a new model, a clapped-out
+wreck or even a motorbike. It could be German, Japanese, American,
+etc. Clearly the promise of `some kind of vehicle' is not sufficiently
+specific for a user to necessarily form useful expectations.  </p>
+
+<p>
+Similarly, in a restaurant, it says `meat and vegetables' on the menu. Does this
+mean a medium-rare beef steak with buttered carrots and green beans, or
+baked rat with fries?
+</p>
+
+<p>
+The potential for a mismatch of expectation steers how components
+should design interfaces to systems with similar promises.  It is
+often desirable for an agent consuming promises to have a simple point
+of contact (sometimes called a `front end') that gives them a point of
+`one stop shopping'. This has both advantages and disadvantages to the
+user, as interchangeability of the back-end promises is not assured.
+</p
+>
+<h2>Law of the lowest common denominator</h2>
+
+<p>
+If a promiser makes a `lowest common denominator' promise, it is easy
+to understand and perhaps accept, but one does not trust the outcome
+of the promise.</p>
+
+<p>
+Supermarkets often re-brand their goods with generic labels like
+`mega-store beans', or `super-saver ice cream'.  The lack of choice
+makes it easy for the user to choose, but it also means the user
+doesn't know what they are getting. Often in these cases, the promise
+given is implicitly one of a minimum level of quality.</p>
+
+<p>
+In computing, a service provider offers a `SQL database' service.
+There are many components that offer this service, with very different
+implementations.  PostgreSQL, MySQL, MSSQL, Oracle, and several others
+all claim to promise an SQL database. However, the detailed promises
+are very different from one another so that the components are not
+interchangeable. Writing software using a common interface to these
+databases thus leads to using only the most basic common features.
+</p>
+
+<blockquote>
+<b>The law of the lowest common denominator</b>.
+  When a promise giving component makes a generic promise interface to
+  multiple components, it is forced to promise the {\em least common
+    denominator} or minimal common functionality. Thus generic
+  interfaces lead to low certainty of outcome.
+</blockquote>
+
+<p>
+The user of a promise is the both driver and the filter to decide what
+it needs to satisfy, i.e. the agent's `requirements'. This is how we
+paraphrase the idea that `the customer is always right' in terms of
+promises.  If the user promises to use any `meat and vegetables' food
+promise by a caterer, he will doubtless end up with something of
+rather low quality, but if she only promises to use `seared filet,
+salted, no pepper', etc, the provider will have to promise to deliver
+on that, else she would not accept it to form a promise binding.
+</p>
+
+<h2>Imposing requirements</h2>
+
+<p>
+When designing or productizing components to consumers, it's much
+more common to use the language of imposing requirements.
+Use-promises or impositions about specifications play equivalent roles
+in setting user expectations for promised outcomes. Both create a
+sense of obligation.</p>
+
+<p>
+However, cooperation is much more likely if intent is not imposed on
+individuals, especially when they are humans. If one can engineer
+voluntary cooperation by incentive, it is easier to trust the outcome
+of the promise. This lesson has been seen in many cooperative
+scenarios, for example, where one group `throws a job over the wall'
+to another (`catch!') and expects it to be taken care of<footnote>In
+  IT, the DevOps movement came about in this way as software
+  developers threw their latest creations over the proverbial wall to
+  operations engineers to run in production.</footnote>.</p>
+
+<img src="overthewall.png">
+<caption>Throwing impositions over the wall is unreliable. A promise handshake
+gives better assurances.</caption>
+
+<p>
+If one trades this interaction for a permanent promise relationship,
+trust grows on both sides.</p>
+
+<h2>Component choices that you can't go back on</h2>
+
+<p>
+Selecting one particular component from a collection has long term
+consequences for component use and design if one selects a
+non-interchangeable component. The differences that are specific to
+its promises then lead the system along a path that moves farther away
+from the alternatives because other promises will come to rely on this
+choice through dependencies.</p>
+
+<p>
+Choosing to use a fuel type to power a car, e.g. using a car that
+makes diesel rather than a petrol/gasolene promise has irreversible
+consequences for further use of that component.  Choosing the
+manufacturing material for an aircraft, or the building site for a
+hotel has irreversible consequences for their future use.
+</p>
+
+<p>
+Choosing to use one political party has few irreversible consequences,
+as it is unlikely that any other promises by the agent making the
+choice would depend on this choice.
+</p>
+
+
+<h2>The art of versioning</h2>
+
+<p>
+When we develop a tool or service, we release versions of these
+to the world. Now we have to ask, do version changes and upgrades
+keep the same promises as before? If not, is it the same product?</p>
+
+<p>
+Consider the figure below, which shows how a single promise
+agent can depend on a number of other agents. If the horizontal
+stacking represents components in a design, and vertical stacking
+indicates different versions of the same component, then each agent
+would be a replaceable and upgradable part. 
+</p>
+
+<p>
+In a system with multiple cross-dependencies, different versions of
+one component may depend on different versions of others. How may we
+be certain to keep consistent promises throughout a total system made
+of many such dependencies, given that any of the components can be
+re-used multiple times, and may be interchanged for another during the
+course of a repair or upgrade. There is a growth of combinatorial
+complexity, which can lead to collapse.</p>
+
+<img src="dependency1.png">
+<caption>A hierarchy of component dependencies.</caption>
+
+<img src="dependency2.png">
+<caption>A flat arrangement of interdependent components.</caption>
+
+<p>
+Consider the component arrangement in the figure, showing
+a component X that relies on another component Y, which in turn
+relies on component Z.  The components exist in multiple versions,
+and the conditional promises made by X and Y specifically refer to
+these versions, as they must in order to be certain of what detailed
+promise is being kept.</p>
+
+<p>
+This situation is fragile if components Y and Z are altered in
+some way, there is no guarantee that X can continue to promise the
+same as before, thus its promise to its users is conditional on a
+given version of the components it relies on, and each change to a
+component should be named differently to distinguish these versions.
+</p>
+
+<p>
+To avoid this problem, we can make a number of rules that guide the
+design of components. </p>
+
+<blockquote>
+Component dependency can be made version specific.  Promises by one
+component to use another can avoid incompatible promises by referring
+to the specific versions that quench their promises to use. This
+avoids the risk of later invalidation of the promises by the component
+as the dependency versions evolve.
+</blockquote>
+
+<p>
+Non-version-specific promises are simpler to make and maintain, but
+they do not live in their own branch of reality, and thus they cannot
+simultaneously coexist. This is why handling of multiple versions has
+to be handled such that they can coexist without confusion or conflict.
+This is the many worlds issue.</p>
+
+<p>
+Versioning takes care of the matter of component evolution and
+improvement in the presence of dependency. The next issue is what
+happens if a component is used multiple times within the same design.
+Can this lead to conflicts? 
+There are now two issues surrounded repeated promises:</p>
+<ul>
+<li> If multiple components, with possibly several versions, make completely identical promises, this
+presents no problem, as identical promises are idempotent.
+<li> Incompatible promises, or exclusive promises prevent the re-use of components.
+</ul>
+
+<blockquote>
+Reusable components and avoidance of exclusive promises.
+Any component that can be used multiple times in the same system
+must be able to exist along side other versions and patterns of usage.
+This means that components should not make conflicting promises across
+versions, if multiple versions are to coexist.
+</blockquote>
+
+
+<p>The unique naming of components is a simple way to avoid some of these problems. We shall describe 
+this in the next section.
+</p>
+
+
+
+<h2>Names and identifiers for `branding' component promises</h2>
+
+<p>
+A simple matter like naming turns out to play an important role.  A
+name is a promise that can imply many other promises in a given
+cultural arena. For example, if we promise someone a car, currently
+at least this would imply a promise of wheels.</p>
+
+<p>
+What attributes qualify as names? Names do not have to be words. It
+could be a shape. A cup does not need a name for us to recognize it.
+Components need to promise their function somehow, with some
+representation that users will recognize.  Naming, in its broadest
+sense, allows components to be recognizable and distinguishable for
+reuse.  Naming need not be done through language; recognition may
+occur through shape, texture, or any form of sensual signalling.  In
+marketing, this kind of naming is often called `branding'. The concept
+of branding goes back to identifying marks burnt onto livestock. In
+marketing, branding looks at many aspects of the psychology of naming,
+as well as how to attract the attention of onlookers to make certain
+components more attractive to users than others.</p>
+
+<p>
+It makes sense that bundles of promises make naming agreements within a system, according
+to their functional role, allowing components to be</p>
+<ul>
+<li> Quickly recognizable for use.
+<li> Distinguishable from other components.
+</ul>
+<p>
+Because an agent cannot impose its name on another agent, nor can it
+know how another agent refers to it, naming conventions have to be
+common knowledge within a collaborative subsystem. Establishing and
+trusting names is one of the fundamental challenges in systems of
+agents. This issue mirrors the acceptance of host and user identities in
+information systems using cryptographic keys, which can later be
+subjected to verification.  The cryptographic methods mean nothing
+until one has an acceptable level of certainty about identity.</p>
+
+<p>
+Naming needs to reflect variation in time and space, like virtual
+locational coordinates. Variation in space can be handled through
+scope, as it is parallel. However, variation in time is a serial
+property, indistinguishable from versioning, and therefore naming of a
+set of promises to be unique within a given scope.</p>
+
+<blockquote>
+Naming or identity of component function (+ promises)}
+  A component name or identifier is any representative promisable
+  attribute, rendered in any medium, that maps uniquely to a set of
+  two promises:
+
+
+<ul>
+<li> A description of the promises kept by the component 
+(e.g. text like `Ford Escort', or a shape like handle indicating carrying or opening)
+<li> A description of model or version in a family or series of evolving designs (e.g. 1984 model, version 2.3, ``panther'')
+</ul>
+</blockquote>
+
+<p>
+When components evolve through a number of related versions, we often
+keep a version identifier separate from the functional name because
+the name anchors the component to a set of broad promises, while the
+version number promises changes to the details.</p>
+
+<p>
+For example, computer software is usually
+componentized into `packages'. These packages are named with a main
+and a version number, e.g.</p>
+
+<pre>
+flash-player-kde4-11.2.202.243-30.1.x86_64
+unzip-6.00-14.1.2.x86_64
+myspell-american-20100316-24.1.2.noarch
+kwalletmanager-4.7.2-2.1.2.x86_64
+</pre>
+<p>
+The main name leads up to a number. Notice that the version numbering
+needs only to be unique for a given component, as each component
+essentially lives in its own world branch, designated by the root
+name.</p>
+
+<p>
+Names need cannot be made promised unique, since we cannot make a
+promise on behalf of another agent. At best, one can promise to change
+the name of a component if there is a collision. Thus naming becomes a
+contentious issue. Changing the name of a component in a system would
+have an affect on all parts that referred to it.  Conversely, any name
+that represents a component with identical promises to another
+component may be considered an alias for the other name.</p>
+
+<p>
+To avoid this, it is common to limit the scope of name promises
+voluntarily, into so-called namespaces.  Within any particular namespace,
+the user of components would normally see value in the uniqueness of
+names.
+</p>
+
+<h2>Naming usage (-) rather than function (+) - parameterization</h2>
+
+<p>
+Every particular use of a reusable promise leads to uniqueness of
+intent, and may thus be named individually to easy distinction.  Hence
+we may also decide to name individual applications made from
+components.  This is the notion of parameterization.</p>
+
+<p>
+Parameters are well understood in computer programming, or
+mathematics.  A description of what input data, parameters or
+arguments are being supplied to the component's function supplement
+the name of the function itself. In computer science, we call this a
+function call. Different function calls promise different outcomes,
+and, as long as causation is uniquely determined, this is just as good
+as name as the bundle of promises about what comes out. Indeed, it
+is probably more convenient, since we know the data we want to feed in,
+but not necessarily the promised data that come out.</p>
+
+<p>
+Attaching distinct names to instances of usage can be useful for
+identifying when and where a particular component was employed, e.g.
+when fault finding.</p>
+
+<p>
+In computer programming, generic components are built into libraries
+that expose promises to using patterns of information. This is
+sometimes called an API or Application Programmer Interface.  The
+application programmer, or promise user, makes use of the library
+components in a particular context for a particular purpose. Each
+usage of a particular component may thus be identified by the
+information passed to it, or the other components connected to it.  We
+may give each such example a name `authentication dialogue', `comment
+dialogue', etc. We can also use the set of parameters given to an API
+interface promise as part of the unique name of the reference.
+</p>
+
+<h2>The cost of modularity</h2>
+
+<p>
+When does it make economic sense to build components? Each promise
+carries an expected value, assessed individually by the agents and
+other components in a system.  A promise viewpoint allows us to
+enumerate costs by attaching the valuations made by each agent
+individually, from each viewpoint.  The eye of the beholder.</p>
+
+<p>
+Even from the viewpoint of a single agent, the cost associated with a
+modular design is not necessarily a simple calculation.  It includes
+the on-going collaborative cost of isolating components into weakly
+coupled parts, designing their interfaces, and also the cost of
+maintaining and evolving the parts over time. The accessibility of the
+parts adds a cost too. If components are hard to change or maintain,
+because they are inside a closed box, then it might be simpler to
+replace the whole box. However, if the component is cheap and the rest
+of the box is expensive in total, then the reckoning is different.</p>
+
+<p>
+Making tyres components makes sense.  Changing a flat tyre rather than
+replacing an entire car makes obvious sense, because the tyres are
+accessible and large.  Making electronic components like transistors,
+capacitors and resistors certainly made sense to begin with, when they
+were large and experimentation was important. This allowed them to be
+replaced individually, so it makes sense to change failed components
+individually, thus saving the cost of unnecessary additional
+replacements.  However, the miniaturization of electronics eventually
+changed this situation.</p>
+
+<p>
+At some point it became cheap to manufacture integrated circuits that
+were so small that changing individual components became impractical.
+Thus the economics of componentization moved towards large-scale
+integration of parameterizable devices.</p>
+
+<p>
+Virtual computational components, like software running on virtual
+servers in a datacentre, are apparently cheap to replace, and are used
+extensively to manage the evolution of software services.  However,
+while these components are cheap to build, existing components gather
+history and contain runtime data that might be expensive to lose.
+</p>
+
+<p>
+Modularity is generally considered to be a positive quality in a system., but
+when does componentization actually hurt? </p>
+<ul>
+<li> When the cost of making and maintaining the components exceeds
+  the cost of just building the total system, over the expected
+  lifetime of the system.
+<li> If the components are not properly adapted to the
+task, because of poor understanding of the patterns of usage.
+<li> If the additional overhead of packaging and connecting the
+  components (combinatorics) exceeds other savings.
+
+<li> When the number of components becomes so large that it
+  contributes to the cognitive burden of navigating the complexity of
+  the total system.
+</ul>
+
+

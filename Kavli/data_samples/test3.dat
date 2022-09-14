@@ -1,0 +1,1567 @@
+
+<h1>Banks, Brains, and Factories</h1>
+
+<h2>How rich information alters the economics of cooperation and work</h2>
+
+<small>(Based on talks given at AllDayDevops and Devops REX Paris in
+December 2016)</small> <br><br> 
+
+<a href="http://www.cazton.com/podcasts/devops-special-banks-brains-and-factories-thinking-in-promises-for-a-future-world">Podcast interview about this keynote/essay</a>
+
+<p><i>The economic model we live by grew out of humanity's effort to
+scale up its supply of basic needs, giving communities the means to survive,
+raise their standards of living, and escape poverty. Successive
+generations embraced and evolved methods of planned and mechanized
+production, with each growing its output, while preserving a tradition
+of asset ownership and seasonal productivity. The result today is a
+model of economics that strives for short-horizon profit.  Now that technology
+makes the goal of plenty attainable, a new model may be needed for a
+`smart world', one that redefines the goal of the economy from growth
+for its own sake to something more invested in social cohesion.
+
+<p> Thanks to information technology, we are already moving to a new
+kind of service-oriented economy, one where individual intent and
+meaning can be built into all our interactions, at a deep level. This
+is a personalized, application-centric economy, using information
+technology in all areas to drive processes, with rich
+semantics. Today's legacy system, by contrast, predated the
+information age, and could only afford to cope with a generic form of
+money, managed on an aggregate scale much greater than individual concerns, by
+singular institutions whose goals are not well aligned with those of
+ordinary people. However, modern access to rich
+information processing, and a growing disillusionment with industrial
+management styles, could reverse that, allowing us to return to the
+original notion of group <i>cooperation</i> as the basis for our
+economy.  What could this mean for us in a `smart' post-industrial
+world, with more diverse interests, in which basic resources are
+plentiful?
+</i>
+<p>
+
+<h2>What binds us together, and what tears us apart?</h2>
+
+<p>
+Cooperation (when parts work together as a whole) evolved in biology
+as an adaptation to the economic benefits of specialization, or
+differentiation of roles. Cooperation begins when agents
+(differentiated by the promises they make) interact with one another, allowing them to
+make new collective promises that no individual could keep alone.
+<p>
+<img src="img/scalemoney.png"  width="300" align="right">
+
+
+Cooperation has brought atoms together as molecules, single-celled
+organisms into cooperative clusters, as plants, animals,
+humans, societies, and even whole ecosystems. Cells, organs, bodies,
+families, tribes, and even countries (political unions) are all have
+their own separate lives as singular `agents'; but it is how they
+behave <u>together</u> that gives them a functional meaning in a
+larger context.
+
+<p>
+Cooperation is at the root of most if not all systemic behaviours,
+many of which we take for granted. That includes civil societies at
+all levels of development.  Cooperation explains economies of scale,
+and unlocks the advancements made when barriers to our shared
+progress are overcome.
+
+The economics of cooperation are complicated, and contemporary
+economics too simplistic to capture its semantic nuances, but that may
+now be changing, due to the availability of information systems that can
+cope with and track rich detail quickly and cheaply. Today, we have the technology to
+manage an information-oriented view of economic cooperation that can
+unify all perspectives in a simple way. 
+
+<p>In this essay, I shall try to explain the underpinnings of a such
+view of cooperation to a technology audience, based on simple <a
+href="TIpromises.html">promise theory</a> concepts[1], laying out the path
+to a future socioeconomic viewpoint to be described in a follow-up article.
+
+<h2>Inequality is not (only) what you think</h2>
+
+<p>
+Humans evolved to cooperate. There is strong evidence that our
+neo-cortical brains evolved to manage relationships, for what
+biologists call `reciprocal altruism', and that our species therefore
+cooperate as our natural state of being[2,3,4]. What is most impressive though is
+how we have scaled cooperative behaviour from bands of hunter-gatherer
+all the way up to modern cities and nation states. We should not
+underestimate the magnitude of that achievement[13]. Indeed, many human
+societies have still not made this change, even in the increasingly
+pervasive modern age of information[5,13].
+
+<img src="img/legup.png" align="right" width="400">
+
+<p>What brings things and people together in a cooperative way? Life
+is filled with obstacles that are hard to overcome alone.  We can
+assist one another both with both qualities (semantics) and quantities
+(bulk supply). So cooperation is a way to exceed individual
+limitations.  Curiously, our narrative of the natural world is mainly
+about competition and contention, but this is a mirage.  What appears
+competitive from one interpretation (prey versus predator, for
+instance), may be seen at cooperative (in balance) from a total
+ecosystem perspective. Our society is mainly cooperation with a little
+competition riding on top of the stability it provides.  Thus, scales
+and boundaries (defining who and what is inside and outside a group or
+system) play very particular roles in understanding systemic
+cooperations of parts.  These aspects are the elements of promise
+theory, making it a useful tool for examining social order.
+
+
+<p>Agents have to distinguish themselves to cooperate.  Without being
+able to promise distinguishing traits (semantic information or
+different bulk capacities), there would be no basis for selection, and
+working together could only be an ad hoc sharing of the total supply
+of stuff. In order to cooperate, we need to recognize the capabilities
+of others, and be able to trade them.  Thus, in terms of information, it is the
+<i>inequality</i> of agents is the basis for cooperation. Some agents
+may promise leadership skills, some techical ability, others may be stronger
+or faster than others. Cooperation is about how to draw advantage from those assets
+beyond the confines of the individual.
+
+<h2>Working for trust: value and the social brain</h2>
+<p>
+Anthropologist-psychologist Robin Dunbar showed that humans' large
+brains allow us to interact with larger groups than primates with
+smaller brains.  By plotting the sizes of primates' neocortex regions
+against the sizes of social groups, he showed a straight line
+relationship, suggesting that neo-cortical brain size co-evolved with
+social group size. This is Dunbar's social brain hypothesis, and it is
+supported by much evidence[2,3,8]. It links iterative work done by
+brains in recognizing and learning traits, over extended times, to the
+capacity needed to memorize and recognize friends and foes. This
+indicates that the time-investment of energy in learning is of value.
+Transactional encounters (like a Markov process) cannot explain large
+brain size, but extended relationships can.
+<p>
+There must be something valuable about relationships, after all the
+brain consumes about 20% of our energy at rest, which is a huge
+penalty for the meager capability of better living
+together. The reason nature endures this extraordinary cost is surely
+the unexpected survival benefits of managing these long-term
+relationships.  Relationships are not just social, they are cognitive. As we interact over
+time, in many different contexts, we aggregate rich information and build up a complete picture of
+something, by integrating the multiple experiences into a single model
+that could not be discovered by single `transactional' encounters. In
+short, we learn to know someone or something as what we call a friend.
+Long term cognition, with integration of contextual characteristics,
+is the very complement of cooperation, allowing us to know and recognize
+individuality. This is why brains are the key to cooperation.
+
+
+<p>What is the true value of a relational brain? The answer is risk
+management and cost saving: removing the overhead of hedging and
+testing the waters and dancing around an untrusted party to see what
+it might do.  Time, as marked by repeated interaction, is the
+fundamental currency of economic value. It is the one thing we cannot
+easily extend in the moment.
+
+There is thus an economic incentive to increase
+trust, to save time. Trust is an assessment based on a memory of the reliability of
+agents to perform according to our expectations.  If an agent is
+predictable, we can trust that it will continue to behave in a way we
+can use for our own purposes. This is valuable.  If we can't trust, we
+have to verify every step of the way, and that is expensive.  Thus
+once our cognitive assessments stabilize, such that our expectations
+match our observations (over some duration or timescale), we save
+future time and effort by trusting in behavioural outcomes. Value is
+like Brownie points for good behaviour: the answer to the question,
+can I rely on you?
+
+<p>The capacity to form a relationship is the capacity to remember
+past behaviour, recognize it in another, to assess it, and to cache it
+as a <i><u>trust</u></i> score to guide future expectation. We learn
+adaptive responses to known capabilities and quirks, all for personal
+gain. This requires some modelling and pattern recognition, as well as
+contextual memory. For this we need brains. However, what may have once evolved only as a small
+social group skill has now taken on far greater implications, as we
+have scaled cooperation and embraced its emergent benefits.
+
+<p>Having acquired the capability to `truly know' other humans as
+friend or foe (thanks to our brains), we can do it for animals, tools,
+problem solving, navigational routes, strategies, and any number of
+other things. All we need to do is repeatedly interact with something,
+and our brains will work their magic, anthropomorphizing behaviours
+and treating all the forces in our lives as potential allies.
+In other words, one may regard every aspect of what we now call
+knowledge as just a kind of on-going quasi-social relationship, riding
+on top of the cognitive apparatus that evolved to strengthen
+cooperative animal groups.
+
+<p>Once equipped with a brain that builds relationships, it is only
+natural that it would try to apply that skill to everything. Consider,
+for instance, how many hours a day you spend interacting with your
+phone, word processor, or spreadsheet; then, compare that to the
+number of hours a day you spend interacting with loved
+ones. <i>Work</i> is not a task, it is a relationship that has come to dominate our
+lives, and takes up at least as much space as our close human
+relationships[8]. Humans, however, are the only primate brains that clock into factories.
+
+
+
+<blockquote>
+Robert Axelrod[6,7] arrived at a similar conclusion about the
+importance of time in cooperation, by a different route. He studyied game theory
+models of iterated prisoners' dilemma games. He showed that value comes from
+repeated cooperation, i.e. extended mutually beneficial relationships,
+not just singular transactions. Value comes from persistence in time
+(e.g. loyalty or stickiness), and the scale on which we measure it is
+entirely the whim of each individual's personal assessment. This is
+consistent with Dunbar's hypothesis that there is a cost and a benefit
+associated with long term relationships, reflected in nature's
+favouring higher brain functions.  <br><br> The problem with
+relationships is that they are expensive and time consuming to
+establish and maintain. Trust, after all, is built from observing how
+well agents keep their promises in the long run. Trust is cumulative,
+not transactional. 
+If we only expect to meet a counterpart once, and engage in a
+single transaction, there is a temptation to exploit the situation for
+selfish reasons.  But if we know that we are going to meet that same
+agent again, we can expect retaliation.  Axelrod showed that even
+rational agents should favour generosity and fair trade (a trust
+relationship) in order to maximize their utility.
+<br><br> Our solution in the modern world of money
+is to introduce a proxy, by outsourcing all random encounter
+relationships to a trusted third party (a bank or government) who
+promises to honour transactions. Don't trust this vendor/customer to
+trade fair value? Well, trust me instead and we can save time.
+</blockquote>
+
+
+
+<h2>The trinity of cooperation</h2>
+
+
+<p>Let's try to peel back the layers of significance, to apply
+cooperation to our modern economic narrative, to unravel its modern
+development, and to debug some of its problems.  There are three broad
+characters at play in a story of cooperation at scale, which I have
+chosen to dub as `banks', `brains', and `factories'.
+<p>
+
+<img src="img/tripod.png" width="600">
+<p>As we'll see, these are roles to be played by agents rather than
+specific entities (they are promises made by agents as distinguishing traits), but they mimic a
+useful separation of concerns. I shall use these as idealized
+concepts, without worrying about the real-world nature of these too
+much.
+
+
+<table>
+<tr><td><b>Brains</b><br>promise learning, prediction, combination<br><img src="img/brain3.png" width="150"></td>
+<td> In the Dunbar sense (explained above), brains represent the curators and maintainers of
+on-going <i>relationships</i>.  They observe, sense, and learn
+patterns of behaviour, and they can make decisions to adapt in
+response. They represent what makes us human, social, creative,
+capable of cooperating. As we shall see, brains are also
+where value is defined, individually. Thus they are where currencies
+really get their value.  Brains don't have to be directly human. They
+can be proxies for human interests, like corporations, vendors, or
+even artificial intelligences.
+<br><br>
+Brains are cognitive, learning and employ feedback loops for build a
+learning circuit.  Trade is, of course, one of the main repetitive
+relationships that a brain carries out. The receipt of goods or
+services is a cognitive process at the scale of the trading
+parties. </td></tr>
+
+<li><td><b>Factories</b><br>promise capabilities, uniqueness,
+work<br><img src="img/factory2.png" width="150"></td> <td> Factories
+are the sources, owners, or creators of the information that is traded
+by brains. They create the unique traits, the basic inhomogeneities, or inequalities
+that enable trading and sharing.  Factories sometimes mine raw
+materials and sometimes combine them into composites with new meaning,
+generating new qualities or quantities. They are a source of <i>semantic</i>
+variation (n information science, the term semantics is used to
+describe interpretation and meaning).</td></tr>
+
+<tr><td><b>Banks</b><br>promise stable lending of resources<br> 
+<img src="img/bank2.png" width="150">
+
+</td><td>Banks are lenders. Their roles as vaults, for storing stuff,
+is less important than the fact that they have the authority to lend
+without becoming empty. They allow us to borrow in some form of
+currency (sugar, bread, generic money, or goodwill) to overcome
+obstacles. They thus turn cooperation into a service that does not depend on
+friendship.  Any agent that
+can lend a hand, without significant burden on itself, could be
+considered a bank.  <br><br> By being reliable, banks mediate as
+Trusted Third Parties, i.e.  monolithic proxies for pairwise
+trustworthiness. If we don't trust a counterpart's money, we can still
+trust the bank to pay up, as long as the bank mediates all the
+transactions, though its authorized coins, notes, cards, or cheques,
+etc. Thus banks get in between the agents in direct relationships,
+which is sometimes useful and sometimes harmful.  </td></tr>
+
+</table>
+
+
+
+
+
+<h2>Building on specialization and recombination</h2>
+
+<p>Basic issue number one: how can agents (people, machines, companies, countries) exceed
+their own limited capabilities as individuals, to advance into new
+areas? The answer is: by taking on different roles and helping each other out.
+
+<p>
+When they/we act as autonomous units, self-sufficient agents are their
+own factories, drawing on their own resources and making what they
+need to keep their promises. Sometimes, however, agents need help from
+one another. Sometimes cooperation is voluntary, other times
+it seems imposed by necessity. Diversity or inequality of agents' capabilities favours
+coming together to form molecular allegiances with new properties, in
+a chemistry of cooperation.  They can make different new kinds of promises
+to one another, and the ability to make and keep a promise is a
+valuable basis for measuring trust. This applies to all agent scales from genes
+to nation states.
+<p>
+Agents, with similar specializations, can cluster together to scale
+particular functional roles, e.g.  services or activities that promise
+specific semantic outcomes.  If all agents were the same, then they would have no
+particular incentive to come together; all agents would float around like
+amoebae, competitively trying to grab their share of the surrounding nutrients.
+
+<img src="img/ecoscale.png" align="right" width="400">
+<p>
+The separation of concerns, which accompanies specialized learning,
+can, however, lead to efficiency, opening new doorways. Breaking up a problem into
+modular parts may help to scale it efficiently.
+A dedicated agent, which promises
+its specialized skill as a service, may handle more clients by
+interleaving them (so-called multiplexing).  This brings an <i>economy
+of scale</i>.  If we double the number of clients, we may not need to
+double the number of specialized agents to perform the service[8],
+because the cost associated with switching from one skill to another
+(called context switching) is eliminated, and the agent can focus on
+learning a smaller number of skills in greater depth. In short it has
+to maintain a small number of learning relationships.
+
+<p>
+Economies of scale make specialization economically sensible when
+workload is not saturated.  Several agents might be able to work
+together on the same thing, but also one agent might be able to share
+its time between several tasks, because it can devote all of its
+energies to doing similar work.  Thus, as cooperation grows, we may
+need fewer agents on balance, provided workloads are not densely
+packed. You work on the `dev', I'll work on the
+ops. You be a doctor, I'll be an engineer.
+
+<p>But there is also a cost to this specialization. As agents become
+dissimilar, they also become more isolated. They develop their own cultures and
+languages. They no longer understand one another implicitly, so they
+need a common language to communicate promises to one another about
+what they can do. All this costs time.
+Without trust, barriers of verification are
+introduced (fill out this form, wait for approval, jump through this
+hoop), leading to a retreat from efficiency.  So it's no longer just a
+case of getting enough people together. We also have to make sure they
+know each others' roles, and know how to coordinate. The scaling of
+intent involves some kind of management or coordination.
+
+<p>Cooperation is thus a Faustian bargain. We might improve efficiency
+(at least at low utilization) at the expense of increased complexity.
+If you think that's not true, try breaking up a lump of dough and then
+putting it back together again without changing its behaviour, then
+try taking apart a human being and put it back together again without
+changing its behaviour! The dough does not cooperate, so there is no
+information associated with its configuration of parts configuration.
+A human body, on the other hand, is a highly intricate cooperation of
+parts, each promising unique roles, which contains a vast amount of
+interaction information at all scales.
+
+<blockquote>
+In the future, the equalization of society, by the broad elimination
+of diversity that technology affords, may force us to rethink our
+interaction as individuals.  In a sense, our striving to make
+universal access to goods and services, through integrated stores like
+Amazon, and online services, accessible though trusted third parties
+behind `smartphone apps' etc, undermines a part of the social contract
+on which we scale the modern world.  When everything is available to
+us at the push of a button, by vending machine, replicator, or smart
+third party phone app, why would we even need to talk to each other,
+let alone work together? Would we evolve back into social amoebae,
+into technological hunter gathers, interacting only with faceless
+third party service providers? The answer here depends on the
+distribution of `wealth' or capacity to act and reward disinterested
+parties.
+</blockquote>
+
+
+
+<h2>Asking for help: exceeding our limits by borrowing</h2>
+
+<p>
+<img src="img/legup.png" align="right" width="400">
+Much as we value the predictability of total information that comes
+with our autonomous self-sufficiency, we cannot always manage everything
+alone. There are places in the future that we can only reach by
+working together.  How then do we exceed our own capabilities, as
+individuals, to go beyond what a single individual can do?  The answer
+is we cooperate, or borrow capability from other agents who have the
+capacity to help.  The risky question in a world of diversity and
+cooperation is thus: can I rely on you?
+
+
+
+<p> Why would we choose to help someone else? If we help someone and
+they overcome an obstacle, do they then owe us something in return? If
+you help me, do I need to pay you back?  The idea of compensation for
+effort leads us to an economic reckoning, which I'll return to below.
+In short, no agent would help another if it meant compromising its own
+survival, but would it ask for something in return?  Rational economic
+thinking suggests that there has to be a mutual benefit, reduced
+costs, or at the very least least no net loss in order to pursue an
+interaction. But humans are not rational. We are emotional in the short term, and only
+approximately rational when averaged over long times and statistical ensembles.
+
+<p>Agents cooperate by:
+<ul>
+<li>Trade: a permanent exchange, for independent reasons. 
+<li>Lending and borrowing: i.e. trade something with a time delay to returning it (debt).
+<li>Collaboration, mutually contributing to an outcome of common value.
+</ul>
+<p>There are relative perspectives at play in these definitions.
+External trade is just internal collaboration, when viewed at a larger
+scale, and vice versa. A loan is just a trade by any other name.  The
+lender offers immediacy of action, or speed of access to a resource,
+and expects a slower return of (often trading some kind of `interest'
+for the time lost as compensation).  Time is a valuable and
+non-recoverable resource.  Alternatively, a lender might trade the
+promise of a skill for some other skill promised in exchange.  There
+are thus, as usual in systems, both dynamic and semantic forms of
+lending and borrowing:
+
+<ul>
+<li>Borrowing a larger amount of a single resource (dynamic, quantitative lending).
+<li>Borrowing a new enabling resource (semantic, qualitative lending).
+</ul>
+
+<p>When agents know about each other, and trust each other, they can
+try to work together. The incentive to cooperate comes from promising
+one another outcomes that yield a benefit to the other. This benefit
+is a highly complex calculation (it needed the evolution of powerful brains),
+and it is poorly captured by our contemporary idea of money.  The
+better they know one another, the less likely they are to insist on an
+immediate repayment.  The command and control view of factory work,
+throwing tasks over the wall, i.e. <i>imposing</i> on one another's
+autonomy, like an alpha male aggressor, may even be a disincentive to
+cooperate (as production line workers recognize and challenge). Indeed, imposition
+might be construed as a form of attack (an attempt to appropriate the
+resources of an agent without a promise).  Each agent assesses
+benefits to cooperation individually, in an Axelrod manner, and thus
+each agent separately determines a notion of value. In the currency of
+trust, there is no universal scale of value.
+
+
+<blockquote>
+<b>Why do we need to compensate others?</b>
+<br><br>
+<p>
+Why do we pay for what we take?  The concept of ownership plays a role
+here. By social convention, if I come across something of value in my
+territory, whether by fortune or by hard labour, we say that it is
+mine, and you have to give me something in return. 
+
+<p>This is a moral position. We did not have to arrange our society in
+this way. In fact, if we are honest (which we rarely are when guided
+by self-interest), then ultimately we steal or `appropriate'
+everything like pirates.  All the basic resources of the planet
+ultimately come from the sun and from other bygone stars.  The stuff
+is lying around for us to take, not made by anyone. Our lives are
+granted by the sun, but no one pays back the sun.  We help ourselves
+to animals and plants, without paying back directly.  There is a
+balanced ecosystem, but it runs at a net loss, propped up by the sun's
+energy.
+
+<br><br>The reason we pay transactionally for things is out of an
+ethical sense of `fair share' between humans, i.e.  that we have learned to respect the
+boundaries of other `agents'. That is <i>your</i> arm, I won't take
+it. That is your food, I won't take it (unless I am desperate or you
+violate my concept of fairness).  Trust, respect, fear of retribution
+(tit for tat, Axelrod's studies discovered), over a long term
+relationship are what allows the stability of agents and their
+promises to continue. Thus, we pay pragmatically to maintain trust,
+stability, and continuity in society. This is a form of what
+biologists refer to as reciprocal altruism.
+
+</blockquote>
+
+
+<h2>Scaling cooperation with promises, not obligations</h2>
+
+<p>
+Promise theory is a discrete approach to understanding the freedom and
+constraints to scale cooperation.  It describes the axioms on which
+economic behaviour are based.  Could we use it to reconnect with the
+roots economics has lost touch with today? The appearance of `DevOps' suggests
+that we might.
+<table>
+<tr><td>
+<center>
+<img src="img/PromisesImpositions.jpg" width="400">
+<p>
+Left: Impositions impose intent from outside (non-local). <br>
+Right: Promises respect intent only from within (local).
+</center>
+</td></tr>
+</table>
+<p>Promise theory allows us to compare the imposition view of command
+and control (`make it so!') to a promise (`look what I can do, take it
+or leave it') view. In turns our that, in spite of the legacy of
+Newtonian thinking, a promise view is much closer to our modern
+understanding of how interactions work in the physics too[7].
+<p>
+The main problem with impositions is not ethical or political, or the
+fact that they violate the autonomy of agents. It is that they do not
+lead to certainty or predictability. In fact, often then bring the
+opposite (inconsistency and uncertainty), because they are non-local:
+the declaration of intent happens in a different location than the
+verification of outcome, so the outcome might actually remain
+unknown. Two agents can try to impose different constraints on a third, and
+bring confusion rather than clarity.  Promises are a `bottom up' theory of local
+information in which the declaration of intent and the point of
+outcome are the same, so they maximize the availability of
+information. Bottom up means local and consistent, as we know from physics.
+
+<table>
+<tr><td>
+<img src="img/PromisesImpositions2.png" width="500">
+<p>
+<small>
+<i><b>Impositions</b>: (obligations) are non-local, low trust, throw it over the wall...<br>
+<b>Promises</b>: local, trust building, by iterative feedback, voluntary
+cooperation, self-sufficient and autonomously kept.
+No agent can make a
+promise about an agent other than itself.</i>
+</small>
+</td></tr>
+</table>
+</center>
+<p>
+
+
+<p>
+In promise theory, we speak only of `agents', without caring whether
+they are human, animal, mineral, plant, machine, etc. All we care
+about is what promises they `intend' to keep.  So we are not limited
+to only human interactions, or machine interactions, or monetary
+interations: we can handle all of these inside a common framework.
+There is an anthropomorphization here, which is harmless, and
+sometimes helpful. It is not important whether the paper in a British
+pound note intends to represent money, and to pay the bearer on demand
+a sum of one pound or whether it is merely a proxy for someone else's
+intent. 
+
+<p>To get from individual trade to macro-economics, we `only' need to
+understand how to scale promises.
+Promise theory allows us to track and scale both semantic and
+dynamic aspects of interactions, as discrete networks of interaction,
+to see how qualitative and quantitative aspects work
+together. Promises kept are a quantum of fulfillment, of intention realized,
+i.e. of reliability, thus they are a basic accounting unit for
+trust. To understand trust and value, it is therefore helpful to frame
+matters in the discrete graphical framework of promise theory. Later,
+when we understand the microscopic constraints, we can see how they
+scale into smooth continuum relationships on the macro-level.
+
+<table><tr><td> <b>Understanding the scaling of trust, by agent
+scaling: interior and exterior promises</b> <br><br> The scaling of
+agency simplifies trust, at a cost, because it leads to a redefinition of our
+expectations of cooperative behaviour, placing multiple concerns under
+a common umbrella.  If we can wrap systems in a shell or skin, as a
+single organism, we can simplify the trust relationship for the
+consumer of a promise who interacts with them. See the figure.
+
+<img src="img/interiorexterior.png" align="right" width="450">
+<br><br> When forced to cooperate with all the agents directly,
+dependencies in a chain of delivery lead to an explosion of
+information to verify trust.  The rules of promise theory show that
+the end user must form individual trust relationships with each of the levels of
+dependency, because agents can only make promises about their own
+behaviour, but dependencies must be independently promised.
+
+A company or product shell, on the other hand, may wrap services in a `trust box' so that
+a consumer only has to trust the integrity of the whole agent thing,
+and leave the integration to the integrator. What happens on the
+interior stays on the interior. Only exterior promises are
+exposed. 
+<br><br>
+Suppose now a `smart service' integrates a number of
+independent services, which the user has to work with independently;
+rather than assuming that the user will know all the prerequisites and
+be prepared, the smart wrapper could make sure to promise the user a
+checklist of promises it must be able to keep in order to complete its
+interaction with the whole chain of obstacles, leading users through
+the steps, like a `wizard'. Now we are in the territory of smart
+systems, buildings, cities, etc. This is the kind of interaction that
+is common in software today, but not in government or public ervices,
+for instance.
+
+<blockquote>
+If the world were composed entirely of equal agents there would be
+limited gain from cooperation. 
+<img src="img/NN1.png" align="right" width="100">
+<ol>
+<li>The cost of cooperating between peers
+is N reward for N<sup>2</sup> cost of coordination.
+
+<li>The cost of cooperating with a singled out hub or coordinator agent
+is N-1 reward for N-1 cost.
+
+<li>If the capabilities can be folded `vertically' into a single autonomous
+agent, then the potential is for N reward at cost 1.
+
+</ol>
+
+Thus, if everyone were the same, with only vertical scaling, we would have no need to
+cooperate or help one another. We would be independent, like `amoeba',
+floating happily and independently, getting everything from our
+smartphones. Semantic inequality enabled horizontal scaling not the real problem, but
+quantitative stockpiling and hoarding is. When some agents continue to
+accumulate an unfair share of resources, preventing others from
+getting access, those `rich' agents become effectively cancerous
+parasites on society, compromising fair access.  But, who decides what
+is fair? This is an ethical and political question: economics is
+inseparable from politics.
+</blockquote>
+
+</td></tr>
+</table>
+
+<h2>But, ...depending on others undermines promises, and trust</h2>
+
+
+<p>Paradoxically, there is dark side of cooperation, which is that
+dependency invalidates promises: because dependency
+delocalizes agency and information[8].
+
+<img src="img/conditional.jpg" width="350", align="right"> <p>We base
+trust on our repeated experience of whether agents keep their promises
+or not, i.e. do they give us accurate information that allows us to
+work with them?  However, if an agent promises something
+<i>conditionally</i>, relying on an dependency it cannot meet without
+assistance, this is not a real promise, e.g. `I will deliver X if I
+get Y from elsewhere', is an empty statement unless the same agent can also
+promise that it will get Y. No agent can make a promise on
+behalf of another (indeed, this assumption about voluntary cooperation
+is an axiom of promise theory).
+
+
+<p>
+Personal trust, between peers, which our brains evolved to process, is
+resource intensive, difficult and costly to scale.  It requires a
+deep understanding of third parties, of time and space, and of
+distributed information, that we take for granted in our cognitive
+repertoire. Human agents can thus scale by clustering, and a cluster
+can make new promises and behave as a single collective
+agent. Hierarchical clustering is the basis on which we scale all
+promise relationships.
+
+<p>If new promises can be made at each decouplable scale of agency,
+then trust relationships must also form at each scale. Promise theory
+tells us that every scale can have new promises, and hence form
+independent relationships (promise, accept, assess individually), and
+this implies independent notions of value, and independent currencies
+for cooperation, at each scale too. Thus, macroeconomics depends on
+microeconomic detail, with some degree of coupling, but is not
+determined by it unless that coupling is very strong, at which point
+it would be chaotic.
+
+
+<h2>De-personalizing trust: <br>Banks, generic money, and the dehumanization of society</h2>
+
+
+<p>Scaling cooperation could be expensive, but there is a trick that
+works all agents except one: centralization.  Today we know this as the
+`SOMETHING as a service' trick.
+
+By eliminating direct human relationships (that vestigial quirk that
+defines our intelligence), we can speed up cooperative interactions,
+eliminating the trust-building phase. This is what banks and generic
+money do. Instead of having to trust N agents, we only have to trust
+the bank. The downside of this is that money does not communicate the
+semantics of our intent, so part of the economy transactions take
+place `out of band'.
+ <blockquote>
+Money (like a global variable in a computer program) is the
+victim of contention and contextual muddle. The role of banks, and
+their currency (money), is thus slightly different from the popular
+understanding of a vault in which we keep our savings.
+</blockquote>
+<img src="img/bank2.png" align="right" width="400">
+<p>
+This trick of centralization has been used in civilizations around the
+world, to bring a <i>de-personalization</i> of society, through the
+creation of institutions or so-called Trusted Third Parties. It has
+been a very successful strategy for redefining trust relationships and
+establishing political stability, through its apparent role as
+impartial calibrator and arbitrator of `fairness'. Use of a third
+party is a mechanism for weakening the couplings to individual agents,
+and thus also eliminating the power of trust bonds between close
+individuals. This is what banks are supposed to do. It has both positive and
+negative implications.
+
+<blockquote>
+Another way to de-personalize is to average away individuality by
+voting. Thus, democratic process is another important way in which we
+perform semantic averaging and define fairness.
+</blockquote>
+
+<p>On the positive side, we de-personalize services in order to take
+power away from individuals with selfish and local concerns (like
+kinship and tribal allegiances that lead to unhelpful rivalries).
+This performs a kind of s<cite>emantic averaging over the relationships that make
+define our modern sense of `fairness'. It helps us to live together in
+a civil union, and has the additional benefit of subordinating
+everyone to a standard that treats everyone according to the same policy (which, alas,
+does not imply equally). Moreover, when we
+exchange money tokens whose buying power (let's not call it value) are
+promised by a trusted third party, we now only have to trust this
+single entity to engage in transactions with unknown parties. We don't
+have to build a relationship with everyone, because the bank (or
+government) will guarantee our future buying power, and the continuity
+of future society.
+<img src="img/money.png" align="right" width="300">
+<p>Banks promise authorized money tokens with a standardized unit of
+buying power (though they change this promise frequently and inconsistently, because of
+the invalidating effect of dependencies). If everyone trusts these money tokens, by investing in
+a trust relationship with the bank (as if it were a giant, if slightly
+obtuse brain), and everyone promises to use these tokens in
+transactions, then trust can be replaced by price. This has some
+negative side effects. To begin with, there is no deterministic 
+relationship between price and trust. It drives a wedge between parties too, making
+us care less about one another, chasing buying power instead of cooperation.  We come to imagine that the bank (or
+someone else) will take care of our neighbours so that we don't need
+to play a community role. Money is dissociated from cooperative trust, and
+re-associated with personal status. Monetary cooperation suddenly
+looks more like competition.
+
+<p>Today (at least in my home country) banks are now providing trusted
+identity authentication services too, illustrating their new role in the modern
+world as identity information brokers. They are trust merchants, as
+are Google, Facebook, and others who broker central banks of
+authoritative `trust'.  Does the fact that we are able to create a
+centralized system, where we replace peer trust by the automated trust
+implied by money and bank, mean that individual trust was actually a
+waste of time? Were we wrong to demand trust of one another in the
+first place? No, because, by taking money (as a kind of external
+validation of trust) for granted, we now operate under greater risk of
+failed expectations. We just hope that if the trust were misplaced, we
+could sue for compensation retroactively (tit-for-tat).  
+What we gain is the assurance of a kind of guarantor --- a
+bank, central bank, or government who defines the currency, and can
+print as much as it likes to cover losses and paper over cracks,
+according to its own standard of fairness. In effect, banks meddle with the
+causal nature of time in interactions, by providing a buffer for `cashflow'.
+<img src="img/reservoir.png"  width="400" align="right">
+<p>
+To maintain the stability of this weak `third party' quasi-trust,
+banks have to be unflappable sources of authority, like infinite
+reservoirs, as constant as the Northern star, `alphas' that dominate
+behaviours of the social group. They are the supertankers that do not
+get knocked off course by a few waves. When we borrow, and perhaps
+fail to repay, they must continue.  The banks are supposed to sustain
+this kind of equilibrium with the users of their
+currencies. Information theory tells us that agents can never reach
+equilibrium unless they are dominated by a singular source or sink of
+essentially infinite capacity. There can only be one collective `bank
+agent' to calibrate a particular form of currency; though, in accordance with the scaling
+laws for promise agents, the bank agent may be composed of multiple
+cooperating distributed sub-agents, making coordinated promises. This
+includes the possibility of distributed algorithms for `electronic
+currencies' like BitCoin.  But, if everything will continue no matter whether we repay a
+loan, why would we bother? The answer, again, is trust and the
+politics of fairness.
+
+
+<table><tr><td> <b>Money can't increase trust between its users, only
+to the bank</b><br> Banks and their calibrated money promise basically
+a language for interaction.  Because money is a trust relationship
+with a bank (a bank, in the most general sense, promises to validate
+and authorize its currency), and not a trust relationship between the
+users of the currency it promises, it leads to only implicit
+third-party trust. This is rather weak, as agents are only bonded by
+the mediation of a third party. In chemistry, we would call such
+bonding through an intermediary a covalent bond.  <img
+src=img/covalent.png align="right" width="400"> <br><br> Consider a
+slightly different example based on something we would not normally
+consider to be a bank: a television. A television is an unflappable
+source of entertainment (no really).  If a group of people are sitting
+around a television set watching a show, they are bonded implicitly
+through the third party, like members of a club, just as a bank binds
+together money users in a monetary system.  The watching (lending) of
+content by one user does not prevent others from watch it too. The
+content is unflappable. Eventually, they repay this by license fees or
+cable charges, etc.  The users or watchers have no direct peer-to-peer
+interaction, so their trust for one another is weak. Giving the peers
+more entertainment, or more `currency', only enhances their bond to
+the bank, i.e. their allegiance to the TV channel, not to one another.
+<br><br> The calibrating influence of the bank only enables them to
+exchange mutually understood information (tokens like: `Sally
+married Geoff OMG!') and they will both understand these transactions, but
+they do not build deep trust between one another. They would still
+need to build that independently peer to peer to trust one another.
+Similarly, when we pay for things with money, a bank calibrates the
+value of the money and authorizes is, so we can understand one
+another, but we do not trust a vendor simply because it uses money, or
+because we are paid more, or because goods are cheaper or more
+expensive. We would still have to build up trust directly through
+repeated interactions over time (did the vendor give me quality for my
+money?). Money is a lingua franca for communication, and a
+proxy for weak covalent trust.  </td></tr></table>
+
+
+
+
+
+
+<p>Taking away individual trust and replacing it with a politicized
+form of fairness is a lot to ask of a society.  The users or watchers
+have no direct peer-to-peer relationship, and not all societies accept
+this loss of autonomy equally.
+
+<p>In Northern Europe, perhaps the epitome of belief in dispassionate
+organization[5], which calibrate fairness and represent trust through
+monolithic `banks' and government bureaucracies, we are proud that
+fairness cannot depend on family, kinship ties, or clan allegiances
+(though social status can often still carry privilege). Our modern
+allegiance is to money (not even government actually).  The price is a bureaucracy that seems to care
+little for individuals, i.e. a dehumanized society. It is impartial,
+in some sense, but also inhuman, and even obtuse at times.
+
+<p>Southern Europe still clings more to the values of friends and
+family, and allows peers to interact directly, offering individual
+favours. Bartering and negotiation are still a part of basic
+services. This might not scale as well, and is unlikely to be as
+uniform (i.e. what we might call fair).  To Northern European eyes,
+this sometimes seems corrupt (looking after your close relationships),
+even unfair and messy, but it clings on to the humanity of individuals
+at the expense of impartiality. If you are willing to interact on a
+personal level, you can get bespoke service without the latent
+bureaucratic hindrances.  Both forms of political order are
+widespread around the world[5].
+
+
+
+
+
+<h2>DevOps as an example of promise-oriented cooperation, without money</h2>
+
+<p>Rebelling against the centralized blunt force trauma of factory
+imposed production lines, and trust replaced by monetary governance, peer cooperation
+has been rearing its head again in recent times.  Over the past
+decade, a movement has arisen in the domain of e-commerce and IT services called
+`DevOps' which tries to address systemic failures of cooperation in
+software production and operation.  The idea that developers `Devs'
+were the sole source of value, and that pushing their creations
+downstream to sales and operations, without caring to listen
+to their concerns, has come to be seen as not only arrogant 
+but irresponsible, ignoring reality (an imposition).
+
+<p>Whereas managers (who often act like a bank) try to
+exert influence through wages and monetary means, the DevOps solution
+was not to give the workers more money, it was to encourage them to
+make friends (promising one another trust-building behaviour).  DevOps
+promoted the idea of building an interactive feedback culture (brains
+talking to peers, rather than factories talking through a
+bank). Money, after all, is not value, but an iterative relationship
+is. The success of this human message points to an obvious flaw in our
+economic expectations. Our work narrative is in conflict with our
+basic human instincts. Moreover, everyone secretly knew this, but the
+received MBA narrative of monetary control maintained a distorted
+view.
+
+
+<p>
+Paying someone more to accept bad conditions is not a real incentive
+for the desired outcome, because the semantics of money are not aligned with
+the semantics of the outcome itself. Offering money is more likely to encourage
+greed or even cheating. The role of the third party gets in the way of the
+relationship, just as when workers in hierarchical organizations are told
+`you have to go through my manager to talk to me'. The de-personalization 
+of having an intermediate agent (third party)
+removes a value creating loop and decouples the specific semantics
+from one another. Generic currencies do the same, hence the move towards
+private currencies, payment loyalty cards, etc.
+
+<p>Sometimes the opposite trend can destroy cooperation.  Recently a
+friend of mine told me of an example of counter-culture.  In her
+startup, a recent hire started to create conflict over entitlement to
+better pay relative to another worker. This internal conflict shifted
+focus onto a `bank approach', which got in between the peer
+relationships. On the interior of a promise-agent (in this case a
+company), cooperation is needed to stabilize the external promises. If
+there is to be competition, you want it to be on the exterior, else
+the agent is not even a stable entity.
+ 
+
+
+
+<p>
+DevOps has become a concept now in IT. It has the feel of a civil
+rights movement--- a return to human values protesting over a culture
+of management by third party imposition. People want to be brains not factories.
+Managing at the macroscopic scale of averages will never be good for microscopic concerns.
+DevOps is a rehumanization of the scaled production pipeline, but introducing
+more feedback. It is a cognitive (brain) learning model that builds trust.
+The traditional (factory) imposition model of `throw it over the wall' has fallen short
+of delivering trusted services, as promise theory would predict, from the
+lack of feedback and cooperation.
+
+<p>Of course, it is not just developers and operators who have this
+trust gap. The semantic richness of modern information organizations
+means there are many interfaces between parties who need to cooperate,
+to align their interior promises with the exterior promises of their
+teams or clusters---not just Dev and Ops.
+
+<p>The focus on relationships, and brain approaches, has extended
+beyond pipelines to separations of concerns in cooperative networks
+(software ecosystems), through `microservice architectures' that are
+not for scaling technology, but rather human cooperation.  Dunbar's
+limits tell us how many of these we can realistically manage as
+humans.  The concept of microservices, for semantic decomposition,
+enable specialization while keeping tight relationships. It is not
+about reuse or efficiency of scale as much as it is about value
+generation.
+
+
+
+<h2>When trust goes into recession, depression follows</h2>
+
+<p>However we choose to manage cooperation, it is necessarily a
+fragile affair. When one or more of the three pillars of cooperation
+fail, the result is a dynamical collapse of a system of promises,
+leading to a recession of trust.  In the 1930s economists witnessed at
+first hand this recession of cooperation, precipitated by an economic
+system based on interdependent currencies (which make promises
+invalid) and fending global imbalances with only local remedies. The
+entire edifice of social cooperation came to a halt.
+
+
+<img src="img/depression.png" align="right" width="400">
+
+<p>
+In a depression, even the pressures and incentives, imposed by a
+central, bank become mistrusted by its client agents, and they become
+unwilling to use its currency (money), planning instead to wait and
+hoard for a better price, or more favourable deal.  Hoarding of cash,
+as a fungible buffer, became seen as an insurance against the
+expectation that others would break their promises, either by willful
+intent or by force majeure.  This could turn to tragedy in regions
+with hyperinflation, where savings would evaporate back into the
+imaginary fire from whence money originally came. Protectionism
+shoots itself in the foot.
+
+<p>The problem in a depression is thus not one of fiscal inequality, per
+se, but rather of hoarding, preventing others from accessing 
+supplies they need to replenish. Supplies are perishable
+over some timescale, so the effect of a depression is tied to a
+slow-down on this particular timescale of needs relative to supplies. In the modern
+world, where the mantra of growth is taken as an axiom, we are force
+fed goods we don't strictly need, to sustain the desire for profit.
+It seems hardly any wonder that trust is subject to sudden collapse
+when we are woken up from our daily sleepwalk by inclement financial weather.
+
+<blockquote>The general purpose money issued by nation states, from
+their central banks, is used as a proxy for all kinds of social
+contracts. However, because the money carries no recognizable intent,
+money transactions muddle together issues that should be kept
+separate. Money couples semantically independent issues together, across
+multiple scales, and
+strong coupling is the basic cause of deterministic
+chaos[8]. <br><br>Generic money is only an approximate guiding hand
+for social interaction, analogous to herding cats with a red cape, in
+an economic charade of spectacular semantic complexity and
+interdependency. This makes it not only difficult to understand but
+also highly unstable, because it brings the kind of strong coupling
+that quickly leads to chaos. The total system may be overconstrained
+in some areas, and under-constrained in others.  Money and resources
+are not scale-free (conformal), but the neo-classical economy is
+assumed to be, by its model of artificial growth and equilibrium.
+</blockquote>
+
+<p>
+Money can't really measure the value of an outcome, but the
+neo-classical market narrative pretends that it does and that markets
+can respond instantaneously with changes of price, propagating this
+information instantaneously and self-stabilizing the markets.  The
+extent to which money carries value depends on what prices each
+individual associated with items in the first place. That is context
+dependent. We may sell a family heirloom to pay the rent. It would be
+absurd to compare their value on a single scale, but that is what we
+do with generic money.  Economic theory pretends to assume that value
+and price are strongly correlated by market forces, but food is not
+the same as taste; this could only be true in highly idealized
+circumstances. Indeed, for all the money we stockpile, inflation can
+wipe out the value of money, without altering the value of things.
+
+<p>The flow of money is only a form of information, not a transfer of
+universal value. It has to operate at a finite speed.  The trust that
+matters to society is associated with peer relationships, not with money
+transactions, or with trust in the bank; but, when trust in the bank and
+its money are lost, parties stop talking with their money, and this
+weakens everyone's trust in everyone else even more.  This is what we mean by a
+depression. Cooperation grinds to a halt and parties put up barriers
+and more costs to cooperating (`austerity').  
+<img src="img/austerity.png" align="right" width="400">
+
+<p>
+During financial crises, governments have often tried to control
+spending by imposing austerity, believing that they are buying a kind of
+insurance at fixed value. However, by making it difficult to spend money,
+the problems of receding trust are make much worse.  Since money is
+the main form of dialogue in finance, preventing parties from
+talking only paralyzes the economy.  Imagine if you had a problem to
+solve and the response was to limit access to the phone, Internet, and
+email. How would you fix the issue?
+<p>
+This seems to be a deep flaw in modern economic theory. Money is only
+a crude hammer, but we try to hit every problem with it.  Finance and
+macro-economics are deeply coupled, with Byzantine complexity, yet as
+financial blacksmiths hammer away with their single tool,
+macro-economics tries to govern the effect by annealing and quenching
+the financial flows, averaging away the timescales of their causal
+effects, to manufacture a totally artificial quasi-equilibrium.  The
+imagined end-state of such a process could only approximate the actual
+economy on a timescale much greater than than the monetary effects one
+is trying to govern. 
+
+<blockquote>
+<b>The curious case for interest</b><br><br> Debt, and `interest' paid
+on debt, are another feature of the modern monetary economy that do
+not make much sense between trusted friends, yet they dominate the
+economy today. The closer the relationship, the
+less concerned we are about repayment. Lenders are strong, loaners are
+weak. The de-personalization through money led to a sense of
+legitimacy for charging of rent and compound interest, depending on
+the inconvenience, and potential loss due to inflation, suffered by a
+lender, also as a disincentive to unbalanced parasitic borrowing. In
+Islamic banking, charging of interest is considered morally
+unacceptable.  <br><br> This subject is too large to fit into this
+margin, however, a full analysis of the rationality of interest and
+inflation, including semantics, in the context of promise theory,
+would be a worthy underpinning for an analysis of a cooperative smart
+economy.
+</blockquote>
+
+<h2>The needs of the economy outweigh the needs of the community or the human</h2>
+
+<p>
+An economy that only delivers stability on a timescale much greater
+than human behaviour is of no value to its population. It might have a
+theoretical benefit to a society's long term survival, but it
+asks individual humans to sacrifice their needs for an abstract
+goal. This is similar to the dilemma we face with global warming and
+ozone depletion: why should individuals sacrifice their lives
+for an abstract agent, like the planet or the economy.
+This is a questionable and unfair request to make of anyone,
+even for the benefit of future generations. In a world of 
+rich information, we ought the be able to find a suitable
+compromise to both issues, with twice the moral payback.
+
+<p>We have only begun to use rich information to track economics and
+financial concerns. Internally, in markets, high frequency traders,
+and debt-traders markets, buried in a Byzantine financial system, already use
+some of these ideas to address the concerns of banks and investors in
+bulk, but these also tend to sacrifice individuals on the alter of bulk
+profit.
+
+<p>What possibilities exist in a service economy, where we can trace
+the semantics of intent and the interactions of multiple parties, with
+all dependencies, quickly and in a controlled way?  Could we then
+enable micro-adjustments to trade, large and small, through a variety
+of monetary currencies, just as a highly unstable fighter jet performs
+a million micro-adjustments to its flight envelope just to stay in the
+air while maximizing its maneuverability[8]. This is already beginning to happen.
+
+<blockquote>
+<b>Timescales and promise-keeping are intrinsically linked</b>
+
+
+<br><br> Complex currency semantics arise when promises of goods and
+services are composed from many parts, each with networked
+dependencies. A good example of this is how airlines price the seats
+on flights. They try to predict the future cost based on a variety of
+promises that may or may not be kept, such a fuel price, demand,
+etc. It might seem that a seat on an empty flight should be cheap, but
+costs do not scale continuously.  The cost of carrying a single
+passenger in terms of weight, versus weight of fuel depends on them
+keeping their promise of baggage allowance, body weight (which they do
+not promise), and the price of fuel, whose promise changes on a
+timescale much shorter than ticket sales. This is combined with
+logistical costs of having planes promised to be at different
+locations for availability, which in turn depends on weather
+conditions and a variety of factors that make the pricing a gamble.
+Like weather prediction, detailed information might enable a
+brute-force calculation, still with some uncertainty.  All these
+considerations lead to an accumulation or orders that is by no means a
+Markov process: expectations for the final flight depend on the order
+and time at which ticket purchases come in. Costs may be unfairly
+placed on certain passengers at the time of booking, because the
+semantics of purchase are to promise a price up front, instead of
+later when the costs are actually known.  <br><br> In many cases, as
+long as there is sufficient stability in the prices promised,
+fluctuations can be evened out over a timescale much larger than the
+timescale of ticket purchases and flights.  Thus stability is ensured
+by the thermal reservoir model again, where the size of the reservoir
+defines a critical scale for being able to absorb fluctuations. Market monopolies that
+can aggregate all orders in a single bank buffer will have greater
+stability.  <br><br>Scales (timescales) play a
+central role in the ability to make predictions, even with
+promises. Moreover, we know that promises will not always be kept, so
+we must have sufficient bulk redundancy to even out (stabilize)
+fluctuations, in both dynamics and semantics.
+
+<i>Human responses are emotional in the short run, but may approximate
+`rational' when averaged over long timescales and statistical
+populations (ensembles), by semantic averaging[7]. Thus, if we
+attempt to model the economy in terms of rational agents, it will
+lead to management over a timescale much great than that of individual
+concerns. The economy will not serve us as individuals. Who then will
+it serve?</i>
+
+
+<br><br> Promise theory should make it clear that the scaling of
+agents is a discrete matter, in the short term, not a continuous
+one. Discreteness of agents in space and time implies a timescale,
+which affects interactions and outcomes accordingly.  We may
+approximate a fluctuating currency system as a continuum
+near-equilibrium model, for the total (global) system, if we are
+allowed to buffer cash flow with a large singular dominant reservoir
+of funds to stabilize debt, to average out the discrete fluctuations,
+and neutralize specific semantic failure modes. But this does not
+scale down to individual currencies interacting with neighbouring
+economies, as that is (by definition) a non-equilibrium scenario on
+any relevant timescale.
+
+</blockquote>
+<img src="img/factory2.png" align="right" width="400">
+<p>
+Our notions of banks, factories, and
+brains are too simple for the information age.  The generic money we
+pretend is neither universal nor really value-carrying.  Promise
+theory shows us that our money is really already many different kinds
+of money, for addressing concerns at multiple scales, and the fact
+that modern economics tries to makes them all the same is a
+fundamental source of instability, leading to strong coupling and 
+cascade failures.
+
+<p>
+Moves away from this generic money, towards interaction specific
+money, are all around us in the information age, with store loyalty
+cards, flight miles, and all kinds of vouchers that are tied to
+specific sources.  Although vouchers are usually per company, or
+institution, the ability to track rich information allows every good
+or service to maintain its own currency.  We have that capability, but
+it seems too much for our simple minds, because we know Dunbar's
+limits affect all out relationships, not just human ones.
+
+
+<h2>Towards a smarter, semantic economic soundtrack for our lives</h2>
+
+
+<p>
+The challenge we face in changing the way our economy works is that we have
+implicated ourselves and our lives so deeply into a system that was
+designed to produce greater output, to lift society out of poverty and
+to advance our living standards, that the entire meaning of our lives
+has become the enactment of this process, of going to the factory to
+make the money.  Our major relationships are no longer with family and
+friends but with our work. Goals, process, and workforce have
+absorbed life, relationships, and population.
+
+
+<img src="img/lifedependency.png" align="right" width="400">
+
+<p>
+We humans have been the originators of the ideas and the goals, the workforce
+by which the production is carried out. Our life relationships have
+been dominated by our work.  But, as systemic automation takes over
+the production of goods and services, our personal time will no longer be
+dominated by the pursuit of feeding this abstract growth.  Generations have built a society
+out of suckling at the teats of factory workplaces, suppressing brains
+in favour of factory life.  If that goes
+away, what could we do to fill that gap in our lives?
+<p>
+We shall need brains, not just factories, to maintain trust and human
+values, else we shall see the values we take for granted whittled away
+by the increasing de-personalization that comes from decoupling people
+from one another. Soon we may only be coupled through impartial
+services, via our `smart' phones.  Some might speculate whether
+artificial intelligences, and `cognitive computing' could take over
+the burden of trust relationships at high speed.  Indeed, some of this
+is happening in high speed trades. But in these cases, the goal is to
+exploit systems, like strip-mining for numerical profit. The relationships
+are not based on a creation of mutual value. This will be the challenge
+of a better economy.
+
+<table>
+<tr><td>
+<center>
+<img src="img/econoscale.png" width="600"><br>
+<b>Economic cooperative behaviour as a scaled cognitive process</b>
+<br><br>
+Macroscopic boundary conditions modulate microscopic behaviour,
+while microscopic fluctuations potentially destabilize long-term macroscopic conditions.
+Because there is long/short-term memory, economic behaviour is not a Markov process.
+</center>
+</td></tr>
+</table>
+
+<p>Promise theory clarifies the role of value as an aspect of our
+cognitive interaction. Each `brain' decides its own value. Yet
+normally we try to use a single currency, whose imposed `trading
+worth' is calibrated by a central bank. The calibration is adjusted to
+try to address many different concerns imposed from outside, but we
+know that multiple impositions lead to conflicts of interest. Suppose
+instead, we actually separated the currencies used for different
+relationships, just as we separate currencies for different
+superagents (countries, corporate loyalty programs, etc). It would be
+a lot to manage (but that's what we have computers for). by decoupling
+currencies from the single general purpose `Dollar' or `Euro', etc.,
+we could assure the stability and fairness of each quite easily.
+
+<p>Recapturing our understanding of meaning (semantics), and
+aligning around a shared sense of its value, is the key to
+not losing our sense of self, and remaining human.  System design
+thinking is motivated to eliminate the individual, for reliability.
+If a system relies on individuals who are unique, then they are single
+points of failure that make it fragile.  If the individuals are
+redundant, or interchangeable, then there is systemic robustness, but
+their individual value is averaged away. When we design robust systems
+(on which everyone can rely) the paradox is that we become unimportant
+as individuals. The system might now outlast any individuals promises,
+and absorb failures to keep the promises, but it deliberately makes
+individuals irrelevant (and their happiness and quality of life are
+not factored into the goals of the system). Thus the economic success
+of a system automatically dehumanizes its goals. As Spock put it, in
+Star Trek: The Wrath of Khan, `The needs of the many outweigh the
+needs of the few, or the one'. But this need to disenfranchise
+individuals for the many leads to disgruntled parties. When the needs
+of the system (often represented by an `owner') are not aligned with
+the needs of all (or, worse still, penalize certain parties) then the
+system merely ends up not working in their favour.
+
+<p>The way we eliminate or reconnect personal issues must be handled
+fairly and with sensitivity.  When impersonal organizations are judged
+to be obtuse, it is often because they de-personalize users without
+de-personalizing the services that serve them.  When we install petty
+kings and dictators into service roles (the disgruntled bank clerk,
+the self-righteous tax officer, etc), whose promise was supposed to
+be simple and impartial, they fail to keep those promises, abusing
+their uniqueness as a way of clinging onto individual power, and
+thwarting others. One of the judgements that still begs us for our
+human intelligence is when we should suppress our humanity, and when
+we should use it for compassionate exception, but preferably never as
+a weapon.
+
+<p>
+In a modern information society, this is not a tradeoff we should have
+to make.  Our ability to deal with information should render this
+problem trivial: we ought to be able to do better.  If the goal of
+civil society is to work for (all) humans, the system's goals need to
+be compassionately aligned with all its contributors' needs.  Clearly
+that is not the case in contemporary capitalism, where shareholders
+and privileged landowner `classes' are favoured over mere `workers' in
+a kind of return to feudal ownership (whatever the host country's
+formal claims about freedom and democracy), exacting tributes, rents,
+and even interest payments.  The system is engineered to cumulatively
+favour the rich over the poor, because it deals only with numerical
+quantitative measures, discarding qualitative semantics.
+<p>
+Thus ownership is a complicating semantic that may work against the needs
+of the whole.  We pay because of the semantics of ownership, and
+owners feel entitled by history, kinship ties, dynasties etc, to maintain
+their control and privilege[5].
+
+
+
+<h2>Modernizing money to align with human values?</h2>
+
+<p>
+Semantics are the key to functional economics (and an information rich
+economy) because `fair distribution' can be weighted by sense of
+purpose (intent). If everyone can agree on a division of promised
+roles, then there need be no loss of trust, and no need for total
+centralization in a single entity. In IT we call this `microservices'.
+Centralization can be particular to the role (a brain for every
+purpose).
+
+Agents can take a longer term view that, by reciprocal altruism, they can
+eventually benefit more.
+
+Today the transactional `growth' economy and the trust economy are
+two different things. In a service economy, they can be the
+same. Intent and voluntary cooperation now play their roles and take
+on new significance.
+
+
+<table>
+<tr><td>
+<img src="img/scalemoney.png"  width="400">
+<p>
+Each agent interaction scale (by cluster aggregation) has independent
+concerns and timescales: people, companies, towns, nations.  Why do
+monetary authorities mix all their trust issues together, through
+currency incentives? The main reason is that currencies
+were designed prior to the information age. Each could have a
+different currency for cooperation.  </td></tr>
+</table>
+
+<p>Why lump all these concerns into a single instrument? Why not have
+a different currency for every imaginable interaction, and manage
+exchange value only on a need-to-know basis?  This kind of approach to
+separation of concerns is basic lore in modern information technology,
+but it is more of a belief system than a scientifically motivated
+`truth'. In fact, this is starting to happen, as every independent
+economic centre creates its own `app' or chargecard.
+
+<p>However, the efficiencies of modularization are not well understood,
+and mistakes have been made across different fields, including the
+lessons of the <a
+href="https://en.wikipedia.org/wiki/Garden_city_movement">Garden City
+Movement</a> in town planning, which brought massive traffic congestion at
+the expense of semantic separation.  We already have a different
+smart-app for every service, but money was invented long before modern
+information semantics were developed. If some lingua franca currency
+needs to be used, let each scale figure out the exchange system.
+
+<p>It would be an interesting exercise of humanity to ask the
+question: why would someone give me something for nothing, or for a
+long-term IOU?  Do we need to revisit the issue of debt forgiveness? 
+Could we transform a punitive model into a constructive one, i.e. one
+that restores dignity and social participation, based on societal
+values rather than fiscal ones? In a world of plenty, society can
+provide anyone with a buffer for survival.  The human issue is more
+complicated though: it is not enough for humans merely to survive. Our
+expensive brains crave relationships and dignity.
+
+
+<p>The way taxes are imposed today is Byzantine and dehumanizing. If
+taxation were managed as a rich information service, i.e. as a smart
+payment for social services, including borrowing, then all these
+issues could all be combined into something analogous to the yearly
+taxes as as ritual reckoning at the end of each year. Those who abused
+their access to `fair share usage' could be policed and made to
+redress their debt to society on a longer timescale. Clearly, the new
+possibilities for aggregating information suggest that we may have to
+redraw the lines between what is private and what is state.
+
+<p>The need to be involved in the passing of money tokens seems almost
+quaint in this modern world.  In smart cities around China, for
+example, electronic payment has been a reality for years. People
+hardly need to think about the existence of money, as long as they
+don't run out of buying power. The details of payment are more of a confirmation
+ritual than a financial transaction. Electronic payment, by phone, allows people
+to pay practically anything, even with no handling fee. These service
+providers can create and exchange currencies transparently to
+individuals in an information rich world. The only question is: will
+this happen in a way that makes us dependent on a fragile system, or
+will it reflect and reinforce the values of trust that our brains
+evolved to handle. Will it be smart for us?
+
+<table>
+<tr><td>
+<img src="img/oldnewmoney.png" align="right" width="400">
+<p>
+Generic money cannot capture the semantics of its usage case-by-case,
+but a service relationship with rich semantic information can. Thus
+micro-currencies allow smarter adaptation and decoupling of risk.
+</td></tr>
+</table>
+
+<p>
+Identity management (definition of boundaries) is the chief 
+information semantic that leads to inequality, ownership, and all
+of the qualities modernity relies on. In a world of rich information,
+identity management is easy and we can keep track of much smaller groups
+again. Thus information capability could undermine the civil achievements
+of equalizing or creating parity between families, tribes, and other
+closed groups. When technology was poor, it made sense to make everyone the same,
+a simple (even simplistic) view of fairness.
+
+<p>Explicit answers to all these issues require a sequel to this,
+already long, piece.
+
+
+<h2>The only thing we can't scale is individuality</h2>
+
+
+<p>As our goals get bigger, we have been able to scale the work needed
+to realize the goals by increasing a workforce. But in the information
+age, automation will be the main answer to scaling production, leaving
+swathes of workers in current jobs unemployed, without possibility of
+retraining. We can scale almost anything, but we cannot scale the
+individuality of a single human being. When we no longer fit into any
+of the slots that need filling, we will have become properly
+redundant.
+<img src="img/scalegoals.png" align="right" width="400">
+<p>
+What can we do to adjust the course of future society to prepare for
+this? To begin with, we will need to learn how to treat individuality
+as an asset rather than a liability.  Then, we need to fill the hole
+in our lives that is opening up from the mismatch of what a human can
+promise and what the economy expects. We need to re-engineer the
+economy to address the needs of individual humans, not merely firms
+and nation states.  As automation and transport logistics improve, the
+need for globalization will be partially reversed. Only non-recyclable
+raw materials will need to move significant distances on a regular
+basis. The flow of `human capital' or skill is another economy
+that is totally separate from money, as we understand it today.
+It is handled by immigration policy, where cultural semantics are often
+handled bluntly and insensitively.
+<p>
+Finally, time is the resource that cannot currently be replenished.
+Individually, humans have finite lifetimes, which cannot be extended
+significantly or on demand. An economy has to support our well-being on this
+timescale, but the increasing speed of the supply chains in
+metropolitan societies effectively allows us to extend 
+lifetimes relative to our preferred work rate.  Our wants and desires
+(market demands and thus economics) are intrinsically pinned to a
+timescale of human cultural and generational norms, but that is
+speeding up.  There has been a tendency for individual concerns to be
+ignored because they were not scalable or sustainable. We have purposely
+dehumanized the world in order to make it last longer, serving the
+economy, not ourselves as individuals. But this can change thanks
+to rich information technologies.
+
+<br><br>The real problem we face in society is that, as we scale from
+a single human to a collective, the `brain' that learns the behaviours
+at collective scale, and the promises it makes, are progressively less
+intelligent, less nuanced, and the behaviours are designed to be less
+complicated, so scaling up means dumbing down.  In the future, we
+might even apply artificial intelligence to manage trust relationships
+at scale, thus writing humans out of the story altogether.  But then,
+we would have transformed our species from social animals back almost
+to the point of passive amoebae, being fed by a nutrient stream
+through a technological feeding tube.
+
+
+
+<h2>Going it alone?</h2>
+
+<p>What keeps us together, and what tears us apart?
+
+The answer to both questions might be how we use our technology.
+Technology connects us in countless ways, but paradoxically it also makes us
+increasingly independent as individuals, .  If it comes in between us as human beings,
+it can separate us from the social contracts that brought us to where
+we are.
+
+<p>What will be our economic system in a world of plenty, where factories
+are largely automated? Will having everything, at the touch of a smartphone,
+release us from the need to form trust relationships by making mutual promises?
+Will we only interact with `trusted' third parties, companies and institutions?
+How will these be maintained without maintaining a strong cognitive
+adaptability to our environment within the social fabric.
+I am an optimist on this point. We will not give up our humanity so easily, as
+argued here:
+<ul>
+<li><a href="blog_work.html">The End of Sympathy?
+Giving up our world to the robots, and why it bothers us</a>
+<li><a href="blog_cyborg.html">The Cyborg Compulsion
+Why the robots aren't coming in the way you expect</a>
+</ul>
+<p>Striving for `universal equality' is certainly not an answer to the issues we face. This
+would only bring about the loss of culture, individualism, and all the things
+we value in relationships. However, basic human rights, and giving
+everyone an appropriate buffer for absorbing shocks, in order to
+maintain local stability, and to eliminate suffering, would be an
+obvious win. We also need to venture funds to promote future
+exploration. Innovation and exploration are human nature too. Will our
+roles as social animals (mostly free of aggressive conflict) be
+supported or undermined by whatever system replaces generic money?
+Our civil society still relies on many old assumptions, but if too many
+of the underpinnings of the social contract are removed, a society can
+still disintegrate either by rising costs (unlikely) or by a lack of
+mutually beneficial social norms (`lawlessness')[10].
+
+<p>
+It is deliciously ironic that DevOps has emerged as a global movement
+re-emphasizing the importance of peer trust, in the last decade in the
+world of IT. The very enabler of our `dehumanized' impartial system
+has found that the solution to its systemic issues is to build human
+trust along side automated delivery: a recognition that a return to
+actual relationships with feedback and long term mutual understanding
+is beneficial and can work to everyone's satisfaction---and not only to
+overcome obstacles, but for our human happiness.
+
+<p>Amongst the lessons to be learned from DevOps:
+<ul>
+<li>Throwing central money at the problem did nothing to improve the
+promised outcomes, but may have fuelling greed amongst developers,
+distracting them to feel financially special rather than cooperative with
+business goals.
+
+<li>Better cooperation for semantic quality and well being between
+dependency chain links in a production line.  <li>Dividing a problem
+into human-sized chunks called microservices, reconnecting individual
+dignity, sense of ownership, and responsibility to brains rather than
+faceless factories.
+</ul>
+
+<h2>Juggling work and happiness</h2>
+
+<p>Economist Richard Layard has long been asking the question whether
+profit is really the motive we should be striving for. In his book
+Happiness[12], he suggests that a better goal (and an important one
+for our future) is to live happy lives now, not merely invest in the
+promise of future riches.  Moreover, we should not forget the lessons
+of anthropologist Joseph Tainter, who wrote about the role of mistrust
+in bringing about an economic collapse in numerous past societies
+throughout history[11].
+
+
+<img src="img/jugglers.png" align="right" width="400">
+
+<p>
+Technology is both connecting us together over wider areas, and
+undermining our need for one another, by equalizing the world.
+Technology places us in front of an audience that far exceeds our
+Dunbar limits. The growth economy is homogenizing and dumbing down the
+diversity of the world, while it strip-mines and concentrates its trust
+tokens with escalating unfairness. Shops around the world are filled with the
+same offers, but the access and entitlement to a share of
+it is approaching catastrophic imbalance.  Only at the level of nation
+states are there still minor variations in culture and raw
+resources worth trading for.
+When recycling becomes efficient, we could strike many raw materials from the list too.
+<p> To
+respect the species we evolved to be, humanity needs its brains, along side banks,
+and factories for a long time to come, but the shape taken by these agents
+may not be recognizable to us for much longer.
+
+<p>
+MB Oslo Sun Jan  1 13:40:19 CET 2017, minor edits 5-11th Jan.
+
+
+<h2>Bibliography</h2>
+
+<ol>
+<li>M. Burgess, Thinking in Promises, 2015
+<li>R. Dunbar, Grooming, Gossip and the Evolution of Language, 1996
+<li>W.X. Zhou and S. Sornette and R.A. Hill and R.I.M. Dunbar, Discrete hierarchical organization of social group sizes, Proc. Royal Soc., 2004
+<li>R. Dawkins, The Selfish Gene, 1976
+<li>F. Fukiyama, The Origins Of Political Order, 2011. 
+<li>R. Axelrod, The Evolution of Cooperation, 1984
+<li>R. Axelrod, The Complexity of Cooperation: Agent-based Models of Competition and Collaboration, 1997
+<li>M. Burgess, In Search of Certainty, 2013
+<li>S. Keen, Debunking Economics, 2011
+<li>J. Varoufakis, The Global Minotaur, 2011, 2015
+<li>J. Tainter, The Collapse of Complex Societies, 1988
+<li>R. Layard, Happiness, 2005
+<li>J. Diamond, Guns, Germs, and Steel, 1997.
+</ol>
+
+<p>NOTE ADDED 22 January 2017 - After writing this piece, I was recommended the excellent book,
+<i>The Zero Marginal Cost Society</i>, by Jeremy Rifkin, which echoes and deepens several of the
+arguments in this piece, and is highly recommended.
+
+<p>NOTE ADDED 2 March 2017 - After writing this piece, I was
+recommended the excellent book, <a
+href="http://thememorybank.co.uk/book/"><i>The Memory Bank</i></a>, by
+Keith Hart, which (far ahead of its time) presages and deepens several
+of the arguments in this piece, and is highly recommended.
+

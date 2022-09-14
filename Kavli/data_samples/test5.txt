@@ -1,0 +1,100 @@
+
+In this chapter, we paint a picture of cooperation as a process just like any other described in the physical world, by atomizing agency into abstract agents and binding them back together into a documentable chemistry of intent
+
+One expects the promises described in the terms and conditions of the contract will rarely need to be enforced, because one hopes that it will never reach such a point, however the terms define a standard response to such infractions threats
+
+One of the problems we face in every day life, both between humans and between information systems, is how to reach an agreement when not all agents are fully in the frame of information
+
+For example, I can promise to tie my shoelaces independently of promising to brush my teeth, but I can't promise to ride a bike independently of promising to ride a horse, because riding is an exclusive activity, making the promises interdependentIn mathematics, this is  like looking for a spanning set of orthogonal vectors in a space
+
+The starting point for this must be that the actual agents can be influenced, not merely the collective `super agent' which has no channel for communicating because it is only a ghost of the others
+
+If an agent seems uncoordinated with respect to itself, an observer might label it erratic, or even uncooperativeInterestingly, in Myers-Briggs personality  typing, erratic or intuitive thinking versus sequential thinking is  one of the distinctions that does lead to the misinterpretation of  `artistic types' whose thoughts flit around without a perceivable  target as being erratic
+
+And a single protein molecule that unlocks a receptor for sustaining life might be jagged and prickly in just the right way to do a job, but a whole test-tube full of these is just a gooey liquid that does not open locks the size of a test-tube
+
+Since the proliferation of cheaply managed virtualization cloud and custom configuration, it has become the `received wisdom' for those who have access to it that the correct way to manage operations is to `provision all the things' as disposable virtual instances
+
+I agree with most of the principles behind this thinking, particularly in a continuous delivery framework, but some of the advice in the immutable server concept seems basically contrary to the harmonious philosophy of devops, because it elevates a developer driven process above some basic realities about operations
+
+What the discussion about immutable servers probably aims to focus attention on is that the world is shifting away from monolithic architectures, towards a more more redundant cellular-tissue architecture, in which -- if a server fails -- another can take over at a moment's notice
+
+The CAP conjecture, and the debate around it, talks about the trade-offs one has to make in distributed systems, between the ability to provide quick access to IT services and the ability to promise uniform behaviour from around the system, taking into account the unreliability of network communications
+
+CFEngine was an effective antidote to the package manager problem, as it allowed system administrators to set policy for details within individual files, as well as changes at the package and process level, and this would be continuously maintained, not merely installed once and abandoned, thus when security patches to Apache installed over configuration files bringing down a website, CFEngine could have it up again in minutes without human intervention
+
+Moreover, since network failures are fluctuations that happen quickly minutes compared to the rate at which policy changes days, we do indeed have fault tolerance in the sense of policy compliance and it is completely implementable at every location in the distributed infrastructure, allowing consistency to within the time-accuracy of the fluctuation repair schedule
+
+I have any number of design objections to push based systems, including network shells and package pushers that indiscriminately amplify human error around a network without any critical evaluation pull systems can also amplify human error, but they make it easier to put layers of due-diligence in between the intent of a pushy human and the trusting recipient
+
+The main CAP weakness of a push based approach to change is that there is no feedback loop capable of monitoring whether a change succeeded and how fast the information travelled, so we cannot define the availability of that source, because there is no concept of a time interval, just a point at which you throw something over the wall
+
+Then, if we have identified an inconsistency in a system, would it not be better to go the extra mile and simply equilibrate the system to remove the delta without needing to wake up humans on their pager
+
+In the s and s, database vendors came up with management models for infrastructure like the Management Information Base MIB for SNMP, and the Common Information Model CIM, each with tens of thousands of relational tables to try to model infrastructure
+
+My own work during the s showed that infrastructure is not just a key value store, because dynamical systems are not mere data stores, any more than a human being is merely a skeleton with organs pinned to it
+
+no matter what kind of rules one creates, there are always unforeseen circumstances which probe for loopholes in a set of rules, and many of his robot stories were based on the mysteries arising from these loopholes
+
+Sure enough, there will always be a few which remains interested you are the ones reading this, I expect, but a situation of dependency on a few figures in a society, no matter how well-intentioned they might be, is a dangerous position to place oneself in
+
+If computer systems are to be protected from users, at the same time as giving users what they need, the issues are not only about simplifying things and making everything as easy as possible
+
+Then there is the level at which transistors are combined to make Boolean logic gates, the level at which logic gates are combined to produce processors and memory, then the level at which these are combined into a working computer with devices attached, the level at which computers are combined into networks and so on
+
+We learn a lot by this reductionist process, but it is crucial to understand that, at every stage of the reduction procedure, we lose a considerable amount of information, namely the information about how to put the parts back together in the right places in order to make a car, i
+
+No non-integer value can be measured with unlimited accuracy, thus no non-integer value can be fed into a computer with total accuracy, hence no exact answer can be computed, even if the computer has infinite information resolution which no computer has
+
+Klondyke Pete with his trusty mule searched the hills for years to dig up a few grams of gold, only for future generations to spread it thinly over electronic devices, which are now being buried under piles of dirt, when we are bored with them---and in such a way that the gold can never be recovered
+
+it does not `remember' the sequence of events which led to the value describing state of the system, because it involves an implicit averaging over time we cannot recover a sequences of changes from a single number, but it does record how much average information was present in the sequence since measurements began
+
+If a system starts out in a state which is considered to be ordered, then since the number of ways it can be disordered is far greater than the number of ways it can be in its ordered state, by sheer virtue of numbers it is clear that it is more likely to degenerate into disorder than remain ordered
+
+After income tax was introduced, records in the UK have been kept on all citizens activities, for years at a time, Although there is an uncanny feeling that tax inspectors might pursue them to the grave for lost revenue, replacing the accumulation of wealth with an accumulation of records
+
+The junction allows a certain number to flow through from each adjoining route, but if the junction capacity is too slow, then the entropy of the total resources grows to infinity because the number of different digits cars or packets is growing
+
+Although a potential can only guide the behaviour on average there will always be some escape velocity which will allow a system to escape its bounds, the likelihood of its long-term survival, in a world of limited resources, can only be increased by compressing complex information into simple potentials
+
+It turns out that, when we get down to quantum mechanics, and the sub-atomic, the world turns out to be unpredictable for completely unknown reasons, but for most things, random means too complicated to really analyze
+
+Once information has been thrown away, or lost, it is not possible to go back and recreate it, unless it is somehow coded into a local potential, as in Part IV, or journalled in an ever-growing archive
+
+Amongst the approaches used is to try to physically isolate effects from other signals by putting them in a box, or by shielding systems from their environments, or by performing control experiements and subtracting one from the other to obtain the variance
+
+In system administration we are often trying to walk the fine line between necessary complexity and the ability to control, but as we have seen in the previous issues, complexity cannot really be controlled, it can only be regulated by competetive means
+
+The fact that sickness is regarded as undesirable is the result of an essentially fictitious system of values, by which we regard ourselves and our machines as good when they behave as we would like, and as bad when they do not
+
+We were not designed and built for any other purpose than to copy ourselves a sometimes enjoyable, if apparently pointless exercise, but remarkably we have formed our own opinions about the meaning of life, and thus we also can suffer from unfortunate conditions we call sickness
+
+Software competition occurs in every kind of `society' or collaboration, from minute viruses which fight over what program a group of cells should execute, to highly developed humans which fight over political allegiances, coloured rags, beliefs systems and any other bone of contention one can imagine
+
+I have argued, in the previous chapters, that chaos from order is statistically more likely than the opposite, given a flat playing field, but it makes sense that order-from-chaos must occur and indeed be prevalent in the programmed fabric of any organism or cooperative entity
+
+In the technologies we build, we do not create machinery with selfish interest on purpose, but something very interesting happens once we put systems together, in an arena of limited resources processing capacity, memory, network bandwidth etc
+
+This kind of strategy is messy and uncomfortable, at least at one level, but it is clearly the most successful strategy, meeting complexity with complexity through continual monitoring and counter-measure---not looking for push button control panels to somehow get it all under control
+
+As long as we solve the problem by annexing complexity, by coarse graining, by over-simplifying, then trying to compensate by putting humans in charge of push-button menus, Solve this war, here are your choices
+
+Either such colleagues have no faith in science in which case they are just beauracrats going through some learned motions, and will never find anything new, or they are blinkered into believing that knowledge is devoid of principles which can be applied beyond an immediate context
+
+Some administrators try to achieve it with auditing, but even the molasses of information in full system accounting are never complete, because nothing on the system can record what motivates users to do what they do
+
+One can choose to examine these over intervals of time during which they change only slightly micro or milliseconds, or over longer periods which more closely refelect the activity of external influences such as user behaviour minutes to weeks
+
+Sometimes it makes more sense to compare changes to the system with a corresponding value measured a few moments before, and other times it will make more sense to compare to a value from a similar time one or more days or weeks ago
+
+Type I models are likely to be important as a general guide to understanding how cause and effect are related in computers, but the success of that approach is dependant on how well one can represent the behaviour of users, who represent the largest perturbation
+
+it is rather hard to pin down, but it is clearly related to the extent to which the system and its users work within the boundaries of policy, and the idea that an unfortunate mixture of user behaviour might drive the system into an undesirable state
+
+There might be any number of players in a game, but the simplest case also the first approximation is to think of system behaviour as a two-person game, in which the users of the system compete with the system itself for possession of valuables
+
+The remainder of us were hoping to visit LISA, a conference on system administration, where we could revel in that environment which Scrooge dreaded so much, but he wasn't going to make it easy for anyone
+
+Sampled/Skipped =  1700 1791 of total  3491 efficiency =  205.35294117647058 %

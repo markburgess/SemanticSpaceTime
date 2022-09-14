@@ -1,0 +1,478 @@
+
+
+<h1>Tools, process, and technology</h2>
+
+<p>
+Promises exist to reduce our uncertainties about the world in all
+situations, not just human-human interactions.  More correctly, other
+agents' promises allow a particular agent to reduce the uncertainties
+in its own world view.</p>
+
+<p>
+It's useful to be more abstract so that we can talk about all of the
+parts that contribute to a system or process on an equal footing.
+Nothing is more annoying that engineering methods that treat humans
+with their unique qualities as anything other than an integral part of
+a system.</p>
+
+
+<h2>A more mechanical view of agency</h2>
+
+<p>
+We need a generic way of talking about the active agents in an
+human-computer system.  The origin of intent --what we call this
+agency -- is always a human, but the vehicle for intent could be
+anything.  What is important is the intentions and whether or not
+promises are kept.</p>
+
+<p>
+In this book, we don't need to be so formal as to abstract away all of
+the characteristics of an agent (SEE OTHER BOOK), but it helps to see
+how intentionality works by proxy in technology. We could just use the
+term person, for example, a more natural word, but then we might start
+to give them special status. As soon as we use the name person, we've
+also made a few implicit promises about the agent: i.e. this is a flesh and
+blood, probably bipedal structure, with a pulse and a smattering of
+hair.</p>
+
+<p>
+The basic tenets of promise theory may thus be summarized in a more
+de-personalized way as follows. </p>
+
+<ol>
+<li> The agents that make claims to promises and impositions are
+  autonomous. They can only make promises about their own behaviour.
+  No other agent can force a promise upon them. They might try to impose some
+kind of an obligation, but no agent has to comply with that obligation as if it
+were a command.  
+
+On the other hand, as agents interact, they might notice whether or not other agents
+behave as they would like, and alter their own behaviour accordingly.
+
+<li> Making a promise involves passing information to an observer, but not
+  necessarily a message in the explicit sense of a linguistic
+  communication\endnote{We can see that a plant is red, or has thorns.
+    A light-bulb might have a wattage rating, or a certain size.  A
+    door handle signals whether a door opens inwards or outwards.}.
+
+<li> The assessment of whether a promise is kept or not kept may be
+  made independently by any agent in its scope.
+
+<li> The interpretation of a promise's intent may be made independently by any
+  agent that is its scope.
+
+<li> The internal workings of agents are assumed to be
+  unknown. Knowledge of them may be assessed from the
+  promises they make, and keep. However, we may choose the boundary of
+  an agent where we please to hide or expose different levels of
+  information, e.g. we may think of a car as an atomic vehicle, or as a
+  collection of agents working together.
+</ol>
+
+<p>
+Some level of common knowledge or common understanding is needed to
+get from autonomous agents making promises to coordinated and
+cooperative behaviour.  Without this, we cannot guarantee that
+all agents will understand one another's intentions. </p>
+
+<p>
+An imposition is something that happens immediately.
+A promise happens out of band/offline.
+It is a policy decision.<p>
+
+
+<p>
+As with any technical subject, there are multiple levels at which we can use the ideas,
+On a pedestrian level, formulating different scenarios from a promise-only perspective is
+illuminating, and it can teach you a lot about what is really going on in the picture.
+If you follow through, it forces you to make every assumption into an explicit promise.
+</p>
+
+
+
+<h2>Proxy agents are not always what you might think</h2>
+
+
+Let's take a peculiar example of modelling that reveals some
+unexpected ways to think about technology. Imagine a book.  What
+promises does a book make? As always, the answer is, many promises
+both explicit and implicit. Moreover, it makes different promises
+to different agents.
+
+A book can be modelled in a number of different ways, depending on how
+much detail we are interested in, and the larger context we are trying
+to examine. This reflects the different world views of agents.  This
+might seem like an artificial problem, but to a buyer, a publisher or
+a book-binder, it as a real problem in engineering.
+
+<img src="book.png">
+<caption>A book could be modelled as a single agent, or as a number of agents working together.</caption>
+
+
+<h2>A whole book, as an entity</h2>
+
+<p>
+At one level, a book might be considered an agent in its own right.
+The promises it makes might include things like the following:</p>
+<ul>
+<li> Published by O'Reilly
+<li> Written by Mark Burgess
+<li> About a number of subjects
+</ul>
+<p>
+You can probably identify each one of these promises and relate them to text
+on the cover of the actual physical book.</p>
+
+<h2>A book's collaborating parts</h2>
+
+<p>
+On another level, say to a book-binder, the book is actually composed
+of a number of parts: the sleeve, the spine, the pages, some glue,
+etc. Each of these represents an agent in a promise model. Could glue
+really be an agent? Yes indeed, just as bleach is a cleaning agent, or
+toothpaste is an anti-bacterial-whitening agent. Glue plays a vital role, which was
+interpreted as intentionally binding things together by some human and
+some time in the past. Now we no longer care who it was, only that glue
+has this residual intentionality. Continuing:</p>
+
+<ul>
+<li> The cover promises to show certain information to attract buyers and permit logistical tracking.
+<li> The pages each promise to be white and to display a certain portion of text.
+<li> The pages also promise to fall into an order. Page 1/2 promises to be before page 3/4, etc.
+<li> The text promises to consist of a number of paragraphs in a language (say English), with a font in a certain size.
+<li> The text in the paragraphs also promises a certain style, appropriate for the material (it might be rosy and flamboyant in a novel,
+or it might be simple a pragmatic (Don't Panic!) in a self-help book).
+<li> The glue promises to keep hold of things that touch it.
+<li> The pages also have to promise to use the glue in order to be bound by it.
+</ul>
+
+<p>
+You begin to understand just how many promises we take for granted in our every day
+lives. If any one of the promises above were not to be kept, we would immediately
+notice and feel let down. The glue plays the role of an aggregator by making promises
+to all the pages in a symmetrical way. We start to see a graph-like structure emerge
+from the promises.</p>
+
+<img src="book2.png">
+<caption>A book could be modelled as a single agent, or as a number of agents working together.</caption>
+
+
+<p>The promise can spread beyond that text though. The scope of the promise
+increases as the information in its body gets distributed to other agents.
+The information might end up on a website as relayed information or `hearsay'.
+The website cannot make the promise on behalf of the book (because the book
+might change its content somehow)</p>
+
+
+<h2>A radio as a collection of reusable parts</h2>
+
+<p>
+The electronics industry has made a successful story from constructing
+complex systems from individual parts that make promises.  A radio,
+for instance, is a whole composed of components like resistors,
+capacitors, diodes, transistors, etc. Each of these components may be
+thought of as an agent that makes a promise.</p>
+
+
+<p>
+We all know of batteries, which promise to maintain a voltage across their
+terminals. Different kinds of batteries also make different promises about the
+amount of voltage and current that may be drawn from them.</p>
+
+<img src="resistors.png">
+<caption>The stripes on these components represent promises of the electrical properties
+that allow them to be combined into circuits, e.g. a radio</caption>
+
+<p>
+Many are also familiar with resistors, the striped components that
+moderate the flow of electrical current in a circuit (see figure). The stripes are a colour coding
+for what kind of promise they make to resist current. For example, the strips
+might mean a resistance of 300 Ohms, plus or minus 5%. Notice how the final stripe
+indicates how much uncertainty there is in keeping the promise.</p>
+
+<p>
+There is no retribution is the component fails to deliver exactly on
+the value of 300 Ohms.  Electronics engineers have learnt to take
+these uncertainties into account. Indeed, this is the point of making
+promises rather than impositions. Only the component itself has the necessary 
+information to judge how certain it can be of keeping its promise.
+</p>
+
+<h2>Decomposing systems as promises</h2>
+
+<p>
+What did you think about these examples?  Did the radio seem more
+natural than the book?  For me, they are just the same. They have
+reusable components, like paper, glue, resistors, capacitors. 
+</p>
+
+<p>
+What I hope this illustrates is that `things' we interact with make
+promises at different levels, depending on how we interact with them.
+When we are using them, or when we are building or repairing them
+are different levels of understanding.</p>
+
+<p>
+We separate the promises from how to keep them, at different levels.
+What we expose as a promise is a kind of user-interface to others.
+How we decide to keep the promise is an internal matter, and it might
+change. We might have a number of back up and contingency plans.</p>
+
+<img src="howtokeep.png">
+<caption>Decomposing by promise - how to keep.</caption>
+
+<p>
+Because we often start with high level thoughts, at the user
+experience end of a system, we have to break ideas down into smaller
+pieces. In the world of computer programming, we've been taught to do,
+this through commands and algorithms from the beginning -- but in
+promise theory we always reduce into promises, leaving the detailed
+interactions to emerge from a process of reduction.  In this way, we
+keep options open for changing the details for as long as possible.
+</p>
+
+<p>
+If you are a CS person, you recognize the spirit of layered abstraction.
+This is a common strategy, for example, in the OSI networking model.
+But more often than not, we do not design for parallel resolutions, only
+evolving replacements. This is where it helps to consider multiple
+solutions as part of the strategy of keeping a promise rather than merely
+a convenience for reusability.</p>
+
+<h2>Computer operating systems</h2>
+
+<p>
+The agents in a computer, i.e. the things that can change independently,
+are files, processes, storage units, interfaces, peripherals, etc.
+A few of the implicit promises made by computer operating
+systems.</p>
+<ul>
+<li> To allow multiple users to have accounts
+<li> To allow the running of multiple programs
+<li> To provide reliable storage of data
+<li> To transmit and receive messages over the Internet, if it is available.
+<li> To limit access to important resources (security)
+</ul>
+As an independent agent, you might perceive these
+differently.
+
+<h2>A city</h2>
+
+<p>
+The agencies in a city can be perceived at many levels. They include
+buildings, vehicles, civic services, and so on.
+The town planners promise:</p>
+<ul>
+<li> To provide roads, rail and other facilities for transportation.
+<li> To provide water for drinking
+<li> To provide electricity and power.
+<li> To promise membership: who is part of the city?
+<li> To provide governance and policing
+<li> Hospitals and healthcare
+<li> Collect and spend taxes
+</ul>
+<p>
+Utilities promise fair sharing and limited access. Transport services promise</p>
+<ul>
+<li> Schedules.
+<li> Connectivity to other cities.
+<li> Coverage of the city regions.
+</ul>
+<p>
+Emergency services promise availability and response times, to fight
+crime, fire and health emergencies.  These promises are not unlike
+those in a computer operating system.
+Add more to this list yourself.</p>
+
+<h2>Network packet delivery</h2>
+
+<p>
+Since promises form networks of intentional relationships, it makes
+sense to think about what kinds of promises actual data-networks make.
+Data-network technologies are divided up into components through
+layers, which are nested like Russian dolls, rather than through
+parallel components in a radio. They form towers of conditional
+promises. Nevertheless, there are many distinct parts.  Let's pick
+a couple of well known technologies and describe them.</p>
+
+<h2>Ethernet</h2>
+
+<p>
+The active agents that keep promises to send and receive data are the
+network interfaces. In the Ethernet protocol, each interface make a number
+of promises (see figure):</p>
+<img src="net.png">
+<caption>An Ethernet switching function.</caption>
+
+
+<ul>
+<li> To be connected to a shared bus, called a broadcast domain.
+
+<li> To have its own MAC address. This is assumed to be unique, but that is not
+a promise the interface can make, as promising something about
+other agents would violate the principle of autonomy.
+
+<li> To label transmissions with a unique identifiers called MAC addresses.
+
+<li> To label every packet with the MAC address of the recipient and the sender.
+
+<li> To respect a special address for broadcasting packets to all other
+interfaces in the network.
+
+<li> To use or receive only those packets that are labelled with its own MAC address, in normal operation.
+This is a kind of gentleman's agreement to not listen in on others' conversations.
+
+<li> Messages from one interface to another are sent `fire and
+  forget' as impositions to a remote receiver, conditionally if the channel is available.
+
+<li> The interface promise to retry an imposition after some random
+  interval if the shared channel is busy.
+</ul>
+<p>
+Both recipient addresses are necessary else other agents will not know
+for whom a package is intended. This is just like putting a recipients
+address on a letter.  Similarly, a sender's address must also be
+promised in each packet, else the recipient will not know from whom
+the packet was sent.  </p>
+
+<p>
+Couched in this form, it is clear that it is trivial to spoof the
+identity of a packet, by setting the sender address to any agent
+whatsoever, or indeed to no agent whatsoever.  Recipients can only
+protect themselves from spoofing by promising to ignore packets with
+no return address, or from addresses they do not care to receive data
+from. </p>
+
+<p>
+This seems like a flawed design. When it was invented, the MAC
+addresses were considered immutable and unique, being burned into
+hardware. Today, however, this is no longer the case.  There is a lot
+of trust built into the Ethernet, because it was assumed to be
+tamper-proof. The basis for that trust no longer exists.</p>
+
+<p>
+While this set of promises is scale independent, the assumption that
+every agent has to be in scope of every transmission does not scale,
+since it requires messages to be flooded or broadcast to every node
+(agent), in principle.  The primary issue with raw Ethernet is that
+there are no ways to selectively limit the size of these broadcast
+domains.  This makes the `everyone please take a look at this'
+approach impractical.  The Ethernet is a push-based imposition
+protocol, only half a contract is needed for emergent delivery, and we
+leave the rest to trust.</p>
+
+
+<h2>Internet Protocol</h2>
+
+<p>
+The Internet protocol provides Wide Area Networking by breaking up
+addresses into two parts, like a letter sent to both a house number
+and a street name.  The local area address is analogous to the street
+number, while the wide area placement is assumed to be the name of the
+street.</p>
+
+<p>
+Internet address are, of course, coded in binary, so they form doublets:</p>
+<blockquote>
+(network prefix, local address)
+</blockquote>
+<p>
+Moreover, because the packets promise to follow a standard fixed-size
+protocol, both parts of the address get squashed into a binary string,
+as prefix and suffix. The prefix represents the street name, and the
+suffix represents the house number. Broadcasts only happen in the same
+street of Local Area Network (LAN).</p>
+
+<img src="net2.png">
+<caption>An Internet protocol router - one LAN agent extends
+  its gentleman's agreement to listen to everything and relay messages
+  to connecting streets, if the prefix address is not the local one.</caption>
+
+<p>
+To make this work, IP needs two kinds of agent, which fall into
+different promise roles (see figure): interfaces, as before,
+(terminating connections), which only transmit and receive data
+intended for them, and there are forwarders (called routers or
+switches) that listen for packets whose address prefix 
+is not the same as the local one, and which cooperates with multiple
+interfaces, and promise to selectively forward data from one interface
+to another between protected broadcast domain.  This acts as a
+flood-barrier or firewall to packets promised to different prefixed
+networks.</p>
+
+<p>
+Since the Internet packets are send by the Ethernet mechanism,
+their promises are dependent on the Ethernet promises.</p>
+
+<img src="iproute.png">
+<caption>Internet promises. An end-node or leaf and its
+single interface promises to relay through a `router'
+which is surrounded by multiple interfaces, thus connecting
+multiple network branches.</caption>
+
+<p>
+Take a look at the figure. The source node has an
+address, normally written 128.39.78.4/24. As a doublet, the promises
+see it in two parts as (prefix=128.39.78, local=4). We'll call this
+the source prefix, or, 
+(prefix=128.39.78, local=1) for the router interface. 
+When a message is sent to an address with a
+different destination prefix, data are sent by imposition to the
+interface on the router with the source network prefix (usually the
+`default route').</p>
+
+<p>
+Crucially for messages to escape from a local region, the router
+promises all IP interfaces to forward messages it receives 
+on one if its own interfaces according to a set of promises
+which we denote `forward'. The router interfaces, in turn, bind to this
+promise by accepting it.
+The forward promise has the following logic:
+<ol>
+<li> If the prefix of the destination interface is the same as the prefix
+of one of the router's interfaces, forward the message onto that interface.
+
+The remainder of the promise requires configuration with knowledge
+of the wider world.
+
+<li> If the prefix of the destination interface is known to an
+  internal database of external knowledge, colloquially known as the
+  routing table, forward the message to the interface
+  known to lead to the desired destination.\\
+  
+<li> Send all other message destinations to a pre-decided default
+  interface, where we expect to reach some other router with greater
+  knowledge of how to find the prefixed network, or drop the packet.
+</ol>
+
+<p>
+Note that, like the Ethernet, the end state of this set of promises
+has only emergent behaviour that matches its design goal. It cannot,
+by direct imposition, assure a successful delivery of messages,
+because that requires the cooperation of potentially many intermediate
+interfaces and routing agents. In spite of this apparent lack of
+control, the Internet works demonstrably well.  Trust plays a major
+role in operations.</p>
+
+
+<h2>The responsibility ends with the client</h2>
+
+<p>
+The surprising feature of the examples above is that promise theory
+predicts that the client ultimately is responsible for obtaining a
+service it needs.  It's control ends in being able to promise to use
+service from a given provider. If the provider fails to keep its
+promise, then the client alone can do something to locate an
+alternative.  No agent other than the client has an obligation or any
+value in connecting the client with an alternative if the service
+promise is not kept. Moreover the client has no control over any 
+other agent than itself. Its only option is to look elsewhere.</p>
+
+<p>
+In a world where you think about impositions, this seems
+wrong, even ludicrous, but it is a powerful result that changes the
+way we design services.</p>
+
+<p>
+We'll explore this more in the chapters to come.
+</p>

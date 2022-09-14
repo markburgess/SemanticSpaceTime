@@ -1,0 +1,32 @@
+
+Today's legacy system, by contrast, predated the information age, and could only afford to cope with a generic form of money, managed on an aggregate scale much greater than individual concerns, by singular institutions whose goals are not well aligned with those of ordinary people
+
+If we double the number of clients, we may not need to double the number of specialized agents to perform the service[], because the cost associated with switching from one skill to another called context switching is eliminated, and the agent can focus on learning a smaller number of skills in greater depth
+
+If you think that's not true, try breaking up a lump of dough and then putting it back together again without changing its behaviour, then try taking apart a human being and put it back together again without changing its behaviour
+
+rather than assuming that the user will know all the prerequisites and be prepared, the smart wrapper could make sure to promise the user a checklist of promises it must be able to keep in order to complete its interaction with the whole chain of obstacles, leading users through the steps, like a `wizard'
+
+Moreover, when we exchange money tokens whose buying power let's not call it value are promised by a trusted third party, we now only have to trust this single entity to engage in transactions with unknown parties
+
+If everyone trusts these money tokens, by investing in a trust relationship with the bank as if it were a giant, if slightly obtuse brain, and everyone promises to use these tokens in transactions, then trust can be replaced by price
+
+Similarly, when we pay for things with money, a bank calibrates the value of the money and authorizes is, so we can understand one another, but we do not trust a vendor simply because it uses money, or because we are paid more, or because goods are cheaper or more expensive
+
+In Northern Europe, perhaps the epitome of belief in dispassionate organization[], which calibrate fairness and represent trust through monolithic `banks' and government bureaucracies, we are proud that fairness cannot depend on family, kinship ties, or clan allegiances though social status can often still carry privilege
+
+Finance and macro-economics are deeply coupled, with Byzantine complexity, yet as financial blacksmiths hammer away with their single tool, macro-economics tries to govern the effect by annealing and quenching the financial flows, averaging away the timescales of their causal effects, to manufacture a totally artificial quasi-equilibrium
+
+We may approximate a fluctuating currency system as a continuum near-equilibrium model, for the total global system, if we are allowed to buffer cash flow with a large singular dominant reservoir of funds to stabilize debt, to average out the discrete fluctuations, and neutralize specific semantic failure modes
+
+Promise theory shows us that our money is really already many different kinds of money, for addressing concerns at multiple scales, and the fact that modern economics tries to makes them all the same is a fundamental source of instability, leading to strong coupling and  cascade failures
+
+The challenge we face in changing the way our economy works is that we have implicated ourselves and our lives so deeply into a system that was designed to produce greater output, to lift society out of poverty and to advance our living standards, that the entire meaning of our lives has become the enactment of this process, of going to the factory to make the money
+
+The real problem we face in society is that, as we scale from a single human to a collective, the `brain' that learns the behaviours at collective scale, and the promises it makes, are progressively less intelligent, less nuanced, and the behaviours are designed to be less complicated, so scaling up means dumbing down
+
+To respect the species we evolved to be, humanity needs its brains, along side banks, and factories for a long time to come, but the shape taken by these agents may not be recognizable to us for much longer
+
+NOTE ADDED March - After writing this piece, I was recommended the excellent book, The Memory Bank, by Keith Hart, which far ahead of its time presages and deepens several of the arguments in this piece, and is highly recommended
+
+Sampled/Skipped =  439 290 of total  729 efficiency =  166.05922551252849 %

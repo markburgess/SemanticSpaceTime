@@ -1,0 +1,447 @@
+<h1>With a license to intend</h1>
+
+<p>
+Intentionality is that elusive quality that describes purpose.  It is
+distinctly human judgement. When we intend something, it contributes
+meaning to our designs. We measure our lives by this sense of purpose.
+It is an intensely sensitive issue for us.  Purpose is entirely in the
+eye of the beholder, and we are the beholders.
+</p>
+
+
+<h2>An imposition too far</h2>
+
+<p>
+Throwing a ball to someone is an imposition. There was no pre-planned
+promise that advertised the intent up front, the ball was simply aimed
+and thrown. The imposition, does not imply an obligation to catch the
+ball however. The imposee (catcher, in the wry...?) might not be able
+to receive the imposition, or might be unwilling to receive it. Either
+way, the autonomy of the catcher is not compromised by the fact that
+the thrower attempts to impose upon it.</p>
+
+<img src="catch.png">
+<caption>An imposition does not imply coercion. Autonomous agents
+  still participate voluntarily.  On the right a lack of a promise to
+  respond might be an unwillingness to respond or an inability to
+  respond.</caption>
+
+<p>
+In the second part of the figure, the two players have promised to
+throw and catch, perhaps as part of the agreement to play a game.  Was
+this a rule imposed on them? Perhaps, but in that case they accepted
+this and decided to promise compliance. If not, perhaps they made up
+the `rule' themselves.  
+A rule is merely a seed for voluntary cooperation.
+</p>
+
+
+<h2>Reformulating your world into promises</h2>
+
+<p>
+Seeing the world through the lens of promises, instead of impositions,
+is a frame of mind, one that will allow you to see obvious strengths
+and weaknesses quickly when thinking about intended outcomes.</p>
+
+<p>
+Promises are about signalling purpose through the language of intended
+outcomes.  For whatever reason, Western culture does not use promises
+as a primary point of view, so you are probably not used to thinking
+about everyday matters in terms of promises, but it turns out that
+they are everywhere.</p>
+
+<p>
+Here are some examples of the kinds of statements we may refer to as
+promises. </p>
+
+<ul>
+<li> I promise you that I will walk the dog.
+<li> I promise you that I fed your cat while you were away.
+<li> We promise to accept cash payments.
+<li> We promise to accept validated credit cards.
+<li> I'll lock the door when I leave.
+<li> I promise not to lock the door when I leave.
+<li> We'll definitely wash our hands before touching the food.
+</ul>
+
+<p>
+These examples might be called service promises, as they
+are promises made by one agent about something potentially of value
+to another.
+They are all intended outcomes yet to be verified.
+</p>
+
+<p>
+Thanks to human ingenuity and propensity for transference (some might
+say anthropomorphism), promises can be made by inanimate agents too.
+Inanimate objects frequently serve as proxies for human
+intent.  Thus it is useful to extend the notion of promises to allow
+inanimate objects and other entities to make promises.  Consider the
+following promises that might be made in the world of Information
+Technology:</p>
+
+<ul>
+<li> The Internet Service Provider promises to deliver broadband Internet at a fixed for a fixed monthly payment.
+<li> The security officer promises that the system will conform to security requirements.
+<li> The support personnel promise to be available by pager 24 hours a day.
+<li> Support staff promises to reply to queries within 24 hours.
+<li> Road markings promise you that you may park in a space.
+<li> An emergency exit sign promises you a way out.
+</ul>
+<p>
+These are straightforward promises, which could be made more specific.  The final promise could also be
+restated in more abstract terms, transferring the promise to an
+abstract entity: ``the help desk'':</p>
+
+
+<ul>
+<li> The company help-desk promises to reply to service requests within 24 hours.
+<li> The weather promises to be fine.
+</ul>
+
+<p>
+This latter example illustrates the way that we transfer the
+intentions of promises to `entities' that we consider to be
+responsible by association. It is a small step from this transference
+to a more general assignment of promises to individual components in a
+piece of technology.  For example, we can document the properties of
+the following tools and technologies in the spirit of this argument:
+We abstract agency by progressive generalization:</p>
+
+<ul>
+<li> Martin on the front desk promised to give me a wake up call at 7 a.m.
+<li> The person on the front desk promised to give me a wake up call at 7 a.m.
+<li> The front desk promised to give me a wake up call at 7 a.m.
+</ul>
+<p>
+Suddenly what started out as a named individual finds proxy in a piece of furniture.</p>
+
+<p>
+In a similar way, we attach agency to all manner of tools, which may be considered
+to issue promises about their intended function.</p>
+<ul>
+<li> I am a doctor and I promise to try to heal you.
+<li> I am a meat knife and promise to cut efficiently through meat.
+<li> I am a logic gate and promise to transform a {\tt TRUE} signal into a {\tt FALSE} signal and vice versa.
+<li> I am a variable that promises to represent the value 17 of type integer.
+<li> I am a command line interpreter and promise to accept input and execute commands from the user.
+<li> I am a router and promise to accept packets from a list of authorized IP addresses.
+<li> I am a compliance monitor and promise to verify and
+  automatically repair the state of the system based on this
+  description of system configuration and policy.
+<li> I am a high availability server and I promise you service delivery with 99.9999\%
+availability.
+<li> I am an emergency fire service, and I promise to come to your rescue if you dial 911.
+</ul>
+
+<p>
+From these examples we see that the essence of promises is quite
+general. Indeed such promises are all around us in everyday life, both
+in mundane clothing as well as in technical disciplines. Statements
+about engineering specifications can also profitably be considered as
+promises, even though we might not ordinarily think of them in this
+way.</p>
+
+<p>
+Practice reformulating your issues as promises.</p>
+
+<h2>What are the agencies of promises?</h2>
+
+
+<p>Look around you and consider what promises things make.</p>
+<ul>
+<li> A friend or colleague
+<li> The organization you work for
+<li> A road sign
+<li> A pharmaceutical drug
+<li> A table
+<li> A non-stick pan
+<li> A window
+<li> A raincoat
+<li> The floor
+<li> The walls
+<li> The book you are reading
+<li> The power socket
+</ul>
+
+<h2>What issues do we make promises about?</h2>
+
+What might be the subject of a promise? 
+Outcomes of different kinds:
+<ul>
+<li> A function or service provided
+<li> A value judgement (say about fitness for purpose)
+<li> Access or permission to use something
+<li> Behaviour (rules, laws)
+<li> Timing
+<li> Location
+<li> Layout or configuration
+</ul>
+
+
+
+<h2>What things can be promised?</h2>
+
+<ul>
+<li> States, arrangements or configurations, like a layout.
+<li> Idempotent operations (things that happen once) - delete file, empty trash
+<li> Regular, steady state, or continuous change: constant speed.
+<li> An event that already happened.
+</ul>
+<p>But not non-idempotent symmetries: turn left. Turn upside down.</p>
+
+
+<h2>What things can't be promised?</h2>
+
+<p>
+We already said that the basic rule of autonomy is that an agent
+cannot make a promise about anyone other than itself. This is a simple
+rule of thumb. If it did, another agent assessing the promise would be
+right to reject it as a breach of trust, and devalue the promiser's
+reputation, as it is clear speculation.  Are there any other
+limitations?</p>
+
+<p>
+The truth is, anyone can promise anything at all, as in Monty Python's
+sketch `Stake Your Claim!', where contestants promise: `I claim that I
+can burrow through an elephant!' and  `I claim that I wrote all of
+Shakespeare's plays, and my wife and I wrote his sonnets'.
+These things are, formally, promises. However, they are obviously
+deceptions, or outright lies. If we lie, and are found out, the value
+of our promises is reduced as a consequence.</p>
+
+<p>
+The impartial thing to do would be to leave this as a matter for other
+agents to assess, but there are some basic things that nature itself
+promises, which allow us to draw upon a few rules of thumb.</p>
+
+<p>
+A minimum requirement for a promise might be for there to exist some
+kind of causal connection between the promiser and the outcome of a
+promise in order to be able to keep it, i.e.  in order for it to be a
+plausible promise<footnote>Statisticians these days are taught that
+  causation is a dirty word, because there was a time when it was
+  common to confuse correlation with causation. Correlation is a
+  mutual (bi-directional) property, with no arrow. Causation proper,
+  on the other hand, refers to the perceived arrow of time, and
+  basically says that if A precedes B, and there is an interaction
+  between the two, the A might contribute to B, like a stepping stone.
+  This is unproblematic.</footnote>.  So it would be fine to promise that you
+fed someone's cat, but less plausible to promise that you alone
+created the universe you were born into.
+</p>
+
+<h2>The lifecycle of promises</h2>
+
+<p>
+The promise life-cycle refers to the various states through which a
+promise passes, from proposal (see the table below).
+The life-cycle of a promise may now be viewed from either the
+perspective of the agent making the promise, or from the perspective
+of the promisee, or in fact any another agent that is external but in
+scope of the promise.</h2>
+
+\begin{tabular}{ll}
+\hline
+<table>
+<tr><th>Promise State</th><th>Description</th></tr>
+
+<tr><td>proposed</td><td>A promise statement has been written down but not yet made.</td></tr>
+<tr><td>issued </td><td>A promise has been published to everyone in its scope.</td></tr>
+<tr><td>noticed</td><td>A published promise is noticed by an external agent.</td></tr>
+<tr><td>unknown</td><td>The promise has been published, but its outcome is unknown.</td></tr>
+<tr><td>kept</td><td>The promise is assessed to have been kept.</td></tr>
+<tr><td>not kept</td><td>The promise is assessed to have been not-kept.</td></tr>
+<tr><td>broken</td><td>The promise is assessed to have been broken.</td></tr>
+<tr><td>withdrawn</td><td>The promise is withdrawn by the promiser.</td></tr>
+<tr><td>expired</td><td>The promise has passed some expiry date.</td></tr>
+<tr><td>invalidated</td><td>The original assumptions allowing the promise</td></tr>
+<tr><td></td><td>to be kept have been invalidated by something beyond</td></tr>
+<tr><td></td></td>the promiser's control.</td></tr>
+<tr><td>end</td><td>The time at which a promise ceases to exist.</td></tr>
+</table>
+
+
+<p>
+Once a promise is broken or otherwise enters one of its end states
+(invalidated, expired, etc), its life-cycle is ended, and
+further intentions about the subject must be described by new
+promises.</p>
+
+
+<img src="lifecycle_promiser.png">
+<caption>The promise life-cycle for a promiser.</caption>
+
+<p>
+From the perspective of the promisee, or other external agent in scope, we
+have a similar life-cycle, except that the promise is first noticed when published
+by the promiser.</p>
+
+<img src="lifecycle_promisee.png">
+<caption>The promise life-cycle for a promisee.</caption>
+
+
+<h2>Keeping promises</h2>
+
+<p>
+What does it mean to keep a promise?
+
+What is the timeline? When is a promise kept?
+
+How many events need to occur? What needs to happen?
+
+What is the lifecycle of a promise?
+
+Probably it means some essential state has changed in an agent's
+world, or been preserved.  The configuration of the world measures the
+outcome of a promise.
+
+The result also has a value to the agent. 
+</p>
+
+
+<h2>Cooperation: the polarity of give and take</h2>
+
+<p>
+When promises don't go in both directions, a cooperative relationship
+is in danger of falling apart and we should be suspicious. Why would
+one agent be interested in the other agent, if not mutual intent? This
+is a sign of potential instability. This seems initially trite and a
+human-only limitation, but even machinery works in this way. Physics
+itself has such mechanisms built into it.
+</p>
+
+<p>
+For every promise made to serve or provide something (call it X) by
+one agent in a supply chain, the next agent has to promise to use the
+result X in order to promise Y to the next agent and so on.  Someone
+has to receive/use the service (promises labelled "-") that is offered
+or given (promises labelled "+"). So there is a simply symmetry of
+intent, with polarity like a battery driving activity in a system.
+Chains, however are fragile: every agent is a single point of failure,
+so we try for short tiered cooperatives. In truth, most organizations
+are not chains, but networks of promises.
+</p>
+
+<p>
+In reality, promises and impositions are always seen from the
+subjective vantage point of one of the autonomous agents.  There is
+not automatically any `god's eye view' of what all agents know.  We
+may call such a subjective view the `world' of the agent. In computer
+science, we would call this a distributed system.  Promises have two
+polarities, with respect to this world: inwards or outwards from the
+agent.</p>
+
+<ul>
+<li> Promises and impositions to give something (outwards from an agent).
+<li> Promises and impositions to receive something (inwards to an agent).
+</ul>
+In the mathematical formulation of promises, we use positive and negative
+signs for these polarities, as if they were charges.
+It's easy to visualize the differences with examples:
+<ul>
+<li> A (+) promise (to give) could be: `I promise you a rose garden'.
+<li> A (-) promise (to use) could be: `I accept your offer of marriage'.
+<li> A (+) imposition (to give) could be: `You'd better give me your lunch money!'
+<li> A (-) imposition (to use) could be: `Catch this!' 
+</ul>
+
+<p>
+If one agent promises to give something, this does not imply that the
+recipient agent promises to accept it, since that would violate the
+principle of autonomy.  Similarly, if an agent imposes on another
+agent, e.g. to give something (please contribute to our charity), or
+to receive something (you really must accept our charity). Neither of
+these need influence the agent on which one imposes these suggestions,
+but one can try nevertheless.</p>
+
+<p>
+The plus-minus symmetry means that there are two viewpoints to every problem.</p>
+
+<p>
+You can practice flipping these viewpoints to better understand
+systems.</p>
+
+<h2>How much does a promise binding count?</h2>
+
+An author promises to write 10 pages to his editor, and the editor
+promises to accept 5 pages. The probable outcome is that five pages
+will end up in print. Similarly, if the author promises 5 pages
+and the editor promises to print 10, the probable outcome is 5 pages,
+though it might be zero if there is an additional condition about all or nothing.
+
+If a personal computer has gigabit network adapter, but the wall connection only
+promises to deliver 100 megabits, then the binding will be 100 megabits.
+
+
+<h2>Promises and trust are symbiotic</h2>
+
+<p>
+The usefulness of a promise is intimately connected with our
+<i>trust</i> in the agents making promises. Equivalently we can talk
+of the <i>belief</i> that promises are valid, in whatever meaning we
+choose to apply.  In a world without trust, promises would be
+completely ineffective.</p>
+
+<p>
+For some, this aspect of the world promise could be
+disconcerting. Particularly, those who are progeny of the so-called
+`exact sciences' are taught to describe the world in
+apparently objective terms, and the notion of something that involves
+human subjective appraisal feels intuitively wrong. However, the role
+of promises is to offer a framework for reducing the uncertainty about
+the outcome of certain events, not to offer guarantees or some
+insistence on determinism, and in many ways this is like modern
+theories of the natural world where indeterminism is built in at a
+fundamental level, without sacrificing the ability to make
+predictions.</p>
+
+
+<h2>Promoting certainty</h2>
+
+<p>
+Promises express outcomes, hopefully in a clear way.  If promises are
+unclear, they have little value.  The success of promises lies in
+being able to make assertions about the intent of a thing or a group
+of things. </p>
+
+<p>
+The autonomy principle means that we always start with the
+independent objects and see how to bring them together.  This bottom
+up strategy combines many lesser things into a larger group of greater
+things. This coarse graining improves certainty because you end up
+with fewer things, or a reduction of detail. The space of possible outcomes
+is always shrinking.</p>
+
+<p>
+We are often taught to think top-down, in a kind of divide and conquer
+strategy.  This is the opposite of aggregation: it is a branching
+process. It starts with a root, or point of departure, and it diverges
+exponentially into a great number of outcomes.  How could one be sure of
+something in an exponentially diverging space of outcomes?</p>
+
+<p>
+For promises to lead to certainty, they need to be non-contentious.
+Promises can co-exist as long as they do not overlap, or tread on each
+others' toes.  Avoiding conflict between agents leads to certainty in
+a group. Ultimately promise theory makes conflict resolution easy.</p>
+
+<p>
+Because agents are autonomous, and they can only promise their own behaviour,
+they cannot inflict outcomes on other agents (impositions try to do
+this, but can be ignored, at least in principle).  </p>
+<ul>
+<li> If a single agent promises (offers or +) two things that are in conflict, it
+  knows because it has all the information and it can resolve because
+  it has all the control.
+
+<li> If an agent accepts (uses or -) or uses two promises that are in conflict, it
+is aware because it has accepted them: it has all the information
+and all the control to stop accepting one.
+</ul>
+<p>
+In other words, the strategy of autonomy puts all of the information in
+one place. It makes it local.
+Ultimately, this is what brings certainty.
+</p>
+

@@ -1,0 +1,26 @@
+
+As part of a protracted project to uncover the behaviours of cities or urban metropolitan districts, Bettencourt has proposed a mean field model to explain observed scaling behaviour of certain economic measures, making only elementary assumptions about the processes within The model predicts the main features of the data, by assuming a dynamical universality, but seems to fall short of describing the full range of observed scaling exponents  Empirical data from revealed sublinear, linear, and superlinear scaling behaviour in the variety of accessible data
+
+The maximum output of the city community is assumed to follow  Metcalfe's law, which estimates the productivity of a network  proportionally to the maximum number of links that can be  made This has been criticized theoretically for a  sample see However, recently this  conjecture has received empirical support from social media  studies originally assumed  that value creation would be proportional to N while costs  grew proportional to N
+
+however, if the network penetrates the space homogeneously either by wiring or by the movement of inhabitants who use it, then again, in the spirit of generality  the effect of this `space filling', or fractal  invasion model cannot formally distinguish between the  intricacy of the infrastructure itself and the movement of agents  around it, but it makes sense to assume that it is the motion of  people and mobile agents that is complex, rather than the system of  roads and wires of the city
+
+This suggests that semantics would play a role in their explanation, and potentially skew some data cities with companies like Apple and Samsung, well known for software patent fights patents usually have low  production costs, as they are often trivial and frivolous  inventions
+
+This observation might help to explain superlinear seen in technological contexts too, through coordination but we have to be careful not to mix together effects that come about due to higher dimensionality, with other mechanisms for increasing the utilization of dependent resources
+
+Let the linear range of the agent Ai be some dimensionless fraction per unit time rT explore of the size of the city VD, where r is the speed in units of city size the person's  path is detailed, one could include the Hausdorff dimension of the  path and use viHD as the range, as Bettencourt suggests
+
+The rate is no longer related to the  size of the city, nor is there any obvious boundary to what can be  discovered online since the range of the Internet is even more  diverse than a city telecommunications networks  are global, it does not make sense to relate their cost to the size  of the city though this depends on exactly how we model the  costs, so the cost depends more on its usage than on its extent
+
+Automation allows individual agents to generate much greater outputs, without the cost of cooperation, so unequal automation might skew the measured performance outputs in empirical studies, making it difficult to compare cities and other systems notes to this effect  were remarked in When forming a statistical ensemble of systems cities, organisms, or cloud infrastructure, we have to be sure to compare similar systems
+
+Managing specialization, or separation of concerns, is a human-technology issue that we are only just starting to grapple with at scale Modularity has long been a part of system doctrine, but the evolution of so-called `microservices', or small, specialized software services, is now being motivated empirically, by the limitation of Dunbar valency for human agents Breaking a system into many small specialist parts, each associated with a different human owner, incurs a new cost of service interaction, but this cost may be paid cheaply with automation to alleviate a more expensive human burden
+
+It is also quite inhomogeneous, and one needs to know when and where dynamical similarities might be exploited to argue dynamical similarity As N becomes large, issues of space and time become much more entwined with the more common one-dimensional algorithmic behaviours generally studied in computer science
+
+Some processes are fast and some are slow, even in an urban centre a letter posted may take longer to arrive than an office worker takes to process and even reply to it, while a person can take the train across town in half that time impartial approach, based on  actual network topology, would be to use the `Archipelago method',  to defining regions of network eigenvector centrality
+
+This indicates that a serial workflow, with some parallelism, is essentially a one dimensional problem, with some fractal complexity in its trajectory due to parallelism if we think about the problem  graph theoretically, we can also say that it behaves like a DN  dimensional space, and a trajectory with Hausdorff dimension H   In a graph, the node degree kN is the effective  dimension of spacetime at the point Interestingly, as the parallelism increases, the duration of the fractal dimensionality shrinks to nothing
+
+Sampled/Skipped =  403 388 of total  791 efficiency =  196.27791563275434 %

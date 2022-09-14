@@ -1,0 +1,49 @@
+
+Plotting
+gnuplot
+
+set logscale x
+
+set xlabel "Sentence interval"
+set ylabel "Repeated n-grams"
+set term pdf monochrome
+set output "clusters_1_grams.pdf"
+plot "/tmp/cellibrium/clusters_1_grams" w line
+
+set xlabel "Sentence interval"
+set ylabel "Repeated n-grams"
+set term pdf monochrome
+set output "clusters_2_grams.pdf"
+plot "/tmp/cellibrium/clusters_2_grams"  w line
+
+set xlabel "Sentence interval"
+set ylabel "Repeated n-grams"
+set term pdf monochrome
+set output "clusters_3_grams.pdf"
+plot "/tmp/cellibrium/clusters_3_grams"  w line
+
+set xlabel "Sentence interval"
+set ylabel "Repeated n-grams"
+set term pdf monochrome
+set output "clusters_4_grams.pdf"
+plot "/tmp/cellibrium/clusters_4_grams"  w line
+
+set xlabel "Sentence interval"
+set ylabel "Repeated n-grams"
+set term pdf monochrome
+set output "clusters_5_grams.pdf" w line
+plot "/tmp/cellibrium/clusters_5_grams"  w line
+
+set xlabel "Sentence interval"
+set ylabel "Repeated n-grams"
+set term pdf monochrome
+set output "clusters_6_grams.pdf"
+plot "/tmp/cellibrium/clusters_6_grams"  w line
+
+
+set xlabel "Sentence interval"
+set ylabel "Repeated n-grams"
+set term pdf monochrome
+set output "clusters_all_grams.pdf"
+plot "/tmp/cellibrium/clusters_6_grams"  w line, "/tmp/cellibrium/clusters_3_grams"  w line, "/tmp/cellibrium/clusters_6_grams"  w line
+

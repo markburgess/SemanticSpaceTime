@@ -1,0 +1,134 @@
+
+Two recent works have shed light on the role of infrastructure in the
+scaling of functional systems.  The observation of universal, scale
+free behaviours, both in observed data, and in a `mean field'
+description of cities, and the observation, in
+biology, of metabolic scaling laws for organisms, following a
+century of observation. Both of these were explained from
+the behaviours of their internal networks.
+
+Cities are an example of collaborative community networks, where
+humans and technology mix within a semantically (i.e.  functionally)
+rich space, equipped with infrastructure. One may ask how cities
+differ from apparently similar communities across different scales,
+including tribes, collectives, companies, software installations, and
+even countries.  Understanding the dominant processes that make these
+shared environments smart, creative, and productive, is a worthy
+investment, given how 21st century life relies on them so much for its
+success and survival.
+
+In this note, I review and build on Bettencourt's model of
+cities\cite{bettencourt1, and discuss its implications for pervasive
+information technology (IT). By building on the lessons of cities, I
+hope to to foster a better understanding of a broader range of
+functional systems, especially in information technology, while trying
+to preserve the simplicity of Bettencourt's arguments. I begin by
+summarizing an interpretation that lays the foundations for a more
+microscopic formulation of the model, using promise
+theory\cite{promisebook. The latter may be used to relate outcomes to
+intentions and mechanisms, in a way that respects the idea of scaling.
+
+
+Bettencourt's model of scaling in cities summarized
+
+
+This section is a review (and trivial generalization) of the city
+scaling arguments, and data used by Bettencourt and collaborators at
+the Santa Fe Institute (SFI) \cite{bettencourt1, bettencourt2,
+  bettencourt3, in a form suitable for comparison with other work. In
+section \ref{pt, I propose a deeper justification for the model, with
+some embellishments.  Some interpretations may be my own.
+
+Scaling phenomenology
+
+Measurable attributes, of finite dynamical systems, typically scale
+in proportion to some measure of their size. Size may refer to the
+number of agents $N$ (persons) in the system, or per unit volume $V$
+of the system, and $N$ and $V$ may or may not be related. This is a
+point of view that is a basic tool of analysis in physical systems.
+For cities, $N$ is used as the scaling variable.  Across an ensemble
+of many systems of different size, the measurements one obtains may
+scale in three broad ways (see figure \ref{scalingz):
+
+\begin{enumerate
+\item Sublinear scaling of quantities $q$ of the infrastructure
+  machinery $q \propto N^{\beta<1$. This indicates economies of
+  scale, because, as the system size grows, the cost becomes
+  relatively cheaper. In cities, it is observed to apply to the transport
+  networks that animate the system (arterial systems, roads, cables,
+  petrol stations, etc).
+
+\item Linear scaling, simply proportional to the number $q \propto
+  N^{\beta = 1$.  In cities, this seems to apply to direct
+  consumption of goods and resources per capita (jobs, houses, water
+  consumption, etc).
+
+\item Superlinear yields of produce or `output', where $q \propto
+  N^{\beta > 1$, which is driven by interactivity between the parts
+  of the system and its consequences (wages, rents, patents, crime,
+  disease, GDP).  If a process rate is superlinear, then the
+  corresponding time for the process to run will be sublinear, and
+  vice versa.
+\end{enumerate
+It is of particular interest when these patterns seem to apply across
+such a broad range of scales. This suggests some emergent
+{\em universality, whose origin and mechanism is worth understanding.  
+
+As part of a protracted project to uncover the behaviours of cities or
+urban metropolitan districts, Bettencourt has proposed a mean field model to
+explain observed scaling behaviour of certain economic measures,
+making only elementary assumptions about the processes
+within\cite{bettencourt1.  The model predicts the main features of
+the data, by assuming a dynamical universality, but seems to fall short of
+describing the full range of observed scaling exponents $\beta$.
+Empirical data from \cite{bettencourt2 revealed sublinear, linear,
+and superlinear scaling behaviour in the variety of accessible data.
+The data came initially from mostly American cities (see table
+\ref{innovtab), and have since been demonstrated in European cities
+in \cite{bettencourt4. All cities, thus far, have a more or less
+comparable level of technological development, and thus fit plausibly
+into a statistical ensemble.
+
+Cities are not just dynamical systems, they also exhibit complex
+semantics, or purposeful, intentional, patterned behaviours.  In the
+physics of inanimate systems, the markers of semantics are comprised
+of only a few simple labels; charges, force laws, and interaction
+graphs.  These are constant over time, and accepted as universal
+`physical law'.  However, in human functional systems, the range of
+interactions, and their assumed meanings, is much richer, and may
+depend of time and context.  Coarse graining, by creating a mean field
+model, is a standard physical approach which eliminates the types,
+labels, and other semantics of networks, and exposes the universality
+of scaling phenomena. However, this simplicity is a trade-off:
+semantics are also what sustains the arrangement and composition of
+functional processes, at a deeper level, and could lead to actionable
+predictions. 
+
+In these notes, I show how semantics provide some additional
+structure and constraints on dynamics, and how both short and long
+range interactions may be distinguished through functional dependency.
+This leads to a possible explanation for the discrepancy between data and
+predictions of superlinear scaling exponents in
+
+
+
+Definitions
+
+Consider a city, in the coarsest approximation, as a bounded
+homogenous mass, sustained by external supplies and internally
+generated wealth.  This is analogous to a model of gravity and
+pressure versus volume, whose equilibrium defines an average city
+size. Bettencourt likens the arrangement to a star, which gravitates
+together from the benefits of city infrastructure, and expands through the
+accretion of new inhabitants.
+
+The city is populated by $N$ inhabitants, which I will call `agents',
+which and may include machines, animals, etc., or any proxies for
+human intent that lead to economic output. The data on cities, used in
+the comparison, are based on human population numbers, so $N$ will
+refer to the people, in the first approximation.  The agents are
+distributed within a volume $V$, in $D$ dimensions. Cities are more or
+less two dimensional ($D=2$), in spite of high rise regions, because
+the more or less 1 dimensional networks connecting them lie mainly in
+a plane.
+

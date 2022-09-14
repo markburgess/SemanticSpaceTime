@@ -1,0 +1,726 @@
+
+<h1>Service engineering</h1>
+
+<p>
+It will not come as a surprise that there is a simple connection
+between the concepts of promises and services.  Promises are valuable
+to other agents when kept reliably, or at last predictably, and they
+can even be sold or traded. This is the basis of a service.</p>
+
+<p>
+Service plugs into the human experience.  There are dumb services,
+like web servers and directory service lookups, or ATM cash-point
+transactions where we don't expect or even want too much intelligence,
+but there are experiential services like hotels and restaurants where
+humans are directly the subtle semantics are everything.</p>
+
+<p>
+Services are a potentially complex topic because they are a meeting
+place between the key ingredients of promises: semantics, dynamics and
+valuation.</p>
+<ul>
+<li> Services have to work in the details (semantics)
+<li> Services have to operate at some scale (dynamics)
+<li> Services have to be economically viable to survive (economics)
+</ul>
+
+<p>
+Promise theory makes a simple prediction about services, which is
+possibly counter-intuitive. It tells us that the responsibility for
+getting service ultimately lies with the client, not the server.
+That clarifies a few things about the design of systems where services
+play a role.</p>
+
+<h2>The Client-Server model</h2>
+
+<p>
+The client server model is one of the classic patterns in information
+technology, and business. A client is any agent that makes a request,
+and a server is any agent that responds to the request and performs
+the service.
+There are two ways to model this:</p>
+<ul>
+<li> As a spontaneous imposition upon the server, i.e. the client
+  `throws a request over the wall', and the server is expected to
+  catch it. This is often the case for an irregular interaction, like
+  buying something from a vending machine, or dropping in for an
+  emergency room visit.
+
+<li> As a continued promise relationship, with more forethought to arrange
+mutual promise, e.g. a regular delivery of mail is promised at 10am
+each morning, and you promise to accept it.
+  A normal doctor's appointment, even though irregular, is usually promised
+  in advance, because doctors do not promise to receive patients
+without an appointment. The patient is subordinate to the doctor's
+availability.
+
+</ul>
+
+<p>
+If we string together many impositions, it makes sense to negotiate a
+promise relationship. In other words, the more continuity of intent
+we have, the more promises rather than impositions make sense.</p>
+
+<p>
+What promises add is the recognition of an ongoing relationship.  An
+imposition is a `fire and forget' event that exists in the moment it
+is made, but a promise is something that is known for longer and the
+time or times at which it is kept is not tied to a single moment.
+Thus, when we think in promises, we plan for more of a relationship
+of continuous verification. This is what services are all about.
+</p>
+
+<h2>Responsibility for service delivery</h2>
+
+<p>
+The responsibility for obtaining lies with client, because the no
+service can be transmitted without the client accepting a service
+promise from a server. Even if there are multiple servers promising
+the service redundantly so that the possibility of service is
+guaranteed, the client needs to make a choice to use one or more of
+them.</p>
+
+<img src="clientresponsible.png">
+
+<caption>A client has to promise to use a service (-) in order to
+  avail itself of the offer (+). No matter how many servers there are,
+  failing or keeping their service promise, the client has to choose and accept a
+  good one. So the client has ultimate responsibility for getting service.</caption>
+
+<p>
+Similarly, there is no server offering the service and the client
+needs it, it is up to the client to locate an agent promising the
+service and bind to it.</p>
+
+<p>
+Redundancy does not improve the keeping of any agent's service
+promise.  It only increases the likelihood of a user being able to
+keep a promise to use the service. This should tell us something
+important. The responsibility for obtaining a service lies with the
+user, not with the provider.
+</p>
+
+<h2>Dispatchers and queues for service on demand</h2>
+
+<p>
+In many services clients arrive in some kind of queue or waiting area,
+imposing themselves as clients for service. They are assigned a server
+by an agent called a dispatcher, when one becomes available. For
+example, customers arrive without an appointment at a restaurant, or
+emergency room.</p>
+
+<p>
+In technology, dispatchers are also called load balancers, as tasks
+of some magnitude may be shared between multiple servers. For instance,
+a client might request taxi transport for 8 people. A dispatcher
+might then share the load between two taxis.</p>
+
+<img src="dispatcher.png">
+<caption>A dispatcher can act as a go-between service or proxy for finding a
+  server, for incoming clients, but the responsibility to use still
+  lies with the client.</caption>
+
+<p>
+The dispatcher becomes a proxy or broker for the acquisition of a
+service provider. When many requests arrive, the dispatcher might need
+to share its load with another dispatcher too. Quite soon a hierarchy
+of service responsibility emerges. However, in all cases, the client
+has the responsibility of choosing an agent to interact with, so the
+role of the dispatcher could easily be eliminated if the agent had
+knowledge of the possible servers.</p>
+
+<h2>Delivering service through intermediaries or proxies</h2>
+
+<p>
+Let's explore the idea of proxies in more depth.  Suppose the giver of
+a promise requires the assistance of other intermediary agents in
+order to keep its promise.  The basic experience of promise
+conditionals may be used to address this: a server can promise it's
+service conditionally if the proxy promises to assist. Let's examine
+how such an agent can promise delivery of goods and services through a
+number of intermediaries. This is the so-called end-to-end delivery
+problem, and it forms the basis of many similar patterns,
+including postal delivery agents, transportation
+agents, publishers, cabling infrastructure, waiters, and actors,  postal
+workers, contractors and even buses.</p>
+
+<p>
+Schematically, we typically imagine the problem as a story line narrative, as in figure.</p>
+
+<img src="proxy.png">
+<caption>Schematic service delivery through a proxy or intermediate agent.</caption>
+
+<p>
+This figure is a simplistic after-the-fact idealization of what
+actually happens during a single enactment of events to keep a promise
+once.  It does not represent a state of process continuity. What
+happens if the good or service is not delivered? How does this
+distinguish discrete packages (like books) from continuous streams
+(like video)? Here are some examples of proxy delivery:</p>
+
+<table>
+<tr><th>Server</th><th>Proxy</th><th>Client</th></tr>
+<tr><td>Factory</td><td>truck </td><td> showroom</td></tr>
+<tr><td>Player</td><td> ball</td><td> player</td></tr>
+<tr><td>Music</td><td> stereo system</td><td> listener</td></tr>
+<tr><td>Phone company</td><td> Phone</td><td> Phone-client</td></tr>
+</table>
+
+<h2>Framing promises as state or action</h2>
+
+<p>
+Consider these two different formulations of a promise to deliver an outcome.</p>
+<ul>
+<li> Promise to act (push delivery, make a change).
+<li> Promise the final outcome (continuous pull, assure outcome).
+</ul>
+<p>
+The first of these represents a discrete one-time delivery of the outcome to the
+agent, which is then satisfied and is never repeated.  </p>
+
+<img src="slalom.png">
+<caption>Promising a sequence of steps, or a desired end-state.</caption>
+
+<p>
+For example, a slalom skier could make a series of promises to ski the
+markers, or could simply promise to get to the bottom.  These two are
+related by conditions. The push promises:</p>
+<ol>
+<li> I promise to go to post one, then
+<li> I promise to go to post two.
+</ol>
+<p>The conditional end-state promises:</p>
+<ol>
+<li> I promise to be at post one, and then this promise expires.
+<li> I promise to be at post two, if I have been at post one.
+</ol>
+<p>
+Once kept, a promise is usually kept for ever. To repeat a promised
+action, or make a replacement, we would require a different promise
+altogether. Thus we can write promises in the first form, where they
+can also behave like pre-arranged impositions. This is called an
+imperative pattern.  Alternatively we can write them in the second
+form, representing a continuous attempt to ensure that the agent
+always achieves the outcome.  This is called a declarative or desired
+end-state pattern.  </p>
+
+<p>
+This second kind of statement can persist for indefinite time, and the
+state of the agent can be maintained, even for future slalom races.
+Thus is documents more than a single event in time. This is important,
+because, in the world of services, time is not a very interesting
+variable. Services are usually delivered as steady state processes.</p>
+
+<p>
+Although we envisage agents in a continual state of readiness to keep
+promises, impositions may be quenched only once, since the states
+they depend are lost in a timeline. Continuous promises kept on demand
+last for extended times. We may use these extreme positions to
+model multi-agent workflows that are either one-off triggered events
+or continuous flows.</p>
+
+<h2>Delivery chains by imposition</h2>
+
+<p>
+The delivery chain is an important abstraction that applies across a
+whole range of different industries.  A lot of different
+service-oriented workflows can be cast in this image. As the
+length of the chain get longer, the complexity of trust relationships
+becomes very complex, so I'll restrict this discussion to 
+single intermediary agent or proxy, as in the figure.
+As usual, there are two approaches to delivery.</p>
+
+<p>
+For blind trust, a widely used pattern for working is the `fire and
+forget' imposition pattern\footnote{This is not without its problems,
+  and has been much criticized in recent years. In IT development and
+  deployment, this led to the DevOps movement.}.
+</p>
+<img src="proxy1.png">
+<caption>Imposition based workflow, or `fire and forget'.</caption>
+<p>
+Fire and forget is an event-driven view (see figure), the server tries to push a
+change or delivery by imposing it on the delivery agent.  This is
+sometimes called `fire and forget', as the trigger event does not seek
+or obtain any assurance of final outcome.  The intermediary or proxy
+promises to accept such impositions.
+</p>
+
+<ul>
+<li> Server imposes `take this delivery' onto Proxy (-D1)
+<li> Proxy promises `accept delivery' to Server (-D1)
+<li> Proxy imposes `take this delivery' Client (-D2)
+<li> Client promises `accept delivery' to Proxy (-D2)
+</ul>
+<p>
+We need a more mathematical notation to make these promises
+precise, but the basic intent should be clear from the diagram.
+</p>
+
+<p>
+This approach is based on ephemeral impositions, without any
+assessment. These are clearly fragile. What if the imposition is not
+accepted, or was dropped accidentally? If the chain fails somewhere,
+it would require a new imposition to restart the intended sequence of
+events.  In the absence of a promise to achieve a desired outcome,
+there is no implication that the agents would try more than once to
+keep the promise. As a result, the server ends up with no assurances
+about what happens at the client end.</p>
+
+<h2>Delivery chains with promises</h2>
+
+<p>
+What if we use promises and desired end-states instead of impositions? This implies
+a more long-standing relationship between the parties.
+Take a look at the figure.  </p>
+
+<img src="proxy3.png">
+<caption>Desired state, self-maintaining workflow, or assured
+  delivery.</caption>
+
+<p>
+The server promises the client end-state such as
+delivery of some good or service: `You will have package' and this is
+conditional on `if the delivery agent promises delivery'.  The Server
+also promises to use a promise to deliver the package from the proxy
+`Deliver package to Client'. Recall that the combination of these two
+promises may be written more simply, by the law of conditional
+assistance, as:</p>
+
+<ul>
+<li> Server promises `provide service if proxy promises delivery' to Client
+<li> Server uses a `promise to deliver to Client' from Proxy
+</ul>
+<p>
+By the law of conditional promising, this may be considered a promise,
+albeit a conditional one, because the Client has sufficient information
+that the Server is covering its requirements.</p>
+<ul>
+<li> Server promises `delivery conditionally on Proxy' to Client.  
+</ul>
+<p>
+We can now use this as a short hand for the two preceding promises.</p>
+
+<p>
+This all sounds like a simple thing, but it leads to a surprising
+amount of complexity in terms of promises. Remember that these
+promises have to follow the rules of binding and only promising
+an agent's own behaviour. When we follow through this discipline, 
+we end up with a plainly accurate version of documented cooperation,
+but at a level of detail that we might not have been expecting.</p>
+
+<p>
+The full collaboration now takes the form:</p>
+<ul>
+<li> Server promises `delivery conditionally if Proxy delivers (P if D)' to Client (+)
+<li> Server promises `to provide package' (+P) AND `to use delivery service' (-D) to Proxy
+<li> Proxy promises `to deliver packages' (+D) AND to `accept packages' (-P) Server
+<li> Proxy promises `package conditionally if Server provides (D if P)' Client (+)
+<li> Client promises to accept the terms `delivery conditionally if Proxy delivers (P if D)' Server (-)
+<li> Client promises to accept the terms `package conditionally if Server provides (D if P)' Proxy (-)
+</ul>
+<p>
+The bindings are now complete. We have a total of eight (shortened)
+promises for this simple exchange between three parties.  It might be
+a surprise just how many promises we need to have an explicit
+documentation or assurance of the behaviours of the agents. This is
+one of the aspects of thinking in promises that is most valuable. By
+following a straightforward logical discipline, the complexity of
+cooperation unravels before our eyes, revealing all of the things that
+might go wrong.</p>
+
+<h2>Formality helps the medicine go down</h2>
+
+<p>
+As the length of cooperative chains increases beyond a single proxy or
+intermediary, it is difficult to represent all these promise
+interactions without a more formal language.  The full version of
+promise theory requires a mathematical formulation, but for now
+it suffices to add
+the labels (P,D) in the manifest, we see how the circuitry of + and -
+promises connects.</p>
+
+<p>
+The symmetries between + and - polarities in the promise
+collaboration, and between P and D, indicate the complementarity of
+the promises. The Server promises its client `I will give you P if the
+delivery agent promises you D'. The delivery agent says `I will
+deliver D if I receive P from the Server'. Both agencies are promising
+the client something that requires them to work together, and the only
+different between them from the client's viewpoint is the realization
+of how the promises are kept.</p>
+
+<p>
+This promise from the server to the client represents a virtual
+interface between the two, which could not be represented at all in
+the push-imposition model.  It represents is the effective promise
+from the server to the client, and the client accepts.</p>
+
+<ol>
+<li> In two promises, the Server promises to deliver
+the end-state `package received' (P) via the proxy delivery agent.
+
+<li> To accomplish this, the Server promises to hand over the package (+P) to the proxy,
+and the proxy promises to accept such transactions (-P).
+
+<li> The Proxy promises the Server that is can deliver (+D) to the
+  Client.  
+
+<li> The delivery agent promises to deliver what it
+  received from the Server +(D if P), because it needs confirmation
+  -(D if P) from the client in that it is okay to
+  deliver, assuming that the condition P was quenched by P being kept.
+  Equivalently it will deliver when the Client makes its pull
+  request to acquire the delivery.
+</ol>
+<p>
+This might all seem like a lot of fuss. Importantly, it reveals the
+intricacies we take for granted in making promises through an
+intermediary.</p>
+
+<p>
+The neat things about Promise Theory is that it turns these
+complicated considerations into a simple symbolic algebra. If you are
+not mathematically inclined, think of it as a simple book-keeping
+methodology.</p>
+
+<h2>Chains of intermediaries</h2>
+
+<p>
+Suppose there is not just one intermediary but a chain, like a game of
+Chinese whispers.  This happens by recursion. The delivery agent (who
+is a contractor for the server) sub-contracts the delivery to another
+company.  Then we have to repeat the proxy relationship between the
+first proxy and the second proxy.  But additionally, now the first
+proxy promise has to be conditional on the second, so the original
+server is informed of this sub-contracting through the change of
+promise. Similarly, the additional promises to assure that the first
+proxy will indeed engage the second.  The client also needs to have a
+relationship with the sub-contractor.</p>
+
+<p>
+The details quickly become complex without a more formal language to
+represent the promises. If you want to see the formal solution,
+take a look in the mathematical treatment of promise theory. The
+result is quite beautiful in its symmetry properties.</p>
+
+<p>
+It might seem surprising just how many promises need to be documented
+to accomplish something we do all the time.  What is the difference
+between this and a chain of relative pushes?  There each agent merely
+throws a task `over the wall' the next agent (this is sometimes called
+`fire and forget').</p>
+
+<p>
+If we use promises, out expectations are higher, but our trust is
+lower. We seek the assurance of a promise.  This example represents
+the extreme end of obtaining maximum certainty through signalling of
+intent.  For continuous delivery scenarios, this represents the
+minimum level of assurance for a process to be fully managed.</p>
+
+<p>
+The cost of fully promised continuous end-to-end delivery grows as
+order of the number of intermediary agents squared.
+This cost of an end to end assurance can be compared to the cost for
+the `fire and forget' approach, with only nearest neighbour
+assurances, which is linear in the number of agents.  We thus see the
+up-front appeal of leaving things to chance.</p>
+
+<h2>End-to-end integrity</h2>
+
+<p>
+In the worst case, one might make no promises between agents and
+simply `see what happens'. The usefulness of documenting and making
+all these promises lies in seeing how information about agents'
+intentions needs to flow, and where potential points of failure might
+occur due to a lack of responsiveness in keeping the promises.
+</p>
+
+<p>
+A chain of trust is implicit in any collaboration, with or without
+promises. Without every agent talking to their dependencies and
+dependers, a service agent would not be able to detect if any
+intermediate proxy were to distort one of the promises. Thus the lack
+of trust in the proxies drives us to require more promises
+conditionally. This adds further overhead, and expense.</p>
+
+<p>
+In many real world situations one opts to trust agents, without
+explicit promises, because this cost of tracking and verifying becomes
+too much to understand and follow up.</p>
+
+<p>
+In daily life, such promises are often made in a punitive form
+through legal contracts, under a threat of retribution on failure to
+comply with terms in a contract. This also turns out to be costly, as
+lawyers perform this exercise in a language of
+verbal warfare rather than cooperation.
+</p>
+
+
+<h2>Transformation chains or assembly lines</h2>
+
+<p>
+The final generalization of the previous section is where agents do
+not merely pass along a service, maintaining its integrity, each agent
+also makes a change in the manner of an assembly line. This pattern is
+common in factories and product packaging companies.</p>
+
+<p>
+A typical application for this kind of model is the scenario depicted
+in the figure below, in which a product is designed and then built and
+distributed to customers through a delivery chain.  Although we want
+to think in terms of this narrative, the reality of ensuring
+cooperation throughout is much more complicated. The same promise
+model sheds light on this case too.</p>
+
+<img src="mproxy.png">
+<caption>Schematic production line for goods or services.</caption>
+
+<p>
+Again, it is the issue of trust (or conversely the need for
+verification of intermediate steps) which leads to complexity in the
+promise graph.  As more verification is expected, we approach a full
+set of promises between all the agents, with every agent telling every
+other of its intent.</p>
+
+<p>
+As intermediate agents promise more radical or sensitive
+transformations of data, trust in their promises by the point of
+service could become harder to swallow. Thus one can easily imagine
+that the most efficient delivery chains are those that make simple, harmless, and
+unambiguous promises.</p>
+
+
+<h2>Continuity of delivery and intent</h2>
+
+<p>
+When a system promises continuous operation, none of the promises may
+become invalid or be removed from the picture as a result of a failure
+to keep any promise, i.e.  promises are described for all times and
+conditions, in a continuous steady state.</h2>
+
+<p>
+Continuous delivery is what you get when you fly in a plane.  The
+plane should not drop out of the sky while the service is being
+provided.  As well as continuity of execution, there is continuity of
+purpose.  When you fly a plane, the plane should fly to a single
+destination and not be changing its mind all the time. Promises have
+to last as long as it takes to keep them, else they become deceptions.
+What makes a promise view valuable is that it allows us to define and
+document the virtual interface between client and server, or customer
+and provider---and to abstract away the helper agent.  So what happens
+when we want to make a change?</p>
+
+<p>
+Automation is has become an important strategy for policing continuity
+of intent. Machines are excellent at validating rigid behaviours,
+without having to burden a human with a tight relationship with
+service specifics.  Humans have a small and finite number of Dunbar
+slots, and we want to spend them wisely. Machines can engage with
+mechanisms and humans can engage with humans.</p>
+
+<img src="automation.png">
+<caption>The promise of automation is to free up repetitive relationships
+whose only purpose is to assess inhuman promises.</caption>
+
+<p>
+In quality assurance schemes, product acceptance
+tests<footnote>CFEngine is an information technology automation tools
+  that uses the concept of promises to embed testing of every promise
+  at a fundamental level.</footnote>, are used to create surrogate relationships
+that engage with a service to check whether it is keeping its
+promises. Such tests don't promise quality, as such, rather they are
+tripwires that promise to detect unintended breakage of promises.
+</p>
+
+<h2>The versioning problem again</h2>
+
+<p>
+As service providers learn and adapt to new situations, they naturally
+want to change the promises they make. This presents a conundrum for
+clients who are not ready to accept change.  Service transfer requires
+there to be a binding between give and take that matches.  In the
+worst case, promise bindings might be broken as a service agent fails
+to keep a promise on which a client relies.
+To deal with this issue, we use the concept of versions to keep
+parallel `worlds' alive without conflict.</p>
+
+<p>
+A set of promises represents a product or service offering, and we
+want to be able to evolve that set of promises.</p>
+
+<p>
+For uninterrupted, consistent experience, a user of promises
+expects:</p>
+<ul>
+<li> Continuity of delivery (dynamics)
+<li> Continuity of intent (semantics)
+</ul>
+<p>But for long term satisfaction, clients also want</p>
+<ul>
+<li> Continuity of improvement (changing semantics)
+</ul>
+<p>Many service users pay for improvements as part of the service.  This
+is especially true in the software industry, where bug-fixes are
+common, and it is actually possible to use a new version of a product
+after as little as a few minutes.</p>
+
+<h2>Avoiding conflicting promises by branching into separate worlds</h2>
+
+<p>
+To avoid breaking existing products and services, the industry has
+learnt to use version branching, so that we can pursue the illusion of
+being able to make many changes in one version without conflicting
+with another.</p>
+
+<p>
+Promising essential continuity of operation during a change is
+possible with a promise view of the world because each version becomes
+an independent agent.  </p>
+
+<p>
+Recall that we define agents as parts of a system that can change
+independently. At any time, a collection of promises could be
+duplicated, like cells dividing, and then altered. This is the
+mechanism used in information technology for forking runtime
+processes, and also development projects.</p>
+
+<img src="fork.png">
+<caption>Branching of promises into different worlds avoids conflict.
+Different versions become separate autonomous agents, making different
+bundles of promises.</caption>
+
+<p>
+Users can choose which bundle of promises to accept and hence bind to,
+as long as multiple versions are kept alive. Clearly, we can repeat
+this branching process as many times as we like. But the cost of
+keeping all the promises grows exponentially.
+</p>
+
+<h2>Avoiding many worlds branches by converging on target</h2>
+
+<p>
+The faster we want to make changes to a service, the more versions we
+end up branching off. This could quickly become a problem.  In product
+development, there is the concept of continuous delivery. This is
+about promising the semantic consistency and availability of every
+version of an evolving product design, as quickly as the changes are
+made.</p>
+<img src="ladder.png">
+<caption>Climbing the version ladder, aka the stairway to heaven.</caption>
+
+<p>
+If new branches were made for every small change, it would quickly
+pass beyond the ability of users to keep track of them, so an
+alternative strategy is needed. Instead of making evolving versions
+co-exist to avoid conflicting promises, we can also make sure that
+changes preserve the same promises throughout versions.</p>
+
+<p>
+Given a new intended outcome, we know that we can converge to a
+reliable product without waste or conflict, as long as there are only
+weak dependencies between the components.  Thus we never change any
+promised intentions. The only changes we should make would be to fix
+promise implementations, leading to promises that were made but not
+kept in earlier versions.</p>
+
+<p>
+The idea of continuous delivery in product and service development is
+thus to de-emphasize thinking about major version releases that have to
+branch to co-exist, in favour of a continuum of incremental
+improvements that converge to a stable end state through an on-going
+process. </p>
+
+<p>
+Not all Continuous Delivery pipelines are about software development.
+The airline industry, for example, does a pretty good job of
+delivering continuous back-to-back flights by scheduling rather
+different infrastructure slots. Schedules and flight plans change
+slowly, but adjustments may be made on the fly to adapt continuously
+to conditions.</p>
+
+
+<h2>Backwards compatibility means continuity of intent</h2>
+
+<p>
+So what we're saying is simply that, if new versions break
+compatibility, then they break promises to users, and prevent users
+from accepting the new promises.  If changes are made without knowing
+what the promises are supposed to be, there is no way to gauge whether
+they were successful or not, because there is no record of intent.</p>
+
+<p>
+Writing specifications is not the same as making a promise, because a
+specification is only part of a recipe to change or build something,
+it still doesn't document what the thing is for.  So, if promises are
+not explicit, a service user has to go through a lengthy process of
+assessing changes to decide whether the new version is compatible
+with older versions, or simply whether it is useful.</p>
+
+<h2>Assessing a service by promises (testing)</h2>
+
+<p>
+Assessing these service promises is the job of product testing.  The
+likelihood of keeping promises is not improved by testing for correct
+outcomes, but by determining the correct intended outcomes in the
+first place.  In other words, service quality comes from formulating
+promises, not from checking that they were kept.</p>
+
+<p>
+Making promises up front separates intent from implementation for
+products and services. It separates design from execution and
+implementation. Version branching (divergence) is a tool to avoid
+conflicts of interest by keeping separate intentions apart.
+Continuous integration (convergence) is a tool for avoiding conflicts
+by maintaining constancy of purpose. The former gives more freedom,
+but the latter is exponentially cheaper.</p>
+
+<p>
+These techniques are widely used in software development today, and
+there seems to be some confusion about why versioning is important.
+The purpose of versioning is not to be able to undo missteps, and
+allow developers to take less care in what they do.  Intent is not
+transactional, but implementation might be.  The idea of rolling back
+implementations is piece of transaction processing mimicry. If we
+treat changes as transactions, then we make changes without intent.
+If we make a mistake in service delivery, we should correct the
+forward semantic process i.e. the design, and the dynamical follow-up
+will maintain the target outcome.</p>
+
+<p>
+A typical goal is therefore that newer versions would be compatible,
+drop-in substitutes for old versions. How do we know the design itself
+will converge to have the same fitness for purpose, with forwards and
+backwards compatibility?  One way is to avoid too much branching and
+to correct continuously without change of intent. It is just
+basic maintenance, fixing promises that were not kept. As long as
+error correction is so fast that consumers can't really see it
+happening, they will not be able to assess whether promises were not kept.</p>
+
+<img src="cd.png">
+<caption>As we climb the version ladder, branching can be counteracted
+  by ensuring that all the branches map into the same set of desired
+  outcomes, or `semantic buckets'.</caption>
+
+<p>
+Componentization can help here. 
+Modularity, or putting semantics into fixed buckets, helps convergence
+to a predictable end state<footnote>Here computer programmers
+might think of hash table or Bloom filter</footnote>. If your
+software is really a bundle of independent promises, then every one can
+converge independently of every other, without interference. Even the
+order doesn't matter, and parallel factories for keeping the parts can
+keep their promises to build the parts to be assembled later.
+</p>
+
+<p>
+When every change version is backwards compatible (maintaining the set
+of compatible promises), you are converging, not breaking earlier
+versions; and all changes reach a desired asymptotic end-state,
+whether you are explicitly modular or not. It is a convergence of
+convergences, a semantic waterfall.  Many-worlds collapse
+back into one.  Backwards compatibility is ensured when promises converge
+to a fixed desired state and are kept continuously, even as the scope
+and details of the promises grow.
+</p>

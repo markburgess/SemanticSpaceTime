@@ -1,0 +1,731 @@
+
+<h1>Promises and Impositions</h1>
+
+
+<p>
+Imagine a simple set of principles that could help you to understand
+how parts combine to become a whole, and how each part sees the whole
+from its own perspective. If such principles were any good, it
+shouldn't matter whether we're talking about humans in a team, birds
+in a flock, computers in a datacenter, or cogs in a Swiss watch.  A
+theory of cooperation ought to be pretty universal, so we could apply
+it both to technology and to the workplace.
+</p>
+<p>
+Such principles are the subject of Promise Theory. The goal of Promise
+Theory is reveal the behaviour of a whole from the sum of its parts,
+taking the viewpoint of the parts rather than the whole.  In other
+words, it is a bottom-up constructionist view of the world, in
+contrast to a top-down reductionist view.  You could describe it as a
+discipline for documenting system behaviours from the
+bottom-up<footnote>There have been many theories of promises in the
+  past, but here we refer to my work with collaborators...refs? I
+  described a more formal/mathematical account of promise theory in
+  Promise Theory: Principles and Applications, J. Bergstra and M. Burgess.</footnote>.
+</p>
+
+<h2>Promise engineering</h2>
+
+<p>
+The idea of using promises as an engineering concept came up in
+2004, as I was looking for a model of distributed computing to
+describe CFEngine.  The word `promise' seemed a good fit for what I
+needed: a kind of atom for intent that, when combined, could represent
+a maintainable policy. However, it quickly became clear (having opened
+Pandora's box on the idea) that there was something more general going
+on that needed to be understood about promises. Promises could also be
+an effective way of understanding a whole range of related issues
+about how parts operate as a whole, and it promised<footnote>Perhaps
+  the most important thing about promise theory is that it drives
+  people to the most terrible puns, without realizing that those puns
+  said something involuntarily insightful too.</foonote>  something not
+previously taken seriously: a way to unify human and machine
+behaviours in a single description.
+</p>
+<p>
+Unlike some other modelling methods, e.g. in business and computer
+science, promise theory is not a manifesto, nor is it a political
+statement or a philosophical agenda. The magic lies in the application
+of a simple set of principles. It is little more than a method of analysis, for
+picking systems apart into their essential pieces, and then putting
+them back together.  Along the way, we find a method of representing
+and questioning the viability of our intended outcomes.  For some
+people, this is what computer programming is about, and there have
+been many philosophies around this, like OO, SOA, UML, etc. Many of
+these have failed because they set philosophical agendas ahead of
+understanding.
+</p>
+
+<p>
+The purpose of this book is to ask what can an understanding in terms
+of promises tell us about cooperation in human-machine systems,
+organizations and technology, and how can we apply that understanding
+to the real life challenges of working together?
+</p>
+
+
+<h2>From commands to promises</h2>
+
+<p>
+The cultural norm, at least in Western society, is to plan out
+intended outcomes in terms of the commands or steps we believe we need
+to accomplish in order to get there.  We then program this into
+methods, demanding milestones and deliverables to emphasize an
+imperative approach to thinking. This is because we think in stories,
+just as we relate stories through language.  But stories are hard to
+assess. How do we know if a story succeeded in its intent?  If, on the
+other hand, we change focus away from the journey to think in terms of
+the destination, or desired outcome, assessment and success take on a
+whole new meaning.
+</p>
+
+<p>
+Let's look at an example. Consider the following instructions for
+cleaning a public restroom.</p>
+<blockquote>
+Wash the floor with agent X<br>
+Mop and brush the bowls<br>
+Put towels in the dispenser<br>
+Refill soap<br>
+Do this every hour, on the hour
+</blockquote>
+
+<p>
+Now let's convert this into a promise formulation.</p>
+
+<blockquote>
+I promise that the floor will be clean and dry after hourly checks<br>
+I promise that the bowls will be clean and empty after hourly checks<br>
+I promise that there will be clean towels in the dispenser after hourly checks<br>
+I promise that there will be soap in the dispenser after hourly checks
+</blockquote>
+
+<p>
+What's the point of this? Isn't the world about forces and pushing
+changes?  True enough, that is the received learning since the time of
+Newton, but it is not really a true version of reality<footnote>For something
+to push or force something else normally requires an electromagnetic
+repulsion, which in turn requires a kind of promise from both objects
+to respond to the electrostatic force. We call that promise `electric
+charge', but it is just a name for intentional behaviour of certain
+kinds of matter.  Not all kinds of matter do promise to respond to
+this force.  Neutrinos from the sun, for example, don't promise to
+respond to electrostatic forces, which is why it is extremely hard for
+us to capture and measure them.</footnote>.</p>
+
+<p>
+The first thing we notice is that some agent (a person or robot) has
+to make the promise, so we know who is the active agent, and that by
+making the promise this agent is accepting the responsibility for it.
+</p>
+
+
+<h2>Why is a promise better than a command?</h2>
+
+<p>
+Why promise?  Why not obligation, command, or requirement? In Promise
+Theory, these latter things are called impositions, because they
+impose intentions onto others without an invitation.
+</p>
+
+<p>
+Promises expose information that is relevant to an expected outcome
+more directly than impositions, because they always focus on the point
+of causation: the agent that makes the promise.
+</p>
+
+<p>
+Commands, and other impositions, fail us in two ways: they tell
+something how to behave instead of what we want (i.e.  they document
+the process rather than the outcome), and they force you to follow to
+entire recipe of steps before you can even know what the intention was.
+</p>
+
+<img src="divconv.png">
+<caption>Convergence, divergence timelines, left to right.
+On the left commands lead out unpredictable outcomes from definite
+beginnings. On the left, promises deal with definite outcomes from
+unpredictable beginnings.</caption>
+
+<p>
+Why is a promise better than a command?  Another answer is because a promise expresses
+intent about the end point, or ultimate outcome, instead of what to do
+at the starting point.  Commands are made relative to where you happen
+to be at the moment they are issued.
+</p>
+
+<p>
+Promises also express intent from a viewpoint of maximum information
+or certainty.  Promises apply to you (self) -- the agent making them.
+By definition of autonomy, that self is what every agent is guaranteed
+to have control over.  Impositions or commands are something that apply to
+others (non self). That, by definition, is what you don't control.</p>
+
+<p>
+It's possible to promise something relative to a starting point.  ``I
+promise to stand on my head right now''.  ``I will leave the house at
+9:00 am'' But promises represent on-going persistent states, where
+commands cannot. They describe continuity.</p>
+
+
+<p> You can always twist the usual meanings of command and promise to
+  contradict these points, so we agree to use limited meanings that
+  correspond to normal usage. In other words, this is not about the
+  words, but about the ideas they usually represent.
+
+  You can command yourself to empty the trash every Wednesday. Or you
+  can promise someone that you are going to do a summersault right
+  now. But it is hard to command yourself to do something persistently. </p>
+
+
+<h2>Autonomy to maximize certainty</h2>
+
+<p>
+A promise is a claim made by someone or something about an intended
+outcome. It is not an insistence on action, or an attempted coercion.
+It is an expression of what I'll call voluntary behaviour.  As we look
+at more examples, the sense in which I use the term voluntary should
+become clearer. Another word for the same thing will be autonomous.
+</p>
+
+<blockquote>
+  An agent is autonomous if it controls its own destiny, i.e. outcomes
+  are a result of its own directives, and no one else's. It is a
+  `standalone' agent. 
+
+  By dividing the world up into autonomous parts, we get a head start
+  on causality. When a change happens, we know that it happens within
+  an autonomous region, and it could not happen from outside, without
+  explicitly promising to subordinate itself to an outside influence.
+</blockquote>
+
+<p>
+Note that a behaviour does not have to be explicitely intended for it to be
+intentional behaviour. It only needs to be something that could be intended or
+has the appearance of being intended.
+
+<h2>The observer is always right</h2>
+
+<p>
+When we make a promise, we want to communicate to someone that they
+will be able to verify some intended outcome.  Usually a promise is
+about an outcome that has yet to happen, e.g. `I promise to get you to
+the church on time for your wedding', but we can also promise things
+that have already happened, where it is the verification that has yet
+to happen.</p>
+
+<p>
+If your accounts department says, `I promise that I paid the bill on
+time', the outcome has already happened, but the promisee has not yet
+verified the claim.</p>
+
+<p>
+Why is this important? The observer always gets to make the assessment
+of whether a promise was kept or not. This helps all agents form
+expectations that allows them to make further judgements without
+waiting to verify outcomes. In fact, every observer can individually
+make that assessment, and given their different circumstances might
+arrive at different conclusions.  This is a more reasonable version of
+the trite business aphorism that `the customer is always right'.  A
+useful side effect of promises is that they also document the
+conditions under which behaviour emerges, for later use.</p>
+
+
+<h2>Culture and psychology</h2>
+
+<p>
+There are cultural/psychological reasons too why promises are advantageous.
+In the imperative version of the restroom example, you felt good if
+you could write down an algorithm to build the end state once.  It is
+pedagogical, it tells you how. It might be good for teaching someone
+how to keep a promise, but it does not make clear what is being
+promised, or whether there is more than one way to achieve the outcome.
+</p>
+
+<p>
+The `how' is the designer part. What about the running and
+maintenance part of keeping a promise over time, and under difficult
+circumstances?  In the world of information technology, design
+translates into `development' and maintenance translates into `operations',
+and understanding both together is often called DevOps.
+</p>
+
+<p>
+If you imagine a cookbook, the pages usually start with a promise
+and include a suggested recipe. They do not merely throw a recipe
+at you. They set your expectations first. In computing programming
+and management, we are not always so helpful.
+</p>
+
+<p>
+Promises fit naturally with the idea of services<footnote>When I first proposed
+the concept in 2004, it was met with the response: this is just SOA.</footnote>. 
+</p>
+
+<p>
+Anyone who has worked in a service or support role will know that what you
+do is not the best guide to understanding:
+`Don't tell me what you are doing, tell me what you are trying to achieve!'
+</p>
+
+<p>
+A simple expression of intent is what we call a promise proposal. By
+telling it like you mean it, it becomes a promise.
+</p>
+
+<h2>Non-locality of obligations</h2>
+
+<p>
+A major issue with impositions, otherwise known as `obligations' is
+that they don't reduce our uncertainty of a situation. They might
+actually increase it. Obligations quickly lead to conflicts because
+they span a region about which we have incomplete information.
+</p>
+
+<p>
+Imagine two parents and a child. Mum and Dad impose their speech
+patterns on their innocent progeny as follows. Mum, who is American,
+tells the child: ``You say tomaetoe'', while English Dad tells, ``I
+say tomahtoe''. Mum and Dad might not even be aware that they are
+telling the child different things, unless they actually promise to
+communicate and agree on a standard. So there is a conflict of interest.
+</p>
+
+<p>
+But the situation is even worse than that. Because the source of intent
+is not the child, there is nothing the child can do to resolve the
+conflict---the problem lies outside of its domain of control.
+Obligations actually increase our uncertainty.
+</p>
+
+<p>
+The solution is to invoke the autonomy of all agents. Neither the
+child nor the Mum or Dad have to obey any commands of obligations.
+They are free to reject these, choose or otherwise make up their own
+minds. Indeed, when we switch to that viewpoint, the child has to
+promise Mum or Dad what it intends to say. In fact, it is not in
+possession of the information and the control and can promise to say
+one thing to Mum and another to Dad without conflict.
+</p>
+
+<h2>Isn't that quasi-science?</h2>
+
+<p>
+Scientists (with the possible exception of certain social scientists)
+and engineers will bristle uncomfortably at the idea of mixing
+something so human, like a promise or intention, with something that
+seems objectively measurable, like outcomes in the real world. We are
+taught to exorcize all reference to humanity in natural science to
+make it as objective as possible. Part of the reason for this is that
+we have forgotten a lot of the philosophy of science that got us to
+the present day, so that we now believe that natural science is in
+some sense `objective' (more than just impartial).
+</p>
+
+<p>
+In my book, In Search of Certainty, I describe how the very hardest
+natural sciences have forced science to confront the issues of
+observer relativity (or what we might call `subjective issues'), in an
+unexpected twist of fate.  As a physicist myself, it took me a while
+to accept that human issues really have to be represented in any study
+of technology, and that we can even do this without descending into
+fluff and whining about kittens, or moral outrage over privileged
+class systems, and so on.
+</p>
+
+<p>
+The idea of a promise is more fundamental than that of a command or an
+obligation was not difficult to understand. It has to do with simple
+physics: promises are local, whereas obligations are distributed (non-local).
+</p>
+
+<p>
+The goal of promise theory is to take change (dynamics) and intent
+(semantics) and combine these into a simple engineering methodology,
+that recognizes the limitations of working with incomplete
+information.
+</p>
+
+<p>
+Who has access to which information?
+</p>
+
+<p>
+When we describe some behaviour, what expectations do we have that it will
+persist over time and space? If it a one-off change, like an explosion, or a lasting
+equilibrium, like a peace treaty.
+</p>
+
+<h2>Is Promise Theory really a theory?</h2>
+
+<p>
+Like any scientific method, Promise Theory is not a solution to anything specific,
+it is a language of information to describe and discuss cooperative
+behaviour.  But if you operate within the framework of its assumptions
+and idioms, it will allow you to frame assumptions that can help you
+find solutions to problems of distributed information.
+</p>
+
+<p>
+Promise Theory is, if you like, an approach to modelling cooperative systems that
+allows you to ask: "how sure can we be that this will work"? And "at
+what rate"?
+</p>
+
+<p>
+Promise Theory is also a kind of `atomic theory'. It gives a table of elements
+(basic promises) from which any substance can be put together, like a
+chemistry of intentions (once an intention about self is made public,
+it becomes a promise). SOA or Service Oriented Architecture is an
+example of a promise-oriented model, that is based on Web Services and
+APIs, because it defines autonomous services (agents) with interfaces
+(APIs) each of which keeps well-documented promises.
+</p>
+
+<p>
+The principles that Promise Theory cites exist to maintain generality, and to
+ensure that as few assumptions as possible are made. It also takes
+care of the idea that every agent's world-view is incomplete, i.e.
+there are different viewpoints that are limited by what the different
+parties in a cooperative environment can see and know.
+</p>
+
+<p>
+What is unusual about Promise Theory, compared to other scientific models is that
+it models human intentions, and it does it in a way that is completely
+impersonal. By allowing contact with game theory models, we can also
+see how cooperative models ultimately have an economic explanation
+(often referred to as bounded rationality). Why should I keep my
+promises? What will I get out of it?
+</p>
+
+<h2>The main concepts</h2>
+
+<p>
+We shall refer to the following key concepts repeatedly:
+</p>
+
+<ul>
+<li> <i>Intention</i>: This is the subject of some kind of possible
+  outcome.  It is something that can be interpreted to have
+  significance in a particular context. Any agent (person, object or
+  machine) can harbour intentions. An intention might be something
+  like `be red' for a light, or `win the race' for a sports person.
+
+<li> <i>Promise</i>: When an intention is publicly declared to an
+  audience (called its scope) it then becomes a promise. Thus a
+  promise is a stated intention. In this book, I'll only talk about
+  what are called promises of the first kind, which means promises
+  about oneself. Another way of saying this is that we make a rule: no
+  agent may make a promise on behalf of any other.
+
+<img src="promise.png">
+<caption>A promise to give is drawn like Cupid's arrow...</caption>
+
+
+<li> <i>Imposition</i>: This is an attempt to induce cooperation in
+  another agent, i.e. to implant an intention. It is complementary to
+  the idea of a promise.  Degrees of imposition include: hints,
+  advice, suggestions, requests, commands, etc.
+
+<img src="imposition.png">
+<caption>An imposition is drawn like a fist.</caption>
+
+<li> <i> Obligation</i>: An imposition that implies a cost or penalty for
+  non-compliance. It is more `aggressive' than a mere imposition.
+
+<li> <i>Assessment</i>: A decision about whether a promise has been
+  kept or not.  Every agent makes its own assessment about promises it
+  is aware of.  Often assessment involves the observation of
+  other agents' behaviours.
+</ul>
+
+<p>
+There are other levels of interaction between agents. One could, for
+example speak of an attempt to force an agent to comply with an
+imposition, which might be termed an attack; however, we shall not
+discuss this further as it leads to discussions of morality which we
+aim to avoid as far as possible.
+</p>
+
+<p>
+Promises are more common than impositions and hence take precedence as
+the primary focus.  Impositions generally work in a system of
+pre-existing promises.  Moreover, promises can often be posited to
+replace impositions with equivalent voluntary behaviours.
+</p>
+
+<h2>How much certainty do you need?</h2>
+
+<p>
+Promise Theory is still an area of research, so we shouldn't imagine
+it has an answer to everything. Moreover, it synthesizes ideas also
+discussed in other theories, like graph theory and relativity, so we
+should not imagine it is something completely new.  It starts with a
+minimal set of assumptions, it then goes on to describe the combined
+effect of all the individual promises, from the viewpoint of the
+different parts of the whole, forming a network of cooperation.
+If you would like to understand it more deeply, I encourage you to
+study it in a more formal, mathematical language.
+</p>
+
+<p>
+The word promise is one that seems familiar, and invites certain
+associations.  In Promise Theory, at least the version according to
+me, it has a specific and clear meaning.  Others have taken the word
+for technical usage too: futures and promises are discussed in
+concurrent programming. These also take the common word and attribute
+specialized meaning to it.  We need to be careful not to project too
+many of our own imaginings into the specialized meanings.
+</p>
+
+<p>
+As you read this book, you will find that Promise Theory says a lot of
+things that seem obvious. This is a good thing. After all, a theory
+that does not predict the obvious would not be a very good theory.
+Then there will be other conclusions that stretch your mind to think
+in unfamiliar ways, perhaps cutting through cultural prejudices to see
+more clearly. You might be disappointed there there are no stunning
+revelations, or you might be wowed by things you have never realized
+before. That depends on where you start your thought process. Whatever
+your experience, I hope this book will offer some insights about
+formulating and designing systems for cooperation.
+</p>
+
+
+<h2>A Quick User Guide</h2>
+
+<ul>
+<li> <b>Identify the key players (agents of intent)</b>
+
+<p>
+The first step in modelling is to identify the agencies that play
+roles is within the scope of the problem you are addressing.  An agent
+is any part of a system that can intend or promise something
+independently, even by proxy. Some agents will be people, others will be
+computers, policy documents, etc -- i.e. anything that can document
+intent regardless of its original source.
+</p>
+
+<p>
+To get this part of the modelling right, we need to be careful not to
+confuse intentions with actions or messages.  Actions may or may not
+be necessary to fulfill intentions. Maybe inaction is necessary!
+</p>
+
+<p>
+Also, you shouldn't be squeamish about attributing promises to blunt
+instruments.  We might be talking about the parts of a clock, or even
+an HTTP request, as agencies within a system. The motivations that
+play a role in making a bigger picture are not necessarily played out
+by humans in the end game<footnote>All intentions originate with human
+  observers if we trace them far back far enough. But many day to day
+  objects can be vehicles of those intentions, and therefore act as
+  proxies. A cup is just a piece of ceramic; its intent to act as a
+  cup is something a designer (acting on behalf of a user) decided.
+  From a modelling perspective, that chain of provenance is not
+  usually important, so we simply attach the promise to the inanimate
+  cup. Now that it exist, that is the promise it makes to potential
+  users.</footnote>.
+</p>
+
+<p>
+To be independent an agent only needs to think differently or have a
+different perspective, access to different information, etc. This is
+about the separation of concerns. If we want agents that reason
+differently to work together, they need to promise to behave in a
+mutually beneficial way. These agents can be humans (as in the
+business-IT bridge) or computers (as in a multi-tier server queue).
+</p>
+
+<li> <b> Deal with the Uncertainty</b>
+
+<p>
+Want absolute certainty? Forget it! In the real world there is no
+absolute certainty. Dealing with uncertainty is what science is really
+for, so roll up your sleeves and prepare to engineer your promises to
+make the best of what you have to work with. There are techniques for
+this.</p>
+
+<p>
+The bottom line is that promises might or might not be kept (for a
+hundred different reasons). After all, they are only intentions not
+irresistible forces.</p>
+
+<p>
+Machines and people alike can break down and fail to keep a promise,
+so we need to model this. Each promise will have a probability
+associated with it, based on our trust or belief in its future
+behaviour<footnote>The simplistic two-state model of faults, where
+  manufacturer's like to talk of all their 9's, the expressions Mean
+  Time Before Failure (MTBF) and Mean Time To Repair (MTTR) are
+  coined. These are probabilistic measures, so they have to be
+  multiplied by the number of instances we have. In today's massive
+  scale environments, what used to be a small chance of failure or
+  MTBF gets amplified to a large one -- to counter this, we need
+  speedy repair, if we are going to keep our promises.<footnote>.
+</p>
+
+<p>
+Agents only keep promises about their own behaviour, however. If we
+try to make promises on others' behalf, they will most likely be
+rejected, impossible to implement, or the other agent might not even
+know about them. So it is a `pull' or `use what's promised' model of
+the world rather than a `push' or `try to impose on others' model.  It
+assumes that agents only bend to external imposition if they want to
+-- i.e. control cannot be pushed by force. That means we have to look
+more realistically upon illusions like forcible military command
+structures, and see them as cases where there is actually a consensus to
+voluntarily follow orders -- even when these sometimes fail.
+</p>
+
+<li> <b>From requirements to promises</b>
+
+<p>
+Promise theory focuses attention on the active agents for two reasons:
+first, because these are the ones who know most about their own
+ability to keep promises.  Second, because it is a way of making
+atomic building blocks that can be composed easily into any larger
+structure.  Requirements are top-down. Promises are bottom-up.</p>
+
+<p>
+This is analogous to the insight of atomic theory, and the table of
+atomic elements. From those elements we can build everything about
+chemistry and material properties by understanding how these
+individual kinds of atom with their different properties (i.e.
+promises to behave) combine.</p>
+
+<p>
+When you work from the top down, your whole viewpoint is non-local, or
+distributed. You are not thinking clearly about where information is
+located, and you might make assumptions that you have no right to
+make, e.g. you might effectively make promises on behalf of agents you
+don't control.</p>
+ 
+<p>
+On the other hand, when you work from the bottom up, you have no
+choice but to know where things are, because you will need to document
+every assumption with an explicit promise. Thus a promise approach
+forces a discipline.</p>
+
+<p>
+Isn't this just an awkward way of talking about requirements?  Not really. It
+is the opposite. A requirement is an obligation from a place of little
+information onto a different point of execution.  There is an
+immediate information gap or `disconnect' between requirer and
+requiree. And all the important information about likely outcome is at
+the wrong end of that gap. In a promise viewpoint, you force yourself
+to think from the point of execution and place yourself in the role of
+keeping the promise, confronting all the issues as they appear. It is
+much harder to make unwarranted assumptions.
+</P>
+
+<p>
+It also makes you think about contingency plans. What if your first
+assumptions fail?</p>
+
+<p>
+The promise position is an extreme position, one that you might object
+to on some grounds of convention. It is because it is an extreme position
+that it is useful.  If we assume this, we can reconstruct any other
+shade of compliance with outside influence by documenting it as a
+promise. But once we've opened the door to doubt, there is no going
+back. That's why this is the only rational choice for building a
+theory that has any predictive power.</p>
+
+<p>
+The goal in Promise Theory cooperation is to ensure that agents make
+all the promises necessary so that some magical on-looker, with access
+to all the information, would be able to say that an entire
+cooperative operation could be seen as if it were a single entity
+making a single service-promise (the algebra tells you if the set of
+promises is complete or not). How we coax the agents to make promises
+depends on what kinds of agents they are. If they are human, economic
+incentives are the generic answer. If the agents are programmable,
+then they need to be programmed to keep the promises. We call this
+voluntary cooperation. For humans, the economics are social,
+professional and economic.</p>
+
+<p>Is this crazy? Why not just force everyone to comply, like clockwork? 
+Because that makes no sense. A computer follows instructions because
+it was constructed voluntarily to do so. If we change that promise by
+pulling out its input wire, it no longer does. And, as for humans,
+... Cooperation is voluntary in the sense that it cannot be forced by
+an external agent (without possibly actually attacking the system to
+compromise its independence).</p>
+
+<li> <b>Deal with conflicts of intent</b>
+
+<p>
+If all agents shared the same intentions, there would be not be much
+need for promises. Everyone would get along and sing in perfect
+harmony, working towards a common purpose. The fact that the initial
+state of a system has unknown intentions, and distributed information,
+means we have to set up things like `agreements', where agents promise
+to behave in a certain way. This is what we call orchestration.</p>
+
+<p>
+But what if promises in different locations affect a third party
+unwittingly?  This happens quite a lot. In obligation theories
+(requirements, laws, and distributed permission models) the
+possibility for conflict is very high.  Promise theory is rather good
+at resolving conflicts, because an agent can only conflict with
+itself, hence all the information to resolve them is located in the
+same place.</p>
+</ul>
+
+<h2>Just make it happen</h2>
+
+<p>
+Promise Theory seems upside down to some people. They want to think in terms of
+obligations. A should do B, C must do D, etc. But, apart from riling
+human beings' sense of dignity, that approach leads quickly to
+provable inconsistencies. The problem is that the source of any
+obligation (the obliger) is external to the agent that it being
+obliged. Thus if the agent is either unable or unwilling to cooperate
+(perhaps because it never received a message), the problem cannot be
+resolved without solving another distributed cooperation problem to
+figure out what went wrong! And so on, ad nauseum. (One begins to see
+the fallacy of trusting centralized push models and separate
+monitoring systems.)</p>
+
+<p>
+Promise theory assumes that an agent can only make promises about its
+own behaviour (because that is all it is in control of), and this cuts
+through the distributed issue, ensuring that the information and
+resources needed to resolve any problem are local and available to the
+agent, so it can autonomously repair (self-heal) a process.</p>
+
+<h2>An exercise</h2>
+
+<p>
+Test yourself on your ability to think in terms of promises instead of
+desires, requirements, needs, etc. Spend a whole day thinking about
+the promises made by people, places, processes and things.</p>  
+
+<ul>
+<li> To whom are the promises made? 
+<li> In what form are the promises made?  
+<li> Do they depend on something else to help them keep their promise?
+<li> How do these things try to keep their promises? 
+<li> You do you assess their success?
+</ul>
+<p>
+Don't miss anything: from the bed you get out of, to your morning
+exercise regimen, the food you eat, the people you work with, the city
+you live in, all the way up to the toothbrush you end your day with.
+</p>
+
+<p>
+If you can't see any promises, try asking yourself: what is the
+intended function? What is my relationship with these things? What
+value do I see in them?  Finally, what additional interpretations do
+you add, which are not part of the promises around you? Does money
+mean lifestyle, recreation, savings for a rainy day?
+</p>
+
+<p>
+At the end of your day, you will have a better understanding of
+semantics and intentionality in the world, and you will be ready to
+apply that thinking to all kinds of situations.
+</p>
