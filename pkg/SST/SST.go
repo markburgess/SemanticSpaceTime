@@ -393,7 +393,25 @@ func CreateHub(g Analytics, short_description,vardescription string, weight floa
 
 func InvariantDescription(s string) string {
 
-	return strings.Trim(s,"\n ")
+	s1 := strings.ReplaceAll(s,"  "," ")
+	return strings.Trim(s1,"\n ")
+}
+
+//**************************************************************
+
+func KeyName(s string) string {
+
+	strings.Trim(s,"\n ")
+	
+	if len(s) > 40 {
+		s = s[:40]
+	}
+
+	s1 := strings.ReplaceAll(s,"—","_")
+	s2 := strings.ReplaceAll(s1,"-","_")
+	s3 := strings.ReplaceAll(s2,"`","")
+	s4 := strings.ReplaceAll(s3,"'","")
+	return strings.ReplaceAll(s4," ","_")
 }
 
 // ****************************************************************************
@@ -595,7 +613,7 @@ func UpdateHistogram(g Analytics, histoname, data string) {
 		_, err = coll.CreateDocument(nil, kv)
 		
 		if err != nil {
-			fmt.Printf("Failed to create non existent node in histo: %s %v",kv.K,err)
+			fmt.Printf("Failed to create non existent node in histo: '%s' %v",kv.K,err)
 			os.Exit(1);
 		}
 		return
