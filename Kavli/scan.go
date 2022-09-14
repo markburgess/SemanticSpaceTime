@@ -82,7 +82,8 @@ var SENTENCE_THRESH float64 = 10
 const REPEATED_HERE_AND_NOW  = 1.0 // initial primer
 const INITIAL_VALUE = 0.5
 
-const MEANING_THRESH = 20  // reduce this if too few samples
+const MEANING_THRESH = 20      // reduce this if too few samples
+const FORGET_FRACTION = 0.001  // this amount per word
 
 // ****************************************************************************
 // The ranking vectors for structural objects in a narrative
@@ -160,7 +161,7 @@ func main() {
 
 			SearchInvariants(G)
 
-			SelectSentenceEvents(&ctx,args[i])
+			FilterAndAnnotateSelectedEvents(&ctx,args[i])
 
 		}
 	}
@@ -278,7 +279,7 @@ func ParseOneSmartSensorFrame(ctx *context.Context, p int, paragraph string){
 
 		for s := range sentences {
 			
-			srank := FractionateRankSentence(ALL_SENTENCE_INDEX,sentences[s])
+			srank := FractionateThenRankSentence(ALL_SENTENCE_INDEX,sentences[s])
 
 			// Characterize the emotions amnd running state of agent, what are we thinking about?
 			ctxid,context := RunningSTMContext()
@@ -392,11 +393,13 @@ func SplitSentences(para string) []string {
 
 //**************************************************************
 
-func FractionateRankSentence(s_idx int, sentence string) float64 {
+func FractionateThenRankSentence(s_idx int, sentence string) float64 {
 
 	var rrbuffer [MAXCLUSTERS][]string
 	var sentence_meaning_rank float64 = 0
 	var rank float64
+
+	// For one sentence, break it up into codons and sum their importances
 
 	no_dot := strings.ReplaceAll(sentence,"."," ")
 	no_comma := strings.ReplaceAll(no_dot,","," ")
@@ -414,7 +417,7 @@ func FractionateRankSentence(s_idx int, sentence string) float64 {
 			continue
 		}
 
-		// Shift the rolling longitudinal buffer by one word
+		// Shift all the rolling longitudinal Ngram rr-buffers by one word
 		rank, rrbuffer = NextWordAndUpdateNgrams(s_idx,cleanword, rrbuffer)
 		sentence_meaning_rank += rank
 	}
@@ -444,14 +447,6 @@ func SearchInvariants(g S.Analytics) {
 			}
 
 			frequency := len(LTM_EVERY_NGRAM_OCCURRENCE[n][ngram])
-
-			const ngram_scale = 3
-			const spatial_granularity = 100 // sentences
-
-			if frequency < ngram_scale {
-				continue
-				//fmt.Println(LTM_EVERY_NGRAM_OCCURRENCE[n][ngram],"----------")
-			}
 
 			fmt.Println("Theme long invariant",ngram,frequency)
 
@@ -516,7 +511,7 @@ func PlotClusteringGraph(n int) {
 
 // *****************************************************************
 
-func SelectSentenceEvents(ctx *context.Context, filename string) {
+func FilterAndAnnotateSelectedEvents(ctx *context.Context, filename string) {
 
 	// The importances have now all been measured in realtime, but we review them now...posthoc
 	// Now go through the history map chronologically, by sentence only reset the narrative  
@@ -766,8 +761,6 @@ func AnnotateSentence(ctx *context.Context,filename string, s_number int,sentenc
 
 func NextWordAndUpdateNgrams(s_idx int, word string, rrbuffer [MAXCLUSTERS][]string) (float64,[MAXCLUSTERS][]string) {
 
-	//fmt.Println("PUSH WORD",word,s)
-
 	var rank float64 = 0
 
 	for n := 2; n < MAXCLUSTERS; n++ {
@@ -795,11 +788,6 @@ func NextWordAndUpdateNgrams(s_idx int, word string, rrbuffer [MAXCLUSTERS][]str
 				}
 			}
 
-
-			// fmt.Println(i,"-gram:",key)
-
-			// Add here - listener context flag certain terms of interest (danger signals)
-
 			if ExcludedByBindings(rrbuffer[n][0],rrbuffer[n][n-1]) {
 
 				continue
@@ -807,12 +795,7 @@ func NextWordAndUpdateNgrams(s_idx int, word string, rrbuffer [MAXCLUSTERS][]str
 
 			rank += MemoryUpdateNgram(n,key)
 
-			// Long term memory of fragments
-
 			LTM_NGRAMS_IN_SENTENCE[n][s_idx] = append(LTM_NGRAMS_IN_SENTENCE[n][s_idx],key)
-
-			// and keep inverse: which sentence indices (times) phrases appeared?
-
 			LTM_EVERY_NGRAM_OCCURRENCE[n][key] = append(LTM_EVERY_NGRAM_OCCURRENCE[n][key],s_idx)
 
 		}
@@ -825,8 +808,6 @@ func NextWordAndUpdateNgrams(s_idx int, word string, rrbuffer [MAXCLUSTERS][]str
 
 	return rank, rrbuffer
 }
-
-
 
 //**************************************************************
 // MISC
@@ -1079,7 +1060,7 @@ return rank
 
 func MemoryDecay(n int) {
 
-	const decay_rate = 0.001
+	const decay_rate = FORGET_FRACTION
 	const context_threshold = INITIAL_VALUE
 
 	for k := range STM_NGRAM_RANK[n] {
@@ -1093,7 +1074,7 @@ func MemoryDecay(n int) {
 			STM_NGRAM_RANK[n][k] = oldv - decay_rate
 
 		} else {
-			// Help prevent memory blowing up - garbage collection
+			// Help prevent memory blowing up - garbage collection, forget forever
 			delete(STM_NGRAM_RANK[n],k)
 		}
 	}
