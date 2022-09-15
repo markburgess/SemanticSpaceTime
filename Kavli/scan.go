@@ -20,7 +20,6 @@ import (
 	"strings"
 	"os"
 	"io/ioutil"
-	"context"
 	"flag"
 	"fmt"
 	"regexp"
@@ -103,6 +102,7 @@ var HISTO_AUTO_CORRE_NGRAM [MAXCLUSTERS]map[int]int  // [sentence_distance]count
 
 // Short term memory is used to cache the ngram scores
 var STM_NGRAM_RANK [MAXCLUSTERS]map[string]float64
+var LTM_NGRAM_RANK [MAXCLUSTERS]map[string]float64
 
 var G S.Analytics
 
@@ -131,16 +131,15 @@ func main() {
 		os.Exit(1);
 	}
 
-	// Init
-
 	for i := 1; i < MAXCLUSTERS; i++ {
 
 		STM_NGRAM_RANK[i] = make(map[string]float64)
+		LTM_NGRAM_RANK[i] = make(map[string]float64)
 		LTM_NGRAMS_IN_SENTENCE[i] = make(map[int][]string)
 		LTM_EVERY_NGRAM_OCCURRENCE[i] = make(map[string][]int)
 	} 
 	
-	ctx := context.Background()
+	// ***********************************************************
 
 	S.InitializeSmartSpaceTime()
 
@@ -157,16 +156,16 @@ func main() {
 
 		if strings.HasSuffix(args[i],".dat") {
 
-			ParseDocument(&ctx,args[i])  // Once for whole thing, reset and compare to realtime
+			ParseDocument(args[i])  // Once for whole thing, reset and compare to realtime
 
 			SearchInvariants(G)
 
-			FilterAndAnnotateSelectedEvents(&ctx,args[i])
+			FilterAndAnnotateSelectedEvents(args[i])
 
 		}
 	}
 
-	SaveContext(&ctx)
+	SaveContext()
 
 	fmt.Println("\nKept = ",KEPT,"of total ",ALL_SENTENCE_INDEX,"efficiency = ",100*float64(ALL_SENTENCE_INDEX)/float64(KEPT),"%")
 	fmt.Println("\nAccepted",THRESH_ACCEPT/TOTAL_THRESH*100,"% into hubs")
@@ -178,7 +177,7 @@ func main() {
 // Start scanning docs
 //**************************************************************
 
-func ParseDocument(ctx *context.Context, filename string) {
+func ParseDocument(filename string) {
 
 	/// Use the filename as context
 
@@ -186,25 +185,25 @@ func ParseDocument(ctx *context.Context, filename string) {
 
 	S.NextDataEvent(&G,start,start)
 
-	TOTAL_PARAGRAPHS = len(Scanfile(ctx, filename))
-
+	TOTAL_PARAGRAPHS = len(Scanfile(filename))
 }
 
 //**************************************************************
 
-func Scanfile(ctx *context.Context, filename string) []string {
+func Scanfile(filename string) []string {
 
-	// split each file into paragraphs
+	// split each file into paragraphs. These paragraphs aren't significant for
+	// processing, because styles use paragraphs in diff ways, so we use "legs" instead.
 
 	proto_paragraphs := CleanFile(string(filename))
 	
-	// split each paragraph into sentences
+	// split each paragraph chunk into sentences
 
 	for para := range proto_paragraphs {
 
 		// emotion, take a breath
 
-		ParseOneSmartSensorFrame(ctx, para, proto_paragraphs[para])
+		ParseChunk(para, proto_paragraphs[para])
 	}
 
 return proto_paragraphs
@@ -266,44 +265,42 @@ func CleanFile(filename string) []string {
 	return cleaned
 }
 
-
 //**************************************************************
 
-func ParseOneSmartSensorFrame(ctx *context.Context, p int, paragraph string){
+func ParseChunk(p int, paragraph string){
 
 	var sentences []string
 
-	// Coordinatize the non-trivial sentences
+	// Coordinatize the non-trivial sentences in terms of their ngrams
 
-	if len(paragraph) > 0 {
+	if len(paragraph) == 0 {
+		return
+	}
+
+	sentences = SplitIntoSentences(paragraph)
+
+	for s_idx := range sentences {
 		
-		sentences = SplitSentences(paragraph)
+		meaning := FractionateThenRankSentence(ALL_SENTENCE_INDEX,sentences[s_idx])
 
-		for s := range sentences {
+		ctxid,context := RunningFeelingAndSTMContext()
+		
+		if SentenceMeetsAttentionThreshold(meaning,sentences[s_idx]) {
+
+			n := NarrationMarker(sentences[s_idx] + ".", meaning, ctxid,context,ALL_SENTENCE_INDEX)
 			
-			srank := FractionateThenRankSentence(ALL_SENTENCE_INDEX,sentences[s])
-
-			// Characterize the emotions amnd running state of agent, what are we thinking about?
-			ctxid,context := RunningSTMContext()
-
-			// Only keep an important selection
-			if AttentionThreshold(ctx,srank,sentences[s],len(sentences[s])) {
-
-				n := Narrate(sentences[s]+".",srank,ctxid,context,ALL_SENTENCE_INDEX)
-
-				// The context hub name is stored with the selected sentence
-
-				SELECTED_SENTENCES = append(SELECTED_SENTENCES,n)
-			}
-
-			ALL_SENTENCE_INDEX++
+			// The context hub name is stored with the selected sentence
+			
+			SELECTED_SENTENCES = append(SELECTED_SENTENCES,n)
 		}
+		
+		ALL_SENTENCE_INDEX++
 	}
 }
 
 //**************************************************************
 
-func AttentionThreshold(ctx *context.Context,meaning float64, sen string, senlen int) bool {
+func SentenceMeetsAttentionThreshold(meaning float64, sentence string) bool {
 
 	const alert = 1.0
 	const awake = 0.5
@@ -314,7 +311,7 @@ func AttentionThreshold(ctx *context.Context,meaning float64, sen string, senlen
 
 	// If sudden change in sentence length, be alert
 
-	slen := float64(senlen)
+	slen := float64(len(sentence))
 
 	if (slen > SENTENCE_THRESH + sentence_width) {
 
@@ -341,13 +338,13 @@ func AttentionThreshold(ctx *context.Context,meaning float64, sen string, senlen
 			ATTENTION_LEVEL -= attention_deficit
 		}
 
-		//fmt.Println("\nKeeping: ", sen)
+		//fmt.Println("\nKeeping: ", sentence)
 
 		return true
 
 	} else {
 		
-		//fmt.Println("\nSkipping: ", sen)
+		//fmt.Println("\nSkipping: ", sentence)
 
 		SKIPPED++
 		return false
@@ -356,14 +353,9 @@ func AttentionThreshold(ctx *context.Context,meaning float64, sen string, senlen
 
 //**************************************************************
 
-func SplitSentences(para string) []string {
-
-	// Now split into sentences, with a minimum cutoff
+func SplitIntoSentences(para string) []string {
 
 	sentences := strings.Split(para,".")
-
-	// if a sentence contains ,:, we also need to split there even though it refers to the same
-	// fmt.Println(" * Sentences",sentences)
 
 	var cleaned []string
 
@@ -371,9 +363,10 @@ func SplitSentences(para string) []string {
 
 		// Split first by punctuation marks, because phrases don't cross these boundaries
 
-		f := func(c rune) bool {
+		f := func(c rune) bool {       // Inline function
 
-			// Something serious going on
+			// Something serious going on, so perk up
+
 			ATTENTION_LEVEL = 1
 
 			return c == ':' || c == ';'
@@ -420,7 +413,7 @@ func FractionateThenRankSentence(s_idx int, sentence string) float64 {
 		}
 
 		// Shift all the rolling longitudinal Ngram rr-buffers by one word
-		rank, rrbuffer = NextWordAndUpdateNgrams(s_idx,cleanword, rrbuffer)
+		rank, rrbuffer = NextWordAndUpdateLTMNgrams(s_idx,cleanword, rrbuffer)
 		sentence_meaning_rank += rank
 	}
 
@@ -513,7 +506,7 @@ func PlotClusteringGraph(n int) {
 
 // *****************************************************************
 
-func FilterAndAnnotateSelectedEvents(ctx *context.Context, filename string) {
+func FilterAndAnnotateSelectedEvents(filename string) {
 
 	// The importances have now all been measured in realtime, but we review them now...posthoc
 	// Now go through the history map chronologically, by sentence only reset the narrative  
@@ -585,7 +578,7 @@ func FilterAndAnnotateSelectedEvents(ctx *context.Context, filename string) {
 
 			imp_l = imp_leg[leg]
 
-			AnnotateLeg(ctx, filename, leg, max_rank[leg], imp_l, max_leg,s)
+			AnnotateLeg(filename, leg, max_rank[leg], imp_l, max_leg)
 
 			steps = 0
 			leg++
@@ -595,6 +588,12 @@ func FilterAndAnnotateSelectedEvents(ctx *context.Context, filename string) {
 
 		steps++
 	}
+
+	// Don't forget the final remainder (catch leg++)
+
+	imp_l = imp_leg[leg]
+	
+	AnnotateLeg(filename, leg, max_rank[leg], imp_l, max_leg)
 }
 
 //**************************************************************
@@ -624,7 +623,7 @@ return meaning
 
 //**************************************************************
 
-func AnnotateLeg(ctx *context.Context, filename string, leg int, random map[float64]int, leg_imp,max float64, s int) {
+func AnnotateLeg(filename string, leg int, random map[float64]int, leg_imp,max float64) {
 
 	const threshold = 0.8  // 80/20 rule -- CONTROL VARIABLE
 
@@ -688,17 +687,13 @@ func AnnotateLeg(ctx *context.Context, filename string, leg int, random map[floa
 
 		fmt.Printf("\nEVENT[Leg %d selects %d]: %s\n",leg,ordered[s],SELECTED_SENTENCES[ordered[s]].text)
 
-		//fmt.Printf("\n%s\n",SELECTED_SENTENCES[ordered[s]].text)
-
-		// Connect selected sentences to the context summary HUB in which they occur
-
-		AnnotateSentence(ctx,filename,s,SELECTED_SENTENCES[ordered[s]].text)
+		AnnotateSentence(filename,s,SELECTED_SENTENCES[ordered[s]].text)
 	}
 }
 
 //**************************************************************
 
-func AnnotateSentence(ctx *context.Context,filename string, s_number int,sentence string) {
+func AnnotateSentence(filename string, s_number int,sentence string) {
 
 	// We use the unadulterated sentence itself as an episodic event
 	// This acts as an impromptu hub
@@ -761,7 +756,7 @@ func AnnotateSentence(ctx *context.Context,filename string, s_number int,sentenc
 
 //**************************************************************
 
-func NextWordAndUpdateNgrams(s_idx int, word string, rrbuffer [MAXCLUSTERS][]string) (float64,[MAXCLUSTERS][]string) {
+func NextWordAndUpdateLTMNgrams(s_idx int, word string, rrbuffer [MAXCLUSTERS][]string) (float64,[MAXCLUSTERS][]string) {
 
 	var rank float64 = 0
 
@@ -815,7 +810,7 @@ func NextWordAndUpdateNgrams(s_idx int, word string, rrbuffer [MAXCLUSTERS][]str
 // MISC
 //**************************************************************
 
-func Narrate(text string, rank float64, contextname string, context []string, index int) Narrative {
+func NarrationMarker(text string, rank float64, contextname string, context []string, index int) Narrative {
 
 	var n Narrative
 
@@ -830,7 +825,7 @@ return n
 
 //**************************************************************
 
-func RunningSTMContext() (string,[]string) {
+func RunningFeelingAndSTMContext() (string,[]string) {
 
 	// Find the top ranked fragments, as they must
 	// represent the subject of the narrative somehow
@@ -916,7 +911,7 @@ return topics
 
 //**************************************************************
 
-func SaveContext(ctx *context.Context) {
+func SaveContext() {
 
 	name := fmt.Sprintf("/tmp/cellibrium/context")
 
@@ -1050,6 +1045,7 @@ func MemoryUpdateNgram(n int, key string) float64 {
 	}
 
 	STM_NGRAM_RANK[n][key] = rank
+	LTM_NGRAM_RANK[n][key]++
 
 	// Diffuse ALL concepts - should probably be handled by "dream" phase
 
