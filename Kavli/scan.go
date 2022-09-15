@@ -325,10 +325,6 @@ func SentenceMeetsAttentionThreshold(meaning float64, sentence string) bool {
 		SENTENCE_THRESH = response * slen + (1-response) * SENTENCE_THRESH
 	}
 
-	// If lots of sentences in this paragraph, skim
-
-	//fmt.Println("MEAN ",meaning)
-
 	if (meaning > MEANING_THRESH) && (ATTENTION_LEVEL > awake) {
 
 		KEPT++
