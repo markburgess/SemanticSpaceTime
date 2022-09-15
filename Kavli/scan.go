@@ -83,7 +83,7 @@ const REPEATED_HERE_AND_NOW  = 1.0 // initial primer
 const INITIAL_VALUE = 0.5
 
 const MEANING_THRESH = 20      // reduce this if too few samples
-const FORGET_FRACTION = 0.001  // this amount per word
+const FORGET_FRACTION = 0.001  // this amount per sentence ~ forget over 1000 words
 
 // ****************************************************************************
 // The ranking vectors for structural objects in a narrative
@@ -170,6 +170,8 @@ func main() {
 
 	fmt.Println("\nKept = ",KEPT,"of total ",ALL_SENTENCE_INDEX,"efficiency = ",100*float64(ALL_SENTENCE_INDEX)/float64(KEPT),"%")
 	fmt.Println("\nAccepted",THRESH_ACCEPT/TOTAL_THRESH*100,"% into hubs")
+
+	fmt.Println("Average sentence length =")
 }
 
 //**************************************************************
@@ -1034,7 +1036,7 @@ return false
 
 func MemoryUpdateNgram(n int, key string) float64 {
 
-	//fmt.Println("MLUpdateNGram, level",n,key)
+	// Decay rate approximately once per sentence, assuming no repeated ngrams
 
 	var rank float64
 
@@ -1049,7 +1051,7 @@ func MemoryUpdateNgram(n int, key string) float64 {
 
 	STM_NGRAM_RANK[n][key] = rank
 
-	// Diffuse all concepts - should probably be handled by "dream" phase
+	// Diffuse ALL concepts - should probably be handled by "dream" phase
 
 	MemoryDecay(n)
 
@@ -1060,7 +1062,7 @@ return rank
 
 func MemoryDecay(n int) {
 
-	const decay_rate = FORGET_FRACTION
+	const decay_rate = FORGET_FRACTION // probability linear decay rate per word
 	const context_threshold = INITIAL_VALUE
 
 	for k := range STM_NGRAM_RANK[n] {
