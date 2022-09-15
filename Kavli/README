@@ -3,6 +3,7 @@ Plotting
 gnuplot
 
 set logscale x
+set logscale y
 
 set xlabel "Sentence interval"
 set ylabel "Repeated n-grams"

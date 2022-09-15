@@ -230,7 +230,7 @@ func CleanFile(filename string) []string {
 
 	// Non-English alphabet (tricky)
 
-	m3 := regexp.MustCompile("[{&}“#%^+_#”=$’~‘/()<>\"&]*") 
+	m3 := regexp.MustCompile("[–{&}“#%^+_#”=$’~‘/()<>\"&]*") 
 	stripped3 := m3.ReplaceAllString(stripped2,"") 
 
 	// Treat ? and ! as end of sentence
@@ -241,14 +241,17 @@ func CleanFile(filename string) []string {
 	m4 := regexp.MustCompile("[0-9]*")
 	stripped4 := m4.ReplaceAllString(stripped3a,"")
 
+	m5 := regexp.MustCompile("[^ a-zA-Z.,]*")
+	stripped5 := m5.ReplaceAllString(stripped4,"")
+
 	// Close multiple redundant spaces
-	m5 := regexp.MustCompile("[ ]+")
-	stripped5 := m5.ReplaceAllString(stripped4," ")
+	m6 := regexp.MustCompile("[ ]+")
+	stripped6 := m6.ReplaceAllString(stripped5," ")
 
 	// Now we should have a standard paragraph format but
         // this is format dependent, so add a maximum length limit.
 	
-	proto_paragraphs := strings.Split(string(stripped5),"\n\n")
+	proto_paragraphs := strings.Split(string(stripped6),"\n\n")
 
 	for para := range proto_paragraphs {
 
@@ -394,7 +397,8 @@ func FractionateThenRankSentence(s_idx int, sentence string) float64 {
 
 	no_dot := strings.ReplaceAll(sentence,"."," ")
 	no_comma := strings.ReplaceAll(no_dot,","," ")
-	clean_sentence := strings.Split(no_comma," ")
+	no_dash := strings.ReplaceAll(no_comma,"—"," ")
+	clean_sentence := strings.Split(no_dash," ")
 
 	for word := range clean_sentence {
 
@@ -437,14 +441,23 @@ func SearchInvariants(g S.Analytics) {
 				continue
 			}
 
-			frequency := len(LTM_EVERY_NGRAM_OCCURRENCE[n][ngram])
+			occurrences := len(LTM_EVERY_NGRAM_OCCURRENCE[n][ngram])
 
-			fmt.Println("Theme long invariant",ngram,frequency)
+			// occurrences per unit length, per leg - constant or variable?
+
+			if occurrences > (MAXCLUSTERS - n) {
+
+				fmt.Println("Theme long invariant",ngram,occurrences)
+
+			} else {
+				continue
+			}
 
 			last = 0
 
-			for location := 0; location < len(LTM_EVERY_NGRAM_OCCURRENCE[n][ngram]); location++ {
+			for location := 0; location < occurrences; location++ {
 
+				// Foreach occurrence, check proximity to others
 				// This is about seeing if an ngram is a recurring input in the stream.
 				// Does the subject recur several times over some scale? The scale may be
 				// logarithmic like n / log (o1-o2) for occurrence separation
@@ -460,7 +473,7 @@ func SearchInvariants(g S.Analytics) {
 				last = LTM_EVERY_NGRAM_OCCURRENCE[n][ngram][location]
 
 				//fmt.Println("DELTA",delta,delta/10*10)
-				HISTO_AUTO_CORRE_NGRAM[n][delta/10*10]++
+				HISTO_AUTO_CORRE_NGRAM[n][delta/LEG_WINDOW*LEG_WINDOW]++
 
 			}
 		}
