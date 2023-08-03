@@ -32,7 +32,7 @@ func NewPair() {  // signal start of new pair
 
 	//fmt.Println("NEW PAIR q",string(q),string(qbar))
 
-	switch GetRandUpDown() {
+	switch GetRandUpDown() { // This is cute but irrelevant
 
 	case 1: 
 		QPlus("L",q)
@@ -62,15 +62,28 @@ func OneEndDetected(id string) bool {
 func DetectorInteraction(id string, q,d []byte) (int,float64) {
 
 	angle := PhaseShifted(q,d)
-	eigenvalue := 0 // GetRandUpDown() - if random here, less accurate result with QM
+	eigenvalue := 0 // GetRandUpDown() - if the eigenvalue is randomly up/down here, 
+                        // then we have only up/down states, no 3rd  zero state, 
+                        // and the result is much less accurate result with the QM prediction
+                        // equivalently one doesn't count particiles undetected as events
+
+	// This tells us that the eigenvalue result is the resilient outcome of a phase
+	// process that therefore doesn't have to be very accurate to get a reliable answer
+	// If the result was the phase itself, it would be quite different
 
 	convolution := make([]byte,WAVELENGTH)
 
 	for pos := 0; pos < WAVELENGTH; pos++ {
 		convolution[pos] = Qbit(Qval(q[pos]) * Qval(d[pos]))
+
+		// determine the eigenvalue by the leading edge of the non-zero wave up or down
+
 		switch convolution[pos] {
+
 		case 'u': eigenvalue = 1
+			break
 		case 'd': eigenvalue = -1
+			break
 		}
 	}
 

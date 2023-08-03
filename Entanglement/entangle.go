@@ -58,7 +58,9 @@ func qBARq(id string, d []byte, tick int) {
 
 	q = E.Bar(qbar)
 
-	fmt.Println("|",id,"> =",string(q),string(d))
+	// The detector is a process that reads the phase of the incoming process
+
+	fmt.Println("|",id,"> =",string(q),"detector", string(d))
  
 	E.QPlus(id,q)
 

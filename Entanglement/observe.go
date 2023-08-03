@@ -27,7 +27,7 @@ func main () {
 
 			E,Delta := Trial(theta_L,theta_R)
 
-			fmt.Printf("(%3.1f,%6.1f) %.3f %.3f (%.3f)\n",theta_L,theta_R,E,Delta,-math.Cos((theta_L-theta_R)/360.0*2*3.14))
+			fmt.Printf("(%3.1f,%6.1f) %.3f pm %.3f (%.3f)\n",theta_L,theta_R,E,Delta,-math.Cos((theta_L-theta_R)/360.0*2*3.14))
 		}
 	}
 }
@@ -54,8 +54,9 @@ func Trial(thetaL,thetaR float64) (float64,float64) {
 		E.SetDetector("L",thetaL)
 		E.SetDetector("R",thetaR)
 
-		eL := Observe("L")
-		eR := Observe("R")
+		eL := Observe("L")  // if we insert a delay here, does nothing because we've assumed
+		eR := Observe("R")  // linear motion doesn't affect the spin phase, but the particles
+		                    // continue to share a clock, spin isn't a fn of momentum
 
 		if showspins {
 			if (eL != 0 && eR != 0) {
@@ -96,11 +97,13 @@ func Trial(thetaL,thetaR float64) (float64,float64) {
 		pny = float64(Nny)/NTOT
 
 		if N % 100 == 0 {
-			//fmt.Printf("%8d P(%.0f,%.0f) =  %.3f (yy=%.3f,nn=%.3f,yn=%.3f,ny=%.3f) %.1d=%d\n",rounds,thetaL,thetaR,P,pyy,pnn,pyn,pny,NTOT,N)
+			// just to see what's happening in detail
+			// fmt.Printf("%8d P(%.0f,%.0f) =  %.3f (yy=%.3f,nn=%.3f,yn=%.3f,ny=%.3f) %.1d=%d\n",rounds,thetaL,thetaR,P,pyy,pnn,pyn,pny,NTOT,N)
 		}
 	}
 
 	// Error estimate
+
 	Delta = math.Sqrt((pyy-pnn)*(pyy-pnn) + (pny-pyn)*(pny-pyn))
 
 	return P,Delta
@@ -132,7 +135,9 @@ func Observe(id string) int {
 
 	// Now assume q meets detector, we break the entanglement
 	// refusing new updates to stabilize the state for measurement
-	// This improves the accuracy of the result by O(0.01)
+	// This ought to be irrelevant. It's the eigenvalue collapse from phase 
+	// that stabilizes, as long as the phase doesn't change during measurement 
+	// (which we thus assume it can't)
 
 	E.StopAccepting(id) 
 
