@@ -98,7 +98,9 @@ func Trial(thetaL,thetaR float64) (float64,float64) {
 
 		if N % 100 == 0 {
 			// just to see what's happening in detail
-			// fmt.Printf("%8d P(%.0f,%.0f) =  %.3f (yy=%.3f,nn=%.3f,yn=%.3f,ny=%.3f) %.1d=%d\n",rounds,thetaL,thetaR,P,pyy,pnn,pyn,pny,NTOT,N)
+			// if the events were independent of the detector, yy and nn would always be zero
+			// Can be non-zero depending on relative phase between AL and DL or AR and DR
+			// fmt.Printf("%8d P(%.0f,%.0f) =  %.3f (yy=%.3f,nn=%.3f,yn=%.3f,ny=%.3f) %.1f=%d\n",rounds,thetaL,thetaR,P,pyy,pnn,pyn,pny,NTOT,N)
 		}
 	}
 
