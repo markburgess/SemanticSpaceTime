@@ -30,7 +30,7 @@ func main() {
 
 		d := E.DetectorMinus(id)
 
-		// Anti-correlate q=qz, stop once each channel end has attched to detector
+		// Flip but still anti-correlate q=qz
 		
 		qBARq(id, d, tick)
 		
@@ -43,6 +43,8 @@ func main() {
 //***********************************************************
 
 func qBARq(id string, d []byte, tick int) {
+
+	// This flips q and qbar
 
 	var q = make([]byte,E.WAVELENGTH)
 
