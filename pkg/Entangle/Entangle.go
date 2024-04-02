@@ -59,9 +59,8 @@ func OneEndDetected(id string) bool {
 
 //***********************************************************
 
-func DetectorInteraction(id string, q,d []byte) (int,float64) {
+func DetectorInteraction(id string, q,d []byte) int {
 
-	angle := PhaseShifted(q,d)
 	eigenvalue := 0 // GetRandUpDown() - if the eigenvalue is randomly up/down here, 
                         // then we have only up/down states, no 3rd  zero state, 
                         // and the result is much less accurate result with the QM prediction
@@ -87,7 +86,29 @@ func DetectorInteraction(id string, q,d []byte) (int,float64) {
 		}
 	}
 
-	return eigenvalue, angle
+	return eigenvalue
+}
+
+//***********************************************************
+
+func ClassicalDetectorInteraction(id string, q,d []byte) int {
+
+	/* cos^2 theta basically
+
+	amplitude := 0
+
+	for pos := 0; pos < WAVELENGTH; pos++ {
+
+		amplitude += (Qval(q[pos]) * Qval(d[pos]))
+	}
+
+	return amplitude */
+
+		switch q[0] {
+		case 'u': return 1
+		case 'd': return -1
+		default:  return 0
+		}
 }
 
 //***********************************************************
